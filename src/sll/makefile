@@ -1,10 +1,10 @@
 # Ray Chung
 
 # Change the last dependency for each new lab
-all: sllTest
+all: intTest
 
-# Compiles encryption (part 1)
-sllTest: sllTest.o sll.o
+# Test linked list w/ ints
+intTest: intTest.o sll.o
 	gcc -g -o $@ $^ 
 
 # this entry takes care of C files depending on header files
@@ -21,4 +21,4 @@ memLeak:
 
 # Clean
 clean:
-	rm -rf *.o test
+	rm -rf *.o sllTest

@@ -7,10 +7,22 @@ void sllAddFirst (struct sllNode **headPtr, void *data, int dataSize) {
 	/* allocate space for node */
 	struct sllNode *node = malloc(sizeof(struct sllNode));
 
+	/* if memory allocation fails */
+	if (node == NULL) {
+		printf("Error allocating node memory");
+		return;
+	}
+
 	/* rearrange pointers to insert node at front */
 	node->data = malloc(dataSize);
 	node->next = *headPtr;
 	*headPtr = node;
+
+	/* if memory allocation fails */
+	if (node->data == NULL) {
+		printf("Error allocating node memory");
+		return;
+	}
 
 	/* copy data into node 1 byte at a time */
 	while (--dataSize >= 0) {
@@ -23,6 +35,12 @@ void sllAddLast (struct sllNode **headPtr, void *data, int dataSize) {
 	/* allocate space for node */
 	struct sllNode *node = malloc(sizeof(struct sllNode));
 
+	/* if memory allocation fails */
+	if (node == NULL) {
+		printf("Error allocating node memory");
+		return;
+	}
+
 	/* while the current node is not null */
 	while (*headPtr != NULL) {
 		headPtr = &(*headPtr)->next; /* update pointer */
@@ -32,6 +50,12 @@ void sllAddLast (struct sllNode **headPtr, void *data, int dataSize) {
 	node->data = malloc(dataSize);
 	node->next = *headPtr;
 	*headPtr = node;
+
+	/* if memory allocation fails */
+	if (node->data == NULL) {
+		printf("Error allocating node memory");
+		return;
+	}
 
 	/* copy data into node 1 byte at a time */
 	while (--dataSize >= 0) {
