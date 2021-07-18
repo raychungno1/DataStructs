@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "sll.h"
 
-void sllAddFirst (struct sllNode **headPtr, int data) {
+void sllAddFirst (struct sllNode **headPtr, void *data, int dataSize) {
 
 	/* allocate space for node */
 	struct sllNode *node = malloc(sizeof(struct sllNode));
@@ -14,12 +14,23 @@ void sllAddFirst (struct sllNode **headPtr, int data) {
 	}
 
 	/* rearrange pointers to insert node at front */
-	node->data = data;
+	node->data = malloc(dataSize);
 	node->next = *headPtr;
 	*headPtr = node;
+
+	/* if memory allocation fails */
+	if (node->data == NULL) {
+		printf("Error allocating node memory");
+		return;
+	}
+
+	/* copy data into node 1 byte at a time */
+	while (--dataSize >= 0) {
+		*((char *)node->data + dataSize) = *((char *)data + dataSize);
+	}
 }
 
-void sllAddLast (struct sllNode **headPtr, int data) {
+void sllAddLast (struct sllNode **headPtr, void *data, int dataSize) {
 
 	/* allocate space for node */
 	struct sllNode *node = malloc(sizeof(struct sllNode));
@@ -29,14 +40,27 @@ void sllAddLast (struct sllNode **headPtr, int data) {
 		printf("Error allocating node memory");
 		return;
 	}
-	
-	/* traverse to end of list */
-	while (*headPtr != NULL) headPtr = &(*headPtr)->next; /* update pointer */
+
+	/* while the current node is not null */
+	while (*headPtr != NULL) {
+		headPtr = &(*headPtr)->next; /* update pointer */
+	}
 
 	/* rearrange pointers to insert node at front */
-	node->data = data;
+	node->data = malloc(dataSize);
 	node->next = *headPtr;
 	*headPtr = node;
+
+	/* if memory allocation fails */
+	if (node->data == NULL) {
+		printf("Error allocating node memory");
+		return;
+	}
+
+	/* copy data into node 1 byte at a time */
+	while (--dataSize >= 0) {
+		*((char *)node->data + dataSize) = *((char *)data + dataSize);
+	}
 }
 
 void sllClear (struct sllNode **headPtr) {
@@ -49,16 +73,18 @@ void sllClear (struct sllNode **headPtr) {
 		temp = *headPtr; /* store current node into temp */
 		*headPtr = (*headPtr)->next; /* update pointer */
 
+		/* clear(temp->data); */ /* clear data */
+		free(temp->data), temp->data = NULL; /* clear data pointer */
 		free(temp), temp = NULL; /* clear node */
 	}
 
 }
 
-int sllContains (struct sllNode **headPtr, int data) {
+int sllContains (struct sllNode **headPtr, void *data, int (*compare)(void*, void*)) {
 
 	/* while the current node is not null */
 	while (*headPtr != NULL) {
-		if (data == (*headPtr)->data) return 1; /* return 1 if match found */
+		if (!compare(data, (*headPtr)->data)) return 1; /* return 1 if match found */
 		headPtr = &(*headPtr)->next; /* update pointer */
 	}
 
@@ -66,14 +92,14 @@ int sllContains (struct sllNode **headPtr, int data) {
 	return 0;
 }
 
-void sllPrint (struct sllNode **headPtr) {
+void sllPrint (struct sllNode **headPtr, void (*print)(void*)) {
 
 	/* opening bracket */
 	printf("{");
 
 	/* while the current node is not null */
 	while (*headPtr != NULL) {
-		printf("%i", (*headPtr)->data); /* use print func */
+		print((*headPtr)->data); /* use print func */
 		if ((*headPtr)->next != NULL) printf(", "); /* print comma if node isn't the last node */
 		headPtr = &(*headPtr)->next; /* update pointer */
 	}
@@ -82,13 +108,13 @@ void sllPrint (struct sllNode **headPtr) {
 	printf("}\n");	
 }
 
-void sllRemove (struct sllNode **headPtr, int data) {
+void sllRemove (struct sllNode **headPtr, void *data, int (*compare)(void*, void*)) {
 
 	/* temporary storage to free memory */
 	struct sllNode *temp;
 
 	/* while the current node is not null or a match is not found */
-	while (*headPtr != NULL && data != (*headPtr)->data) {
+	while (*headPtr != NULL && compare(data, (*headPtr)->data)) {
 		headPtr = &(*headPtr)->next; /* update pointer */
 	}
 	
@@ -100,49 +126,56 @@ void sllRemove (struct sllNode **headPtr, int data) {
 	*headPtr = (*headPtr)->next;
 
 	/* free the node */
+	free(temp->data), temp->data = NULL;
 	free(temp), temp = NULL;
 }
 
-int sllRemoveFirst (struct sllNode **headPtr) {
+void sllRemoveFirst (struct sllNode **headPtr, void *data, int dataSize) {
 
-	int data; /* output var */
-	struct sllNode *temp = *headPtr; /* temp node storage */
+	/* temporary storage to free memory */
+	struct sllNode *temp = *headPtr;
 
 	/* return if list is empty */
-	if (*headPtr == NULL) return 0;
+	if (*headPtr == NULL) return;
 
 	/* shift head pointer to second node */
-	data = temp->data;
 	*headPtr = (*headPtr)->next;
 
-	/* free the node */
-	free(temp), temp = NULL;
+	/* copy data into node 1 byte at a time */
+	while (--dataSize >= 0) {
+		*((char *)data + dataSize) = *((char *)temp->data + dataSize);
+	}
 
-	/* output */
-	return data;
+	/* free the node */
+	free(temp->data), temp->data = NULL;
+	free(temp), temp = NULL;
 }
 
-int sllRemoveLast (struct sllNode **headPtr) {
+void sllRemoveLast (struct sllNode **headPtr, void *data, int dataSize) {
 
-	int data; /* output var */
-	struct sllNode *temp; /* temp node storage */
+	/* temporary storage to free memory */
+	struct sllNode *temp;
 
 	/* return if list is empty */
-	if (*headPtr == NULL) return 0;
+	if (*headPtr == NULL) return;
 
-	/* traverse to end of list */
-	while ((*headPtr)->next != NULL) headPtr = &(*headPtr)->next; /* update pointer */
+	/* locate second-to-last node */
+	while ((*headPtr)->next != NULL) {
+		headPtr = &(*headPtr)->next; /* update pointer */
+	}
 
 	/* remove last node */
 	temp = *headPtr;
-	data = temp->data;
 	*headPtr = NULL;
 
-	/* free the node */
-	free(temp), temp = NULL;
+	/* copy data into node 1 byte at a time */
+	while (--dataSize >= 0) {
+		*((char *)data + dataSize) = *((char *)temp->data + dataSize);
+	}
 
-	/* output */
-	return data;
+	/* free the node */
+	free(temp->data), temp->data = NULL;
+	free(temp), temp = NULL;
 }
 
 int sllSize (struct sllNode **headPtr) {
