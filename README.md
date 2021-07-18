@@ -20,7 +20,7 @@ This implementation includes the following methods:
 <th>Description</th>
 </tr>
 
-<tr height="30px">
+<tr style="padding-bottom:2px">
 <td>
 
 ```c
