@@ -1,6 +1,13 @@
 # Data Structure Library 
 
 ## Singly Linked Lists
+This implementation uses the following struct:
+```c
+struct sllNode {
+	int data;
+	struct sllNode *next;
+};
+```
 This implementation includes the following methods:
 <table style="width:100%">
   <colgroup>
