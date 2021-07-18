@@ -11,7 +11,10 @@ struct sllNode {
 This implementation includes the following methods:
 Function Prototype | Description
 --- | ---
-```c void sllAddFirst (struct sllNode **headPtr, int data)</td> ``` | Inserts 'data' at the beginning of the list.</td>
+```c
+void sllAddFirst (struct sllNode **headPtr, int data)
+```
+ | Inserts 'data' at the beginning of the list.</td>
 1 | 2
 <table style="width:100%">
   <colgroup>
