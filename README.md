@@ -9,17 +9,13 @@ struct sllNode {
 };
 ```
 This implementation includes the following methods:
-Function Prototype | Description
---- | ---
-`void sllAddFirst (struct sllNode **headPtr, int data)<br>` | Inserts 'data' at the beginning of the list.
-1 | 2
 
 <table style="width:100%">
 <colgroup>
 <col style="width:50%">
 </colgroup>
 
-<tr>
+<tr height="300px">
 <th>Function Prototype</th>
 <th>Description</th>
 </tr>
@@ -95,7 +91,7 @@ int sllRemoveFirst (struct sllNode **headPtr)
 </tr>
 
 <tr>
-<td>i
+<td>
 
 ```c
 int sllRemoveLast (struct sllNode **headPtr)
