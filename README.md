@@ -4,7 +4,7 @@
 This implementation includes the following methods:
 <table style="width:100%">
   <colgroup>
-    <col style="width:50">
+    <col style="width:50%">
   </colgroup>
   <tr>
     <th>Function Prototype</th>
