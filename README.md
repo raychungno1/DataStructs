@@ -19,9 +19,7 @@ This implementation includes the following methods:
   </tr>
   <tr>
     <td>
-```c
-void sllAddFirst (struct sllNode **headPtr, int data)
-```
+`void sllAddFirst (struct sllNode **headPtr, int data)`
     </td>
     <td>Inserts 'data' at the beginning of the list.</td>
   </tr>
