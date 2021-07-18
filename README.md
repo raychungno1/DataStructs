@@ -18,9 +18,7 @@ This implementation includes the following methods:
     <th>Description</th>
   </tr>
   <tr>
-    <td>
-`void sllAddFirst (struct sllNode **headPtr, int data)`
-    </td>
+    <td>`void sllAddFirst (struct sllNode **headPtr, int data)`</td>
     <td>Inserts 'data' at the beginning of the list.</td>
   </tr>
   <tr>
