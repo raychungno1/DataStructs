@@ -15,12 +15,12 @@ This implementation includes the following methods:
 <col style="width:50%">
 </colgroup>
 
-<tr height="300px">
+<tr>
 <th>Function Prototype</th>
 <th>Description</th>
 </tr>
 
-<tr>
+<tr height="30px">
 <td>
 
 ```c
