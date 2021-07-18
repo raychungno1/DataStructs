@@ -1,7 +1,7 @@
 # Data Structure Library 
 
 ## Singly Linked Lists
-This implementation uses the following struct:
+This implementation uses the following structure:
 ```c
 struct sllNode {
 	int data;
@@ -18,7 +18,7 @@ This implementation includes the following methods:
     <th>Description</th>
   </tr>
   <tr>
-    <td>void sllAddFirst (struct sllNode **headPtr, int data)</td>
+    <td>```c void sllAddFirst (struct sllNode **headPtr, int data)```</td>
     <td>Inserts 'data' at the beginning of the list.</td>
   </tr>
   <tr>
