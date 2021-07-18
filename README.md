@@ -2,7 +2,10 @@
 
 ## Singly Linked Lists
 This implementation includes the following methods:
-<table stype="width:100%">
+<table style="width:100%">
+  <colgroup>
+    <col style="width:50">
+  </colgroup>
   <tr>
     <th>Function Prototype</th>
     <th>Description</th>
