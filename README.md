@@ -77,6 +77,36 @@ void sllFlip (struct sllNode **headPtr)
 <td>
 
 ```c
+int sllIndexOf (struct sllNode **headPtr, int data)
+```
+</td>
+<td>Returns the first occurence of 'data', or -1 if 'data' is not in the list.</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+int sllPeekFirst (struct sllNode **headPtr)
+```
+</td>
+<td>Returns the data from the first node in the list.</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+int sllPeekLast (struct sllNode **headPtr)
+```
+</td>
+<td>Returns the data from the last node in the list.</td>
+</tr>
+
+<tr>
+<td>
+
+```c
 void sllPrint (struct sllNode **headPtr)
 ```
 </td>
@@ -127,11 +157,22 @@ void sllSize (struct sllNode **headPtr)
 <td>
 
 ```c
-void sllSort (struct sllNode **headPtr)
+void sllSortMS (struct sllNode **headPtr)
+```
+</td>
+<td>Sorts the list in increasing order using MergeSort algorithm.</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void sllSortQS (struct sllNode **headPtr)
 ```
 </td>
 <td>Sorts the list in increasing order using QuickSort algorithm.</td>
 </tr>
+
 </table>
 
 * sllAddFirst
@@ -139,9 +180,13 @@ void sllSort (struct sllNode **headPtr)
 * sllClear
 * sllContains
 * sllFlip
+* sllIndexOf
+* sllPeekFirst
+* sllPeekLast
 * sllPrint
 * sllRemove
 * sllRemoveFirst
 * sllRemoveLast
 * sllSize
-* sllSort
+* sllSortMS
+* sllSortQS

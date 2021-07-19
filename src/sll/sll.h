@@ -21,6 +21,15 @@ int sllContains (struct sllNode **headPtr, int data);
 /* reverses the order of the linked list */
 void sllFlip (struct sllNode ** headPtr);
 
+/* returns the first index of data in a linked list */
+int sllIndexOf (struct sllNode **headPtr, int data);
+
+/* returns the data in the first node of the linked list */
+int sllPeekFirst (struct sllNode **headPtr);
+
+/* returns the data in the last node of the linked list */
+int sllPeekLast (struct sllNode **headPtr);
+
 /* prints out linked list, must provide a function pointer to a print function for the data type in the linked list */
 void sllPrint (struct sllNode **headPtr);
 
@@ -37,15 +46,24 @@ int sllRemoveLast (struct sllNode **headPtr);
 int sllSize (struct sllNode **headPtr);
 
 /* sorts the linked list in increasing order */
-void sllSort(struct sllNode **headPtr);
+void sllSortMS (struct sllNode **headPtr);
+
+	/* returns a pointer to the middle node */
+	struct sllNode *sllSplit (struct sllNode *head);
+
+	/* merges the two sorted linked list halves */
+	struct sllNode *sllMerge (struct sllNode *front, struct sllNode *back);
+
+/* sorts the linked list in increasing order */
+void sllSortQS (struct sllNode **headPtr);
 
 	/* quicksort method for linked list */
-	void sllQuickSort(struct sllNode **headPtr, struct sllNode **tailPtr);
+	void sllQuickSort (struct sllNode **headPtr, struct sllNode **tailPtr);
 
 	/* finds the tail node of a linked list */
-	struct sllNode *sllFindTail(struct sllNode* head);
+	struct sllNode *sllFindTail (struct sllNode* head);
 
 	/* partitions the array around tail node */
-	struct sllNode *partition(struct sllNode **headPtr, struct sllNode **tailPtr);
+	struct sllNode *partition (struct sllNode **headPtr, struct sllNode **tailPtr);
 
 #endif

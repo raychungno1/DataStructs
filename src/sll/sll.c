@@ -84,6 +84,43 @@ void sllFlip (struct sllNode **headPtr) {
 	*headPtr = prev;
 }
 
+int sllIndexOf (struct sllNode **headPtr, int data) {
+
+	/* output variable */
+	int index = 0;
+
+	/* while the current node is not null */
+	while (*headPtr != NULL) {
+		if (data == (*headPtr)->data) return index; /* return index if match found */
+		headPtr = &(*headPtr)->next; /* update pointer */
+		index++; /* increment index */
+	}
+
+	/* return 0 if no match found */	
+	return -1;
+}
+
+int sllPeekFirst (struct sllNode **headPtr) {
+
+	/* return if list is empty */
+	if (*headPtr == NULL) return 0;
+
+	/* return data of first node */
+	return (*headPtr)->data;
+}
+
+int sllPeekLast (struct sllNode **headPtr) {
+
+	/* return if list is empty */
+	if (*headPtr == NULL) return 0;
+
+	/* traverse to last node */
+	while ((*headPtr)->next != NULL) headPtr = &(*headPtr)->next; /* update pointer */
+
+	/* return data of last node */
+	return (*headPtr)->data;
+}
+
 void sllPrint (struct sllNode **headPtr) {
 
 	/* opening bracket */
@@ -178,7 +215,93 @@ int sllSize (struct sllNode **headPtr) {
 	return size;
 }
 
-void sllSort (struct sllNode **headPtr) {
+void sllSortMS (struct sllNode **headPtr) {
+
+	/* initialize second linked list for back node */
+	struct sllNode *back;
+
+	/* if the list is length 0 or 1 */
+	if (*headPtr == NULL || (*headPtr)->next == NULL) return;
+
+	/* split linked list into two halves */
+	back = sllSplit(*headPtr);
+
+	/* recursively sort two halves */
+	sllSortMS(headPtr);
+	sllSortMS(&back);
+
+	/* merge the two sorted halves */
+	*headPtr = sllMerge(*headPtr, back);
+}
+
+struct sllNode *sllSplit (struct sllNode *head) {
+
+	/* split will only be called on lists w/ at least two elements */
+	struct sllNode *midPtr = head;
+	head = head->next;
+
+	/* traverse to end of list */
+	while (head != NULL) {
+		/* increment head twice while incrementing midPtr once */
+		head = head->next;
+		if (head != NULL) {
+			midPtr = midPtr->next;
+			head = head->next;
+		}
+	}
+
+	/*-----		a -> b -> c -> d -> e			----- */
+	/*-----                   ^ midPtr now points here	----- */
+
+	/* store beginning of second half */
+	head = midPtr->next;
+
+	/* sever connection between who linked lists */
+	midPtr->next = NULL;
+
+	/* output */
+	return head;
+
+}
+
+struct sllNode *sllMerge (struct sllNode *front, struct sllNode *back) {
+
+	/* initialize index node to merge list */
+	struct sllNode *head, *index;
+
+	/* sllMerge will not be called w/ empty lists */
+	if (front->data < back ->data) {
+		head = front; /* set first node be first node */
+		front = front->next;
+	} else {
+		head = back; /* set back node to be first node */
+		back = back->next;
+	}
+	index = head;
+
+	/* loop until both lists are empty */
+	while (front != NULL || back != NULL) {
+		/* if front data is smaller */
+		if (back == NULL || (front != NULL && (front->data < back->data))) {
+			/* add front to list & increment front */
+			index->next = front;
+			front = front->next;
+		} else {
+			/* add back to list & increment back */
+			index->next = back;
+			back = back->next;
+		}
+		index = index->next; /* increment index */
+		index->next = NULL;
+		
+	}
+	index->next = NULL;
+
+	/* output */
+	return head;
+}
+
+void sllSortQS (struct sllNode **headPtr) {
 
 	/* get a pointer to the tail node */
 	struct sllNode *tail = sllFindTail(*headPtr);
@@ -187,10 +310,10 @@ void sllSort (struct sllNode **headPtr) {
 	sllQuickSort(headPtr, &tail);
 }
 
-void sllQuickSort(struct sllNode **headPtr, struct sllNode **tailPtr) {
+void sllQuickSort (struct sllNode **headPtr, struct sllNode **tailPtr) {
 
-	/* initialize pivot node */
-	struct sllNode *pivot, *temp;
+	/* initialize pivot node & the node before the pivot node */
+	struct sllNode *pivot, *pivotPrev;
 
 	/* if list is length 0 or 1 */
 	if (*headPtr == NULL || *headPtr == *tailPtr) return;
@@ -200,12 +323,12 @@ void sllQuickSort(struct sllNode **headPtr, struct sllNode **tailPtr) {
 
 	/* recursive call to first half if its length > 1 */
 	if (*headPtr != pivot) {
-		temp = *headPtr; /* traverse to the node before the pivot */
-		while (temp->next != pivot) temp = temp->next;
+		pivotPrev = *headPtr; /* traverse to the node before the pivot */
+		while (pivotPrev->next != pivot) pivotPrev = pivotPrev->next;
 
-		temp->next = NULL; /* temporarily set that node to be the tail */
-		sllQuickSort(headPtr, &temp); /* recursive call */
-		temp->next = pivot; /* restore original list */
+		pivotPrev->next = NULL; /* temporarily set that node to be the tail */
+		sllQuickSort(headPtr, &pivotPrev); /* recursive call */
+		pivotPrev->next = pivot; /* restore original list */
 	}
 	
 	/* recursive call to second half */
@@ -223,9 +346,9 @@ struct sllNode *sllFindTail (struct sllNode *head) {
 
 }
 
-struct sllNode *partition(struct sllNode **headPtr, struct sllNode **tailPtr) {
+struct sllNode *partition (struct sllNode **headPtr, struct sllNode **tailPtr) {
 
-	/* storinv pivot node */
+	/* storing pivot node */
 	struct sllNode *pivot = *tailPtr;
 	/* nodes to traverse through linked list */
 	struct sllNode *curr = *headPtr, *prev = NULL;
