@@ -8,6 +8,8 @@ struct sllNode {
 	struct sllNode *next;
 };
 ```
+The Linked List is represented by a sllNode pointer `struct sllNode*` that points the the first node of the list. 
+---
 This implementation includes the following methods:
 
 <table style="width:100%">
