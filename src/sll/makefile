@@ -17,7 +17,7 @@ intTest: intTest.o sll.o
 
 # Detects any non-freed malloc calls
 memLeak:
-	valgrind --tool=memcheck sllTest
+	valgrind --tool=memcheck intTest
 
 # Clean
 clean:

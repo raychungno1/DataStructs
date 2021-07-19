@@ -33,7 +33,7 @@ void sllAddLast (struct sllNode **headPtr, int data) {
 	/* traverse to end of list */
 	while (*headPtr != NULL) headPtr = &(*headPtr)->next; /* update pointer */
 
-	/* rearrange pointers to insert node at front */
+	/* rearrange pointers to insert node at back */
 	node->data = data;
 	node->next = *headPtr;
 	*headPtr = node;
@@ -64,6 +64,24 @@ int sllContains (struct sllNode **headPtr, int data) {
 
 	/* return 0 if no match found */	
 	return 0;
+}
+
+void sllFlip (struct sllNode **headPtr) {
+
+	/* tracking nodes */
+	struct sllNode *prev = NULL;
+	struct sllNode *next = NULL;
+
+	/* while the current node is not null */
+	while (*headPtr != NULL) {
+		next = (*headPtr)->next; /* update next node */
+		(*headPtr)->next = prev; /* assign node.next to prev */
+		prev = *headPtr; /* update prev node */
+		*headPtr = next; /* update current node */
+	}
+
+	/* set head ptr to last node */
+	*headPtr = prev;
 }
 
 void sllPrint (struct sllNode **headPtr) {
@@ -158,5 +176,90 @@ int sllSize (struct sllNode **headPtr) {
 
 	/* output */
 	return size;
+}
+
+void sllSort (struct sllNode **headPtr) {
+
+	/* get a pointer to the tail node */
+	struct sllNode *tail = sllFindTail(*headPtr);
+
+	/* calls quicksort w/ head & tail pointer */
+	sllQuickSort(headPtr, &tail);
+}
+
+void sllQuickSort(struct sllNode **headPtr, struct sllNode **tailPtr) {
+
+	/* initialize pivot node */
+	struct sllNode *pivot, *temp;
+
+	/* if list is length 0 or 1 */
+	if (*headPtr == NULL || *headPtr == *tailPtr) return;
+
+	/* partitions list around tail node */
+	pivot = partition(headPtr, tailPtr);
+
+	/* recursive call to first half if its length > 1 */
+	if (*headPtr != pivot) {
+		temp = *headPtr; /* traverse to the node before the pivot */
+		while (temp->next != pivot) temp = temp->next;
+
+		temp->next = NULL; /* temporarily set that node to be the tail */
+		sllQuickSort(headPtr, &temp); /* recursive call */
+		temp->next = pivot; /* restore original list */
+	}
+	
+	/* recursive call to second half */
+	sllQuickSort(&(pivot->next), tailPtr);
+
+}
+
+struct sllNode *sllFindTail (struct sllNode *head) {
+
+	/* traverse to the last node */
+	while (head != NULL && head->next != NULL) head = head->next;
+
+	/* output */
+	return head;
+
+}
+
+struct sllNode *partition(struct sllNode **headPtr, struct sllNode **tailPtr) {
+
+	/* storinv pivot node */
+	struct sllNode *pivot = *tailPtr;
+	/* nodes to traverse through linked list */
+	struct sllNode *curr = *headPtr, *prev = NULL;
+
+	/* loops until tailPtr */
+	while (curr != pivot) {
+
+		/* if the node is greater than the tail data, move it to the end of the list */
+		if (curr->data > pivot->data) {
+
+			if (curr == *headPtr) {
+				/* update headPtr if we're moving the head node */
+				*headPtr = (*headPtr)->next;
+			} else {
+				/* update prev node otherwise */
+				prev->next = curr->next;
+			}
+
+			/* move curr to the end & update tailPtr */
+			(*tailPtr)->next = curr;
+			*tailPtr = curr;
+
+			/* update curr & set tail->next to null */
+			curr = curr->next;
+			(*tailPtr)->next = NULL;
+
+		/* if node is less than or equal, continue traversing through the list */
+		} else {
+			prev = curr;
+			curr = curr->next;
+		}
+	}
+
+	/* output */
+	return pivot;
 }
 

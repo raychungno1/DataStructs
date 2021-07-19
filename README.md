@@ -64,6 +64,16 @@ int sllContains (struct sllNode **headPtr, int data)
 <td>
 
 ```c
+void sllFlip (struct sllNode **headPtr)
+```
+</td>
+<td>Reverses the order of the linked list.</td>
+</tr>
+
+<tr>
+<td>
+
+```c
 void sllPrint (struct sllNode **headPtr)
 ```
 </td>
@@ -109,14 +119,26 @@ void sllSize (struct sllNode **headPtr)
 </td>
 <td>Returns the size of the list.</td>
 </tr>
+
+<tr>
+<td>
+
+```c
+void sllSort (struct sllNode **headPtr)
+```
+</td>
+<td>Sorts the list in increasing order using QuickSort algorithm.</td>
+</tr>
 </table>
 
 * sllAddFirst
 * sllAddLast
 * sllClear
 * sllContains
+* sllFlip
 * sllPrint
 * sllRemove
 * sllRemoveFirst
 * sllRemoveLast
 * sllSize
+* sllSort

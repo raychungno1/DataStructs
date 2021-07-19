@@ -15,6 +15,7 @@ int compInt(void *x, void *y) {
 int main() {
 
 	int i, j;
+	int arr[20] = {6, 22, 73, 36, 29, 52, 50, 84, 87, 76, 46, 68, 100, 56, 52, 78, 90, 6, 78, 26};
 
 	/* generate linked list */
 	struct sllNode *head = NULL;
@@ -91,6 +92,7 @@ int main() {
 		sllPrint(&head);
 	}
 	sllClear(&head);
+
 	printf("Test - Empty list {}:\n");
 	sllRemoveFirst(&head);
 	printf("\t");
@@ -106,6 +108,7 @@ int main() {
 		sllPrint(&head);
 	}
 	sllClear(&head);
+
 	printf("Test - Empty list {}:\n");
 	sllRemoveLast(&head);
 	printf("\t");
@@ -119,6 +122,46 @@ int main() {
 	printf("Test - List of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
 	for (i = 0; i < 10; i++) sllAddLast(&head, i);
 	printf("\tSize: %i\n", sllSize(&head));
+
+	/* test sllFlip */
+	printf("\n----- sllFlip Test: -----\n");
+	printf("Test - List of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
+	sllFlip(&head);
+	printf("\t");
+	sllPrint(&head);
+	sllClear(&head);
+
+	printf("Test - Empty list {}:\n");
+	sllFlip(&head);
+	printf("\t");
+	sllPrint(&head);
+
+	/* test sllSort */
+	printf("\n----- sllSort Test: -----\n");
+	printf("Test - Empty list {}:\n");
+	sllSort(&head);
+	printf("\t");
+	sllPrint(&head);
+
+	printf("Test - Already sorted list of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
+	for (i = 0; i < 10; i++) sllAddLast(&head, i);
+	sllSort(&head);
+	printf("\t");
+	sllPrint(&head);
+
+	printf("Test - Reverse-sorted list of length 10 {9, 8, 7, 6, 5, 4, 3, 2, 1, 0}:\n");
+	for (i = 0; i < 10; i++) sllAddFirst(&head, i);
+	sllSort(&head);
+	printf("\t");
+	sllPrint(&head);
+
+	printf("Test - Random list of length 20: ");
+	sllClear(&head);
+	for (i = 0; i < 20; i++) sllAddLast(&head, arr[i]);
+	sllPrint(&head);
+	sllSort(&head);
+	printf("\t");
+	sllPrint(&head);
 
 	printf("\n");
 	sllClear(&head);
