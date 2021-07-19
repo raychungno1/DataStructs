@@ -9,6 +9,7 @@ struct sllNode {
 };
 ```
 The Linked List is represented by a sllNode pointer `struct sllNode*` that points the the first node of the list. 
+
 ---
 This implementation includes the following methods:
 
