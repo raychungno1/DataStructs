@@ -33,6 +33,7 @@ void sllAddFirst (struct sllNode **headPtr, int data)
 <td>
 
 Inserts `data` at the beginning of the list.
+
 `Runtime: θ(1)`
 </td>
 </tr>
