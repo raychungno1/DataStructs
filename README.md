@@ -1,6 +1,6 @@
 # Data Structure Library 
 
-## Singly Linked Lists(SLL) & Doubly Linked Lists(DLL)
+## Singly Linked Lists (SLL) & Doubly Linked Lists (DLL)
 Due to the similarity of both implementations, their documentations are combined into one section.
 The SLL implementation uses the following structure:
 ```c
