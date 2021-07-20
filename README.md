@@ -61,7 +61,6 @@ Inserts `data` at the beginning of the list.
 ```c
 void sllAddLast (struct sllNode **headPtr, int data)
 ```
-
 ```c
 void dllAddLast (struct dllNode **headPtr, int data)
 ```
@@ -80,7 +79,6 @@ Inserts `data` at the end of the list.
 ```c
 void sllClear (struct sllNode **headPtr)
 ```
-
 ```c
 void dllClear (struct dllNode **headPtr)
 ```
@@ -99,7 +97,6 @@ Removes & frees all elements from the list.
 ```c
 int sllContains (struct sllNode **headPtr, int data)
 ```
-
 ```c
 int dllContains (struct dllNode **headPtr, int data)
 ```
@@ -118,7 +115,6 @@ Returns 1 if `data` is found in the list, 0 otherwise.
 ```c
 void sllFlip (struct sllNode **headPtr)
 ```
-
 ```c
 void dllFlip (struct dllNode **headPtr)
 ```
@@ -137,7 +133,6 @@ Reverses the order of the linked list.
 ```c
 int sllIndexOf (struct sllNode **headPtr, int data)
 ```
-
 ```c
 int dllIndexOf (struct dllNode **headPtr, int data)
 ```
@@ -156,7 +151,6 @@ Returns the first occurence of `data`, or -1 if `data` is not in the list.
 ```c
 int sllPeekFirst (struct sllNode **headPtr)
 ```
-
 ```c
 int dllPeekFirst (struct dllNode **headPtr)
 ```
@@ -175,7 +169,6 @@ Returns the data from the first node in the list.
 ```c
 int sllPeekLast (struct sllNode **headPtr)
 ```
-
 ```c
 int dllPeekLast (struct dllNode **headPtr)
 ```
@@ -194,7 +187,6 @@ Returns the data from the last node in the list.
 ```c
 void sllPrint (struct sllNode **headPtr)
 ```
-
 ```c
 void dllPrint (struct dllNode **headPtr)
 ```
@@ -213,7 +205,6 @@ Prints a string representation of the list.
 ```c
 void sllRemove (struct sllNode **headPtr, int data)
 ```
-
 ```c
 void dllRemove (struct dllNode **headPtr, int data)
 ```
@@ -232,7 +223,6 @@ Removes the first occurrence of `data` from the list, if it exists.
 ```c
 int sllRemoveFirst (struct sllNode **headPtr)
 ```
-
 ```c
 int dllRemoveFirst (struct dllNode **headPtr)
 ```
@@ -251,7 +241,6 @@ Removes and returns the first element of the list.
 ```c
 int sllRemoveLast (struct sllNode **headPtr)
 ```
-
 ```c
 int dllRemoveLast (struct dllNode **headPtr)
 ```
@@ -270,7 +259,6 @@ Removes and returns the last element of the list.
 ```c
 void sllSize (struct sllNode **headPtr)
 ```
-
 ```c
 void dllSize (struct dllNode **headPtr)
 ```
@@ -289,7 +277,6 @@ Returns the size of the list.
 ```c
 void sllSortMS (struct sllNode **headPtr)
 ```
-
 ```c
 void dllSortMS (struct dllNode **headPtr)
 ```
@@ -308,7 +295,6 @@ Sorts the list in increasing order using MergeSort algorithm.
 ```c
 void sllSortQS (struct sllNode **headPtr)
 ```
-
 ```c
 void dllSortQS (struct dllNode **headPtr)
 ```
