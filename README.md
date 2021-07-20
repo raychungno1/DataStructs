@@ -18,6 +18,7 @@ struct dllNode {
 };
 ```
 The Linked List is represented by a pointer that points the the first node of the list. Stack & Queue behavior can also be modeled using these Linked List implementation.
+
 ---
 This implementation includes the following methods:
 
