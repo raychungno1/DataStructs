@@ -3,7 +3,7 @@
 all: intTest
 
 # Test linked list w/ ints
-intTest: intTest.o sll.o
+intTest: intTest.o dll.o
 	gcc -g -o $@ $^ 
 
 # Turn c files into o files

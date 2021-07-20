@@ -1,16 +1,30 @@
 # Data Structure Library 
 
-## Singly Linked Lists
-This implementation uses the following structure:
+## Singly Linked Lists(sll) & Doubly Linked Lists(dll)
+Due to the similarity of both implementations, their documentations are combined into one section.
+This sll implementation uses the following structure:
 ```c
 struct sllNode {
 	int data;
 	struct sllNode *next;
 };
 ```
-The Linked List is represented by a pointer `struct sllNode*` that points the the first node of the list. 
+This dll implementation uses the following structure:
+```c
+struct dllNode {
+	int data;
+	struct sllNode *next;
+	struct sllNode *prev;
+};
+```
+The Linked List is represented by a pointer that points the the first node of the list. Stack & Queue behavior can also be modeled using these Linked List implementation.
 
 ---
+ndex of 0 is: 1
+        Index of 5 is: 5
+        Index of 9 is: 9
+        Index of 10 is: -1
+
 This implementation includes the following methods:
 
 <table style="width:100%">
@@ -29,6 +43,9 @@ This implementation includes the following methods:
 ```c
 void sllAddFirst (struct sllNode **headPtr, int data)
 ```
+```c
+void dllAddFirst (struct dllNode **headPtr, int data)
+```
 </td>
 <td>
 
@@ -43,6 +60,10 @@ Inserts `data` at the beginning of the list.
 
 ```c
 void sllAddLast (struct sllNode **headPtr, int data)
+```
+
+```c
+void dllAddLast (struct dllNode **headPtr, int data)
 ```
 </td>
 <td>
@@ -59,6 +80,10 @@ Inserts `data` at the end of the list.
 ```c
 void sllClear (struct sllNode **headPtr)
 ```
+
+```c
+void dllClear (struct dllNode **headPtr)
+```
 </td>
 <td>
 
@@ -73,6 +98,10 @@ Removes & frees all elements from the list.
 
 ```c
 int sllContains (struct sllNode **headPtr, int data)
+```
+
+```c
+int dllContains (struct dllNode **headPtr, int data)
 ```
 </td>
 <td>
@@ -89,6 +118,10 @@ Returns 1 if `data` is found in the list, 0 otherwise.
 ```c
 void sllFlip (struct sllNode **headPtr)
 ```
+
+```c
+void dllFlip (struct dllNode **headPtr)
+```
 </td>
 <td>
 
@@ -103,6 +136,10 @@ Reverses the order of the linked list.
 
 ```c
 int sllIndexOf (struct sllNode **headPtr, int data)
+```
+
+```c
+int dllIndexOf (struct dllNode **headPtr, int data)
 ```
 </td>
 <td>
@@ -119,6 +156,10 @@ Returns the first occurence of `data`, or -1 if `data` is not in the list.
 ```c
 int sllPeekFirst (struct sllNode **headPtr)
 ```
+
+```c
+int dllPeekFirst (struct dllNode **headPtr)
+```
 </td>
 <td>
 
@@ -133,6 +174,10 @@ Returns the data from the first node in the list.
 
 ```c
 int sllPeekLast (struct sllNode **headPtr)
+```
+
+```c
+int dllPeekLast (struct dllNode **headPtr)
 ```
 </td>
 <td>
@@ -149,6 +194,10 @@ Returns the data from the last node in the list.
 ```c
 void sllPrint (struct sllNode **headPtr)
 ```
+
+```c
+void dllPrint (struct dllNode **headPtr)
+```
 </td>
 <td>
 
@@ -163,6 +212,10 @@ Prints a string representation of the list.
 
 ```c
 void sllRemove (struct sllNode **headPtr, int data)
+```
+
+```c
+void dllRemove (struct dllNode **headPtr, int data)
 ```
 </td>
 <td>
@@ -179,6 +232,10 @@ Removes the first occurrence of `data` from the list, if it exists.
 ```c
 int sllRemoveFirst (struct sllNode **headPtr)
 ```
+
+```c
+int dllRemoveFirst (struct dllNode **headPtr)
+```
 </td>
 <td>
 
@@ -193,6 +250,10 @@ Removes and returns the first element of the list.
 
 ```c
 int sllRemoveLast (struct sllNode **headPtr)
+```
+
+```c
+int dllRemoveLast (struct dllNode **headPtr)
 ```
 </td>
 <td>
@@ -209,6 +270,10 @@ Removes and returns the last element of the list.
 ```c
 void sllSize (struct sllNode **headPtr)
 ```
+
+```c
+void dllSize (struct dllNode **headPtr)
+```
 </td>
 <td>
 
@@ -223,6 +288,10 @@ Returns the size of the list.
 
 ```c
 void sllSortMS (struct sllNode **headPtr)
+```
+
+```c
+void dllSortMS (struct dllNode **headPtr)
 ```
 </td>
 <td>
@@ -239,6 +308,10 @@ Sorts the list in increasing order using MergeSort algorithm.
 ```c
 void sllSortQS (struct sllNode **headPtr)
 ```
+
+```c
+void dllSortQS (struct dllNode **headPtr)
+```
 </td>
 <td>
 
@@ -249,4 +322,6 @@ Sorts the list in increasing order using QuickSort algorithm.
 </tr>
 
 </table>
+
+---
 

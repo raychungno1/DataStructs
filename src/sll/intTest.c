@@ -2,16 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void pInt(void *i) {
-	printf("%i", *(int *)i);
-}
-
-int compInt(void *x, void *y) {
-	if (*(int *)x > *(int *)y) return 1;
-	if (*(int *)x < *(int *)y) return -1;
-	return 0;
-}
-
 int main() {
 
 	int i, j;
@@ -192,6 +182,9 @@ int main() {
 	sllSortMS(&head);
 	printf("\t");
 	sllPrint(&head);
+	printf("\tRandom Test of sllFlip:");
+	sllFlip(&head);
+	sllPrint(&head);
 
 	/* test sllIndexOf */
 	printf("\n----- sllSortIndexOf Test: -----\n");
@@ -201,7 +194,7 @@ int main() {
 
 	printf("Test - List of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
 	for (i = 0; i < 10; i++) sllAddLast(&head, i);
-	printf("\tIndex of 0 is: %i\n", sllIndexOf(&head, 1));
+	printf("\tIndex of 0 is: %i\n", sllIndexOf(&head, 0));
 	printf("\tIndex of 5 is: %i\n", sllIndexOf(&head, 5));
 	printf("\tIndex of 9 is: %i\n", sllIndexOf(&head, 9));
 	printf("\tIndex of 10 is: %i\n", sllIndexOf(&head, 10));

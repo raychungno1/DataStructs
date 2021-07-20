@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "sll.h"
+#include "dll.h"
 
-void sllAddFirst (struct sllNode **headPtr, int data) {
+void dllAddFirst (struct dllNode **headPtr, int data) {
 
 	/* allocate space for node */
-	struct sllNode *node = malloc(sizeof(struct sllNode));
+	struct dllNode *node = malloc(sizeof(struct dllNode));
 
 	/* if memory allocation fails */
 	if (node == NULL) {
@@ -16,33 +16,40 @@ void sllAddFirst (struct sllNode **headPtr, int data) {
 	/* rearrange pointers to insert node at front */
 	node->data = data;
 	node->next = *headPtr;
+	node->prev = NULL;
+	if (*headPtr != NULL) (*headPtr)->prev = node;
 	*headPtr = node;
 }
 
-void sllAddLast (struct sllNode **headPtr, int data) {
+void dllAddLast (struct dllNode **headPtr, int data) {
 
 	/* allocate space for node */
-	struct sllNode *node = malloc(sizeof(struct sllNode));
+	struct dllNode *node = malloc(sizeof(struct dllNode));
+	struct dllNode *prev = NULL;
 
 	/* if memory allocation fails */
 	if (node == NULL) {
 		printf("Error allocating node memory");
 		return;
 	}
-	
+
 	/* traverse to end of list */
-	while (*headPtr != NULL) headPtr = &(*headPtr)->next; /* update pointer */
+	while (*headPtr != NULL) {
+		prev = *headPtr;
+		headPtr = &(*headPtr)->next; /* update pointer */
+	}
 
 	/* rearrange pointers to insert node at back */
 	node->data = data;
 	node->next = *headPtr;
+	node->prev = prev;
 	*headPtr = node;
 }
 
-void sllClear (struct sllNode **headPtr) {
+void dllClear (struct dllNode **headPtr) {
 
 	/* temporary node to free memory */
-	struct sllNode *temp;
+	struct dllNode *temp;
 
 	/* while the current node is not null */
 	while (*headPtr != NULL) {
@@ -54,7 +61,7 @@ void sllClear (struct sllNode **headPtr) {
 
 }
 
-int sllContains (struct sllNode **headPtr, int data) {
+int dllContains (struct dllNode **headPtr, int data) {
 
 	/* while the current node is not null */
 	while (*headPtr != NULL) {
@@ -66,25 +73,27 @@ int sllContains (struct sllNode **headPtr, int data) {
 	return 0;
 }
 
-void sllFlip (struct sllNode **headPtr) {
+void dllFlip (struct dllNode **headPtr) {
 
 	/* tracking nodes */
-	struct sllNode *prev = NULL;
-	struct sllNode *next = NULL;
+	struct dllNode *temp = NULL;
+
+	/* return if list is length 0 */
+	if (*headPtr == NULL) return;
 
 	/* while the current node is not null */
 	while (*headPtr != NULL) {
-		next = (*headPtr)->next; /* update next node */
-		(*headPtr)->next = prev; /* assign node.next to prev */
-		prev = *headPtr; /* update prev node */
-		*headPtr = next; /* update current node */
+		temp = (*headPtr)->prev;
+		(*headPtr)->prev = (*headPtr)->next;
+		(*headPtr)->next = temp;
+		*headPtr = (*headPtr)->prev;
 	}
 
 	/* set head ptr to last node */
-	*headPtr = prev;
+	*headPtr = temp->prev;
 }
 
-int sllIndexOf (struct sllNode **headPtr, int data) {
+int dllIndexOf (struct dllNode **headPtr, int data) {
 
 	/* output variable */
 	int index = 0;
@@ -100,7 +109,7 @@ int sllIndexOf (struct sllNode **headPtr, int data) {
 	return -1;
 }
 
-int sllPeekFirst (struct sllNode **headPtr) {
+int dllPeekFirst (struct dllNode **headPtr) {
 
 	/* return if list is empty */
 	if (*headPtr == NULL) return 0;
@@ -109,7 +118,7 @@ int sllPeekFirst (struct sllNode **headPtr) {
 	return (*headPtr)->data;
 }
 
-int sllPeekLast (struct sllNode **headPtr) {
+int dllPeekLast (struct dllNode **headPtr) {
 
 	/* return if list is empty */
 	if (*headPtr == NULL) return 0;
@@ -121,7 +130,7 @@ int sllPeekLast (struct sllNode **headPtr) {
 	return (*headPtr)->data;
 }
 
-void sllPrint (struct sllNode **headPtr) {
+void dllPrint (struct dllNode **headPtr) {
 
 	/* opening bracket */
 	printf("{");
@@ -137,10 +146,10 @@ void sllPrint (struct sllNode **headPtr) {
 	printf("}\n");	
 }
 
-void sllRemove (struct sllNode **headPtr, int data) {
+void dllRemove (struct dllNode **headPtr, int data) {
 
 	/* temporary storage to free memory */
-	struct sllNode *temp;
+	struct dllNode *temp;
 
 	/* while the current node is not null or a match is not found */
 	while (*headPtr != NULL && data != (*headPtr)->data) {
@@ -154,14 +163,18 @@ void sllRemove (struct sllNode **headPtr, int data) {
 	temp = *headPtr;
 	*headPtr = (*headPtr)->next;
 
+	/* set prev ptr if list length > 1 */
+	if (*headPtr != NULL) (*headPtr)->prev = ((*headPtr)->prev)->prev;
+	
+
 	/* free the node */
 	free(temp), temp = NULL;
 }
 
-int sllRemoveFirst (struct sllNode **headPtr) {
+int dllRemoveFirst (struct dllNode **headPtr) {
 
 	int data; /* output var */
-	struct sllNode *temp = *headPtr; /* temp node storage */
+	struct dllNode *temp = *headPtr; /* temp node storage */
 
 	/* return if list is empty */
 	if (*headPtr == NULL) return 0;
@@ -170,6 +183,9 @@ int sllRemoveFirst (struct sllNode **headPtr) {
 	data = temp->data;
 	*headPtr = (*headPtr)->next;
 
+	/* set prev ptr if list length > 1 */
+	if (*headPtr != NULL) (*headPtr)->prev = ((*headPtr)->prev)->prev;
+
 	/* free the node */
 	free(temp), temp = NULL;
 
@@ -177,10 +193,10 @@ int sllRemoveFirst (struct sllNode **headPtr) {
 	return data;
 }
 
-int sllRemoveLast (struct sllNode **headPtr) {
+int dllRemoveLast (struct dllNode **headPtr) {
 
 	int data; /* output var */
-	struct sllNode *temp; /* temp node storage */
+	struct dllNode *temp; /* temp node storage */
 
 	/* return if list is empty */
 	if (*headPtr == NULL) return 0;
@@ -200,7 +216,7 @@ int sllRemoveLast (struct sllNode **headPtr) {
 	return data;
 }
 
-int sllSize (struct sllNode **headPtr) {
+int dllSize (struct dllNode **headPtr) {
 
 	/* initialize output */
 	int size = 0;
@@ -215,29 +231,29 @@ int sllSize (struct sllNode **headPtr) {
 	return size;
 }
 
-void sllSortMS (struct sllNode **headPtr) {
+void dllSortMS (struct dllNode **headPtr) {
 
 	/* initialize second linked list for back node */
-	struct sllNode *back;
+	struct dllNode *back;
 
 	/* if the list is length 0 or 1 */
 	if (*headPtr == NULL || (*headPtr)->next == NULL) return;
 
 	/* split linked list into two halves */
-	back = sllSplit(*headPtr);
+	back = dllSplit(*headPtr);
 
 	/* recursively sort two halves */
-	sllSortMS(headPtr);
-	sllSortMS(&back);
+	dllSortMS(headPtr);
+	dllSortMS(&back);
 
 	/* merge the two sorted halves */
-	*headPtr = sllMerge(*headPtr, back);
+	*headPtr = dllMerge(*headPtr, back);
 }
 
-struct sllNode *sllSplit (struct sllNode *head) {
+struct dllNode *dllSplit (struct dllNode *head) {
 
 	/* split will only be called on lists w/ at least two elements */
-	struct sllNode *midPtr = head;
+	struct dllNode *midPtr = head;
 	head = head->next;
 
 	/* traverse to end of list */
@@ -257,6 +273,7 @@ struct sllNode *sllSplit (struct sllNode *head) {
 	head = midPtr->next;
 
 	/* sever connection between who linked lists */
+	head->prev = NULL;
 	midPtr->next = NULL;
 
 	/* output */
@@ -264,12 +281,12 @@ struct sllNode *sllSplit (struct sllNode *head) {
 
 }
 
-struct sllNode *sllMerge (struct sllNode *front, struct sllNode *back) {
+struct dllNode *dllMerge (struct dllNode *front, struct dllNode *back) {
 
 	/* initialize index node to merge list */
-	struct sllNode *head, *index;
+	struct dllNode *head, *index;
 
-	/* sllMerge will not be called w/ empty lists */
+	/* dllMerge will not be called w/ empty lists */
 	if (front->data < back ->data) {
 		head = front; /* set first node be first node */
 		front = front->next;
@@ -285,32 +302,35 @@ struct sllNode *sllMerge (struct sllNode *front, struct sllNode *back) {
 		if (back == NULL || (front != NULL && (front->data < back->data))) {
 			/* add front to list & increment front */
 			index->next = front;
+			front->prev = index;
 			front = front->next;
 		} else {
 			/* add back to list & increment back */
 			index->next = back;
+			back->prev = index;
 			back = back->next;
 		}
 		index = index->next; /* increment index */
+		
 	}
 
 	/* output */
 	return head;
 }
 
-void sllSortQS (struct sllNode **headPtr) {
+void dllSortQS (struct dllNode **headPtr) {
 
 	/* get a pointer to the tail node */
-	struct sllNode *tail = sllFindTail(*headPtr);
+	struct dllNode *tail = dllFindTail(*headPtr);
 
 	/* calls quicksort w/ head & tail pointer */
-	sllQuickSort(headPtr, &tail);
+	dllQuickSort(headPtr, &tail);
 }
 
-void sllQuickSort (struct sllNode **headPtr, struct sllNode **tailPtr) {
+void dllQuickSort (struct dllNode **headPtr, struct dllNode **tailPtr) {
 
 	/* initialize pivot node & the node before the pivot node */
-	struct sllNode *pivot, *pivotPrev;
+	struct dllNode *pivot, *pivotPrev;
 
 	/* if list is length 0 or 1 */
 	if (*headPtr == NULL || *headPtr == *tailPtr) return;
@@ -320,20 +340,25 @@ void sllQuickSort (struct sllNode **headPtr, struct sllNode **tailPtr) {
 
 	/* recursive call to first half if its length > 1 */
 	if (*headPtr != pivot) {
-		pivotPrev = *headPtr; /* traverse to the node before the pivot */
-		while (pivotPrev->next != pivot) pivotPrev = pivotPrev->next;
+		pivotPrev = pivot->prev; /* node before the pivot */
 
-		pivotPrev->next = NULL; /* temporarily set that node to be the tail */
-		sllQuickSort(headPtr, &pivotPrev); /* recursive call */
+		/* sever connection between two lists */
+		pivot->prev = NULL;
+		pivotPrev->next = NULL;
+
+		dllQuickSort(headPtr, &pivotPrev); /* recursive call */
+
+		/* reconnect two lists */
+		pivot->prev = pivotPrev;
 		pivotPrev->next = pivot; /* restore original list */
 	}
 	
 	/* recursive call to second half */
-	sllQuickSort(&(pivot->next), tailPtr);
+	dllQuickSort(&(pivot->next), tailPtr);
 
 }
 
-struct sllNode *sllFindTail (struct sllNode *head) {
+struct dllNode *dllFindTail (struct dllNode *head) {
 
 	/* traverse to the last node */
 	while (head != NULL && head->next != NULL) head = head->next;
@@ -343,12 +368,12 @@ struct sllNode *sllFindTail (struct sllNode *head) {
 
 }
 
-struct sllNode *partition (struct sllNode **headPtr, struct sllNode **tailPtr) {
+struct dllNode *partition (struct dllNode **headPtr, struct dllNode **tailPtr) {
 
 	/* storing pivot node */
-	struct sllNode *pivot = *tailPtr;
+	struct dllNode *pivot = *tailPtr;
 	/* nodes to traverse through linked list */
-	struct sllNode *curr = *headPtr, *prev = NULL;
+	struct dllNode *curr = *headPtr, *prev = NULL;
 
 	/* loops until tailPtr */
 	while (curr != pivot) {
@@ -359,13 +384,16 @@ struct sllNode *partition (struct sllNode **headPtr, struct sllNode **tailPtr) {
 			if (curr == *headPtr) {
 				/* update headPtr if we're moving the head node */
 				*headPtr = (*headPtr)->next;
+				(*headPtr)->prev = NULL;
 			} else {
 				/* update prev node otherwise */
 				prev->next = curr->next;
+				(prev->next)->prev = prev;
 			}
 
 			/* move curr to the end & update tailPtr */
 			(*tailPtr)->next = curr;
+			curr->prev = *tailPtr;
 			*tailPtr = curr;
 
 			/* update curr & set tail->next to null */
