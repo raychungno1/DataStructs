@@ -13,8 +13,8 @@ The SLL implementation uses the following structure:
 ```c
 struct dllNode {
 	int data;
-	struct sllNode *next;
-	struct sllNode *prev;
+	struct dllNode *next;
+	struct dllNode *prev;
 };
 ```
 The Linked List is represented by a pointer that points the the first node of the list. Stack & Queue behavior can also be modeled using these Linked List implementation.
