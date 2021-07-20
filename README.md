@@ -43,7 +43,10 @@ Inserts `data` at the beginning of the list.</td>
 void sllAddLast (struct sllNode **headPtr, int data)
 ```
 </td>
-<td>Inserts 'data' at the end of the list.</td>
+<td>
+
+Inserts `data` at the end of the list.
+</td>
 </tr>
 
 <tr>
