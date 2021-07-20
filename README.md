@@ -20,11 +20,6 @@ struct dllNode {
 The Linked List is represented by a pointer that points the the first node of the list. Stack & Queue behavior can also be modeled using these Linked List implementation.
 
 ---
-ndex of 0 is: 1
-        Index of 5 is: 5
-        Index of 9 is: 9
-        Index of 10 is: -1
-
 This implementation includes the following methods:
 
 <table style="width:100%">
