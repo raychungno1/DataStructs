@@ -33,7 +33,7 @@ void sllAddFirst (struct sllNode **headPtr, int data)
 <td>
 
 Inserts `data` at the beginning of the list.</td>
-
+* Runtime: θ(1)
 </tr>
 
 <tr>
@@ -46,6 +46,7 @@ void sllAddLast (struct sllNode **headPtr, int data)
 <td>
 
 Inserts `data` at the end of the list.
+* Runtime: θ(n)
 </td>
 </tr>
 
@@ -56,7 +57,11 @@ Inserts `data` at the end of the list.
 void sllClear (struct sllNode **headPtr)
 ```
 </td>
-<td>Removes & frees all elements from the list.</td>
+<td>
+
+Removes & frees all elements from the list.
+* Runtime: θ(n)
+</td>
 </tr>
 
 <tr>
@@ -66,7 +71,11 @@ void sllClear (struct sllNode **headPtr)
 int sllContains (struct sllNode **headPtr, int data)
 ```
 </td>
-<td>Returns 1 if 'data' is found in the list, 0 otherwise.</td>
+<td>
+
+Returns 1 if `data` is found in the list, 0 otherwise.
+* Runtime: θ(n)
+</td>
 </tr>
 
 <tr>
@@ -76,7 +85,11 @@ int sllContains (struct sllNode **headPtr, int data)
 void sllFlip (struct sllNode **headPtr)
 ```
 </td>
-<td>Reverses the order of the linked list.</td>
+<td>
+
+Reverses the order of the linked list.
+* Runtime: θ(n)
+</td>
 </tr>
 
 <tr>
@@ -86,7 +99,11 @@ void sllFlip (struct sllNode **headPtr)
 int sllIndexOf (struct sllNode **headPtr, int data)
 ```
 </td>
-<td>Returns the first occurence of 'data', or -1 if 'data' is not in the list.</td>
+<td>
+
+Returns the first occurence of `data`, or -1 if `data` is not in the list.
+* Runtime: θ(n)
+</td>
 </tr>
 
 <tr>
@@ -96,7 +113,11 @@ int sllIndexOf (struct sllNode **headPtr, int data)
 int sllPeekFirst (struct sllNode **headPtr)
 ```
 </td>
-<td>Returns the data from the first node in the list.</td>
+<td>
+
+Returns the data from the first node in the list.
+* Runtime: θ(1)
+</td>
 </tr>
 
 <tr>
@@ -106,7 +127,11 @@ int sllPeekFirst (struct sllNode **headPtr)
 int sllPeekLast (struct sllNode **headPtr)
 ```
 </td>
-<td>Returns the data from the last node in the list.</td>
+<td>
+
+Returns the data from the last node in the list.
+* Runtime: θ(n)
+</td>
 </tr>
 
 <tr>
@@ -116,7 +141,11 @@ int sllPeekLast (struct sllNode **headPtr)
 void sllPrint (struct sllNode **headPtr)
 ```
 </td>
-<td>Prints a string representation of the list.</td>
+<td>
+
+Prints a string representation of the list.
+* Runtime: θ(n)
+</td>
 </tr>
 
 <tr>
@@ -126,7 +155,10 @@ void sllPrint (struct sllNode **headPtr)
 void sllRemove (struct sllNode **headPtr, int data)
 ```
 </td>
-<td>Removes the first occurrence of 'data' from the list, if it exists.</td>
+<td>
+
+Removes the first occurrence of `data` from the list, if it exists.</td>
+* Runtime: θ(n)
 </tr>
 
 <tr>
@@ -136,7 +168,11 @@ void sllRemove (struct sllNode **headPtr, int data)
 int sllRemoveFirst (struct sllNode **headPtr)
 ```
 </td>
-<td>Removes and returns the first element of the list.</td>
+<td>
+
+Removes and returns the first element of the list.
+* Runtime: θ(1)
+</td>
 </tr>
 
 <tr>
@@ -146,7 +182,11 @@ int sllRemoveFirst (struct sllNode **headPtr)
 int sllRemoveLast (struct sllNode **headPtr)
 ```
 </td>
-<td>Removes and returns the last element of the list.</td>
+<td>
+
+Removes and returns the last element of the list.
+* Runtime: θ(n)
+</td>
 </tr>
 
 <tr>
@@ -156,7 +196,11 @@ int sllRemoveLast (struct sllNode **headPtr)
 void sllSize (struct sllNode **headPtr)
 ```
 </td>
-<td>Returns the size of the list.</td>
+<td>
+
+Returns the size of the list.
+* Runtime: θ(n)
+</td>
 </tr>
 
 <tr>
@@ -166,7 +210,11 @@ void sllSize (struct sllNode **headPtr)
 void sllSortMS (struct sllNode **headPtr)
 ```
 </td>
-<td>Sorts the list in increasing order using MergeSort algorithm.</td>
+<td>
+
+Sorts the list in increasing order using MergeSort algorithm.
+* Runtime: θ(nlog(n))
+</td>
 </tr>
 
 <tr>
@@ -176,23 +224,12 @@ void sllSortMS (struct sllNode **headPtr)
 void sllSortQS (struct sllNode **headPtr)
 ```
 </td>
-<td>Sorts the list in increasing order using QuickSort algorithm.</td>
+<td>
+
+Sorts the list in increasing order using QuickSort algorithm.
+* Runtime: θ(nlog(n))
+</td>
 </tr>
 
 </table>
 
-* sllAddFirst
-* sllAddLast
-* sllClear
-* sllContains
-* sllFlip
-* sllIndexOf
-* sllPeekFirst
-* sllPeekLast
-* sllPrint
-* sllRemove
-* sllRemoveFirst
-* sllRemoveLast
-* sllSize
-* sllSortMS
-* sllSortQS
