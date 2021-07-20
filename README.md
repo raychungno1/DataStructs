@@ -1,15 +1,15 @@
 # Data Structure Library 
 
-## Singly Linked Lists(sll) & Doubly Linked Lists(dll)
+## Singly Linked Lists(SLL) & Doubly Linked Lists(DLL)
 Due to the similarity of both implementations, their documentations are combined into one section.
-This sll implementation uses the following structure:
+The SLL implementation uses the following structure:
 ```c
 struct sllNode {
 	int data;
 	struct sllNode *next;
 };
 ```
-This dll implementation uses the following structure:
+The SLL implementation uses the following structure:
 ```c
 struct dllNode {
 	int data;
