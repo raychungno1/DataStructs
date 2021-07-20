@@ -184,7 +184,7 @@ int sllRemoveFirst (struct sllNode **headPtr)
 
 Removes and returns the first element of the list.
 
-`Runtime: θ(n)`
+`Runtime: θ(1)`
 </td>
 </tr>
 
