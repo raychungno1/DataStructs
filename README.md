@@ -30,11 +30,7 @@ This implementation includes the following methods:
 void sllAddFirst (struct sllNode **headPtr, int data)
 ```
 </td>
-<td>Inserts 
-
-`data`
-
- at the beginning of the list.</td>
+<td>Inserts <pre lang="c">data</pre> at the beginning of the list.</td>
 </tr>
 
 <tr>
