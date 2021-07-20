@@ -48,6 +48,7 @@ void sllAddLast (struct sllNode **headPtr, int data)
 <td>
 
 Inserts `data` at the end of the list.
+
 `Runtime: θ(n)`
 </td>
 </tr>
@@ -62,6 +63,7 @@ void sllClear (struct sllNode **headPtr)
 <td>
 
 Removes & frees all elements from the list.
+
 `Runtime: θ(n)`
 </td>
 </tr>
@@ -76,6 +78,7 @@ int sllContains (struct sllNode **headPtr, int data)
 <td>
 
 Returns 1 if `data` is found in the list, 0 otherwise.
+
 `Runtime: θ(n)`
 </td>
 </tr>
@@ -90,6 +93,7 @@ void sllFlip (struct sllNode **headPtr)
 <td>
 
 Reverses the order of the linked list.
+
 `Runtime: θ(n)`
 </td>
 </tr>
@@ -104,6 +108,7 @@ int sllIndexOf (struct sllNode **headPtr, int data)
 <td>
 
 Returns the first occurence of `data`, or -1 if `data` is not in the list.
+
 `Runtime: θ(n)`
 </td>
 </tr>
@@ -118,6 +123,7 @@ int sllPeekFirst (struct sllNode **headPtr)
 <td>
 
 Returns the data from the first node in the list.
+
 `Runtime: θ(1)`
 </td>
 </tr>
@@ -132,6 +138,7 @@ int sllPeekLast (struct sllNode **headPtr)
 <td>
 
 Returns the data from the last node in the list.
+
 `Runtime: θ(n)`
 </td>
 </tr>
@@ -146,6 +153,7 @@ void sllPrint (struct sllNode **headPtr)
 <td>
 
 Prints a string representation of the list.
+
 `Runtime: θ(n)`
 </td>
 </tr>
@@ -160,6 +168,7 @@ void sllRemove (struct sllNode **headPtr, int data)
 <td>
 
 Removes the first occurrence of `data` from the list, if it exists.
+
 `Runtime: θ(n)`
 </td>
 </tr>
@@ -174,6 +183,7 @@ int sllRemoveFirst (struct sllNode **headPtr)
 <td>
 
 Removes and returns the first element of the list.
+
 `Runtime: θ(n)`
 </td>
 </tr>
@@ -188,6 +198,7 @@ int sllRemoveLast (struct sllNode **headPtr)
 <td>
 
 Removes and returns the last element of the list.
+
 `Runtime: θ(n)`
 </td>
 </tr>
@@ -202,6 +213,7 @@ void sllSize (struct sllNode **headPtr)
 <td>
 
 Returns the size of the list.
+
 `Runtime: θ(n)`
 </td>
 </tr>
@@ -216,6 +228,7 @@ void sllSortMS (struct sllNode **headPtr)
 <td>
 
 Sorts the list in increasing order using MergeSort algorithm.
+
 `Runtime: θ(nlog(n))`
 </td>
 </tr>
@@ -230,6 +243,7 @@ void sllSortQS (struct sllNode **headPtr)
 <td>
 
 Sorts the list in increasing order using QuickSort algorithm.
+
 `Runtime: θ(nlog(n))`
 </td>
 </tr>
