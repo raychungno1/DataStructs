@@ -2,7 +2,8 @@
 
 ## Linked Lists: Singly Linked (SLL), Doubly Linked (DLL), & Circular Linked (CLL)
 Due to the similarity of the SLL, DLL, and CLL implementations, their documentations are combined into one section. The CLL implementation is also doubly linked.
-The Linked List is represented by a pointer that points the the first node of the list. Stack & Queue behavior can also be modeled using these Linked List implementations.
+
+These Linked Lists are represented by a pointer that points the the first node of the list. Stack & Queue behavior can also be modeled using these Linked List implementations.
 
 The SLL implementation uses the following structure:
 ```c
@@ -58,7 +59,9 @@ void cllAddFirst (struct cllNode **headPtr, int data)
 Inserts `data` at the beginning of the list.
 
 `SLL Runtime: θ(1)`
+
 `DLL Runtime: θ(1)`
+
 `CLL Runtime: θ(1)`
 </td>
 </tr>
@@ -81,7 +84,9 @@ void cllAddLast (struct cllNode **headPtr, int data)
 Inserts `data` at the end of the list.
 
 `SLL Runtime: θ(n)`
+
 `DLL Runtime: θ(n)`
+
 `CLL Runtime: θ(1)`
 </td>
 </tr>
@@ -104,7 +109,9 @@ void cllClear (struct cllNode **headPtr)
 Removes & frees all elements from the list.
 
 `SLL Runtime: θ(n)`
+
 `DLL Runtime: θ(n)`
+
 `CLL Runtime: θ(n)`
 </td>
 </tr>
@@ -127,7 +134,9 @@ int cllContains (struct cllNode **headPtr, int data)
 Returns 1 if `data` is found in the list, 0 otherwise.
 
 `SLL Runtime: θ(n)`
+
 `DLL Runtime: θ(n)`
+
 `CLL Runtime: θ(n)`
 </td>
 </tr>
@@ -150,7 +159,9 @@ void cllFlip (struct cllNode **headPtr)
 Reverses the order of the linked list.
 
 `SLL Runtime: θ(n)`
+
 `DLL Runtime: θ(n)`
+
 `CLL Runtime: θ(n)`
 </td>
 </tr>
@@ -173,7 +184,9 @@ int cllIndexOf (struct cllNode **headPtr, int data)
 Returns the first occurence of `data`, or -1 if `data` is not in the list.
 
 `SLL Runtime: θ(n)`
+
 `DLL Runtime: θ(n)`
+
 `CLL Runtime: θ(n)`
 </td>
 </tr>
@@ -196,7 +209,9 @@ int cllPeekFirst (struct cllNode **headPtr)
 Returns the data from the first node in the list.
 
 `SLL Runtime: θ(1)`
+
 `DLL Runtime: θ(1)`
+
 `CLL Runtime: θ(1)`
 </td>
 </tr>
@@ -219,7 +234,9 @@ int cllPeekLast (struct cllNode **headPtr)
 Returns the data from the last node in the list.
 
 `SLL Runtime: θ(n)`
+
 `DLL Runtime: θ(n)`
+
 `CLL Runtime: θ(1)`
 </td>
 </tr>
@@ -242,7 +259,9 @@ void cllPrint (struct cllNode **headPtr)
 Prints a string representation of the list.
 
 `SLL Runtime: θ(n)`
+
 `DLL Runtime: θ(n)`
+
 `CLL Runtime: θ(n)`
 </td>
 </tr>
@@ -265,7 +284,9 @@ void cllRemove (struct cllNode **headPtr, int data)
 Removes the first occurrence of `data` from the list, if it exists.
 
 `SLL Runtime: θ(n)`
+
 `DLL Runtime: θ(n)`
+
 `CLL Runtime: θ(n)`
 </td>
 </tr>
@@ -288,7 +309,9 @@ int cllRemoveFirst (struct cllNode **headPtr)
 Removes and returns the first element of the list.
 
 `SLL Runtime: θ(1)`
+
 `DLL Runtime: θ(1)`
+
 `CLL Runtime: θ(1)`
 </td>
 </tr>
@@ -311,7 +334,9 @@ int cllRemoveLast (struct cllNode **headPtr)
 Removes and returns the last element of the list.
 
 `SLL Runtime: θ(n)`
+
 `DLL Runtime: θ(n)`
+
 `CLL Runtime: θ(1)`
 </td>
 </tr>
@@ -334,7 +359,9 @@ void cllSize (struct cllNode **headPtr)
 Returns the size of the list.
 
 `SLL Runtime: θ(n)`
+
 `DLL Runtime: θ(n)`
+
 `CLL Runtime: θ(n)`
 </td>
 </tr>
@@ -357,7 +384,9 @@ void cllSortMS (struct cllNode **headPtr)
 Sorts the list in increasing order using MergeSort algorithm.
 
 `SLL Runtime: θ(nlog(n))`
+
 `DLL Runtime: θ(nlog(n))`
+
 `CLL Runtime: θ(nlog(n))`
 </td>
 </tr>
@@ -380,7 +409,9 @@ void cllSortQS (struct cllNode **headPtr)
 Sorts the list in increasing order using QuickSort algorithm.
 
 `SLL Runtime: θ(nlog(n))`
+
 `DLL Runtime: θ(nlog(n))`
+
 `CLL Runtime: θ(nlog(n))`
 </td>
 </tr>
