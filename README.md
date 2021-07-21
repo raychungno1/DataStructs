@@ -22,10 +22,10 @@ struct dllNode {
 ```
 The CLL Implementation uses the following structure: 
 ```c
-struct dllNode {
+struct cllNode {
 	int data;
-	struct dllNode *next;
-	struct dllNode *prev;
+	struct cllNode *next;
+	struct cllNode *prev;
 };
 ```
 ---
