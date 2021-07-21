@@ -44,6 +44,11 @@ int main() {
 	sllPrint(&head);
 	sllClear(&head);
 
+	printf("Test - List of length 1:\n\t");
+	sllAddFirst(&head, 25);
+	sllPrint(&head);
+	sllClear(&head);
+
 	printf("Test - Empty list:\n\t");
 	sllPrint(&head);
 
@@ -51,24 +56,31 @@ int main() {
 	printf("\n----- sllRemove Test: -----\n");
 	printf("Test - List of length 5 {0, 1, 2, 3, 4}:\n");
 	for (i = 0; i < 5; i++) sllAddLast(&head, i);
-	printf("\tRemoving first element(0)...");
+	printf("\tRemoving first element(0)...\t\t");
 	sllRemove(&head, 0);
 	sllPrint(&head);
 	
-	printf("\tRemoving middle element(2)...");
+	printf("\tRemoving middle element(2)...\t\t");
 	sllRemove(&head, 2);
 	sllPrint(&head);
 
-	printf("\tRemoving last element(4)...");
+	printf("\tRemoving last element(4)...\t\t");
 	sllRemove(&head, 4);
 	sllPrint(&head);
 
-	printf("\tRemoving non-existent element(6)...");
+	printf("\tRemoving element(1)...\t\t\t");
+	sllRemove(&head, 1);
+	sllPrint(&head);
+
+	printf("\tRemoving non-existent element(6)...\t");
 	sllRemove(&head, 6);
 	sllPrint(&head);
 
-	sllClear(&head);
-	printf("Test - Empty list {}:\n\tRemoving non-existent element...");
+	printf("\tRemoving element(3) to empty list...\t");
+	sllRemove(&head, 3);
+	sllPrint(&head);
+
+	printf("Test - Empty list {}:\n\tRemoving non-existent element...\t");
 	sllRemove(&head, 0);
 	sllPrint(&head);
 
@@ -109,6 +121,11 @@ int main() {
 	printf("Test - Empty list {}:\n");
 	printf("\tSize: %i\n", sllSize(&head));
 
+	printf("Test - List of length 1 {25}:\n");
+	sllAddFirst(&head, 25);
+	printf("\tSize: %i\n", sllSize(&head));
+	sllClear(&head);
+
 	printf("Test - List of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
 	for (i = 0; i < 10; i++) sllAddLast(&head, i);
 	printf("\tSize: %i\n", sllSize(&head));
@@ -119,6 +136,11 @@ int main() {
 	sllFlip(&head);
 	printf("\t");
 	sllPrint(&head);
+	sllClear(&head);
+
+	printf("Test - List of length 1 {25}:\n");
+	sllAddFirst(&head, 25);
+	printf("\t");
 	sllClear(&head);
 
 	printf("Test - Empty list {}:\n");
@@ -132,6 +154,13 @@ int main() {
 	sllSortQS(&head);
 	printf("\t");
 	sllPrint(&head);
+
+	printf("Test - List of length 1 {25}:\n");
+	sllAddFirst(&head, 25);
+	sllSortQS(&head);
+	printf("\t");
+	sllPrint(&head);
+	sllClear(&head);
 
 	printf("Test - Already sorted list of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
 	for (i = 0; i < 10; i++) sllAddLast(&head, i);
@@ -162,6 +191,13 @@ int main() {
 	printf("\t");
 	sllPrint(&head);
 
+	printf("Test - List of length 1 {25}:\n");
+	sllAddFirst(&head, 25);
+	sllSortMS(&head);
+	printf("\t");
+	sllPrint(&head);
+	sllClear(&head);
+
 	printf("Test - Already sorted list of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
 	for (i = 0; i < 10; i++) sllAddLast(&head, i);
 	sllSortMS(&head);
@@ -182,7 +218,7 @@ int main() {
 	sllSortMS(&head);
 	printf("\t");
 	sllPrint(&head);
-	printf("\tRandom Test of sllFlip:");
+	printf("\tRandom Test of sllFlip: ");
 	sllFlip(&head);
 	sllPrint(&head);
 
@@ -191,6 +227,12 @@ int main() {
 	printf("Test - Empty list {}:\n");
 	sllClear(&head);
 	printf("\tIndex of 1 is: %i\n", sllIndexOf(&head, 1));
+
+	printf("Test - List of length 1 {25}:\n");
+	sllAddFirst(&head, 25);
+	printf("\tIndex of 25 is: %i\n", sllIndexOf(&head, 25));
+	printf("\tIndex of 1 is: %i\n", sllIndexOf(&head, 1));
+	sllClear(&head);
 
 	printf("Test - List of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
 	for (i = 0; i < 10; i++) sllAddLast(&head, i);
@@ -205,6 +247,11 @@ int main() {
 	sllClear(&head);
 	printf("\tFirst element: %i\n\tLast element: %i\n", sllPeekFirst(&head), sllPeekLast(&head));
 
+	printf("Test - List of length 1 {25}:\n");
+	sllAddFirst(&head, 25);
+	printf("\tFirst element: %i\n\tLast element: %i\n", sllPeekFirst(&head), sllPeekLast(&head));
+	sllClear(&head);
+	
 	printf("Test - List of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
 	for (i = 0; i < 10; i++) sllAddLast(&head, i);
 	printf("\tFirst element: %i\n\tLast element: %i\n", sllPeekFirst(&head), sllPeekLast(&head));

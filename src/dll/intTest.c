@@ -44,6 +44,11 @@ int main() {
 	dllPrint(&head);
 	dllClear(&head);
 
+	printf("Test - List of length 1:\n\t");
+	dllAddFirst(&head, 25);
+	dllPrint(&head);
+	dllClear(&head);
+
 	printf("Test - Empty list:\n\t");
 	dllPrint(&head);
 
@@ -51,24 +56,31 @@ int main() {
 	printf("\n----- dllRemove Test: -----\n");
 	printf("Test - List of length 5 {0, 1, 2, 3, 4}:\n");
 	for (i = 0; i < 5; i++) dllAddLast(&head, i);
-	printf("\tRemoving first element(0)...");
+	printf("\tRemoving first element(0)...\t\t");
 	dllRemove(&head, 0);
 	dllPrint(&head);
 	
-	printf("\tRemoving middle element(2)...");
+	printf("\tRemoving middle element(2)...\t\t");
 	dllRemove(&head, 2);
 	dllPrint(&head);
 
-	printf("\tRemoving last element(4)...");
+	printf("\tRemoving last element(4)...\t\t");
 	dllRemove(&head, 4);
 	dllPrint(&head);
 
-	printf("\tRemoving non-existent element(6)...");
+	printf("\tRemoving element(1)...\t\t\t");
+	dllRemove(&head, 1);
+	dllPrint(&head);
+
+	printf("\tRemoving non-existent element(6)...\t");
 	dllRemove(&head, 6);
 	dllPrint(&head);
 
-	dllClear(&head);
-	printf("Test - Empty list {}:\n\tRemoving non-existent element...");
+	printf("\tRemoving element(3) to empty list...\t");
+	dllRemove(&head, 3);
+	dllPrint(&head);
+
+	printf("Test - Empty list {}:\n\tRemoving non-existent element...\t");
 	dllRemove(&head, 0);
 	dllPrint(&head);
 
@@ -109,6 +121,11 @@ int main() {
 	printf("Test - Empty list {}:\n");
 	printf("\tSize: %i\n", dllSize(&head));
 
+	printf("Test - List of length 1 {25}:\n");
+	dllAddFirst(&head, 25);
+	printf("\tSize: %i\n", dllSize(&head));
+	dllClear(&head);
+
 	printf("Test - List of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
 	for (i = 0; i < 10; i++) dllAddLast(&head, i);
 	printf("\tSize: %i\n", dllSize(&head));
@@ -119,6 +136,11 @@ int main() {
 	dllFlip(&head);
 	printf("\t");
 	dllPrint(&head);
+	dllClear(&head);
+
+	printf("Test - List of length 1 {25}:\n");
+	dllAddFirst(&head, 25);
+	printf("\t");
 	dllClear(&head);
 
 	printf("Test - Empty list {}:\n");
@@ -132,6 +154,13 @@ int main() {
 	dllSortQS(&head);
 	printf("\t");
 	dllPrint(&head);
+
+	printf("Test - List of length 1 {25}:\n");
+	dllAddFirst(&head, 25);
+	dllSortQS(&head);
+	printf("\t");
+	dllPrint(&head);
+	dllClear(&head);
 
 	printf("Test - Already sorted list of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
 	for (i = 0; i < 10; i++) dllAddLast(&head, i);
@@ -161,6 +190,13 @@ int main() {
 	dllSortMS(&head);
 	printf("\t");
 	dllPrint(&head);
+
+	printf("Test - List of length 1 {25}:\n");
+	dllAddFirst(&head, 25);
+	dllSortMS(&head);
+	printf("\t");
+	dllPrint(&head);
+	dllClear(&head);
 
 	printf("Test - Already sorted list of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
 	for (i = 0; i < 10; i++) dllAddLast(&head, i);
@@ -192,6 +228,12 @@ int main() {
 	dllClear(&head);
 	printf("\tIndex of 1 is: %i\n", dllIndexOf(&head, 1));
 
+	printf("Test - List of length 1 {25}:\n");
+	dllAddFirst(&head, 25);
+	printf("\tIndex of 25 is: %i\n", dllIndexOf(&head, 25));
+	printf("\tIndex of 1 is: %i\n", dllIndexOf(&head, 1));
+	dllClear(&head);
+
 	printf("Test - List of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
 	for (i = 0; i < 10; i++) dllAddLast(&head, i);
 	printf("\tIndex of 0 is: %i\n", dllIndexOf(&head, 0));
@@ -205,6 +247,11 @@ int main() {
 	dllClear(&head);
 	printf("\tFirst element: %i\n\tLast element: %i\n", dllPeekFirst(&head), dllPeekLast(&head));
 
+	printf("Test - List of length 1 {25}:\n");
+	dllAddFirst(&head, 25);
+	printf("\tFirst element: %i\n\tLast element: %i\n", dllPeekFirst(&head), dllPeekLast(&head));
+	dllClear(&head);
+	
 	printf("Test - List of length 10 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}:\n");
 	for (i = 0; i < 10; i++) dllAddLast(&head, i);
 	printf("\tFirst element: %i\n\tLast element: %i\n", dllPeekFirst(&head), dllPeekLast(&head));
