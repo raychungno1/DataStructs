@@ -1,5 +1,13 @@
 # Data Structure Library 
 
+## Table of Contents
+* **[Linked Lists](#linked-lists-singly-linked-sll-doubly-linked-dll--circular-linked-cll)**<br>
+  * Queue
+  * Stack
+* **[Binary Search Trees](#binary-search-trees-bst)**<br>
+
+---
+
 ## Linked Lists: Singly Linked (SLL), Doubly Linked (DLL), & Circular Linked (CLL)
 Due to the similarity of the SLL, DLL, and CLL implementations, their documentations are combined into one section. The CLL implementation is also doubly linked.
 
@@ -29,6 +37,9 @@ struct cllNode {
 };
 ```
 ---
+When analyzing runtimes:
+     n = size of linked list
+
 This implementation includes the following methods:
 
 <table style="width:100%">
@@ -420,3 +431,64 @@ Sorts the list in increasing order using QuickSort algorithm.
 
 ---
 
+## Binary Search Trees (BST)
+This Binary Search Tree is represented bt a pointer that points to the root node of the tree. 
+
+The BST implementation uses the following structure:
+```c
+struct bstNode {
+	int data;
+	int size;
+	struct bstNode *parent;
+	struct bstNode *left;
+	struct bstNode *right;	
+}
+```
+---
+This implementation includes the following methods: 
+
+<table style="width:100%">
+<colgroup>
+<col style="width:50%">
+</colgroup>
+
+<tr>
+<th>Function Prototype</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bstClear (struct bstNode **rootPtr)
+```
+</td>
+<td>
+
+Clears & frees the entire tree.
+
+`BST Runtime: θ(n)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bstCountRange (struct bstNode *root, int min, int max)
+```
+</td>
+<td>
+
+Counts the number of nodes that lie within a range of values (inclusive).
+
+`BST Runtime: θ(h)`, h = tree height
+
+</td>
+</tr>
+
+</table>
+
+---

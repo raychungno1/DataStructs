@@ -18,22 +18,23 @@ void bstClear (struct bstNode **rootPtr) {
 int bstCountRange (struct bstNode *root, int min, int max) {
 
 	/* count variable */
-	int count = 0;
+	int cLeft, cRight;
 
-	/* return 0 for empty tree */
-	if (root != NULL) return count;
-
-	/* search left tree if min < key */
-	if (min <= root->data) count += bstCountRange(root->left, min, max);
-
-	/* add 1 for root node */
-	if (min <= root->data <= max) count++;
-
-	/* search right tree if key < max; */
-	if (root->data <= max) count += bstCountRange(root->right, min, max);
-
-	/* ourput */
-	return count;
+	while (root != NULL && (root->data < min || max < root->data)) {
+		if (root->data <= min) {
+			root = root->right;
+		} else if (root->data >= max) {
+			root = root->left;
+		}
+	}	
+	
+	if (root != NULL) {
+		cLeft = bstCountGE(root->left, min);
+		cRight = bstCountLE(root->right, max);
+		return 1 + cLeft + cRight;
+	} else {
+		return 0;
+	}
 }
 
 int bstCountGE (struct bstNode *root, int min) {
@@ -41,9 +42,6 @@ int bstCountGE (struct bstNode *root, int min) {
 	/* count variable */
 	int count = 0;
 
-	/* return 0 for empty tree */
-	if (root != NULL) return count;
-	
 	/* until a leaf node is reached */
 	while (root != NULL) {
 		/* if root is greater than min */
@@ -65,9 +63,6 @@ int bstCountLE (struct bstNode *root, int max) {
 	/* count variable */
 	int count = 0;
 
-	/* return 0 for empty tree */
-	if (root != NULL) return count;
-	
 	/* until a leaf node is reached */
 	while (root != NULL) {
 		/* if root is greater than min */
