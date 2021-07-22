@@ -38,7 +38,7 @@ struct cllNode {
 ```
 ---
 When analyzing runtimes:<br>
-  n = size of linked list
+* n = size of linked list
 
 This implementation includes the following methods:
 
