@@ -445,6 +445,10 @@ struct bstNode {
 }
 ```
 ---
+When analyzing runtimes:<br>
+* n = size of tree
+* h = height of tree (log(n) <= **h** <= n)
+
 This implementation includes the following methods: 
 
 <table style="width:100%">
@@ -477,14 +481,254 @@ Clears & frees the entire tree.
 <td>
 
 ```c
-void bstCountRange (struct bstNode *root, int min, int max)
+int bstCountRange (struct bstNode *root, int min, int max)
 ```
 </td>
 <td>
 
 Counts the number of nodes that lie within a range of values (inclusive).
 
-`BST Runtime: θ(h)`, h = tree height
+`BST Runtime: θ(h)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+int bstCountGE (struct bstNode *root, int min)
+```
+</td>
+<td>
+
+Counts the number of nodes that are greater than or equal to min.
+
+`BST Runtime: θ(h)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+int bstCountLE (struct bstNode *root, int max)
+```
+</td>
+<td>
+
+Counts the number of nodes that are less than or equal to max.
+
+`BST Runtime: θ(h)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bstDelete (struct bstNode **rootPtr, int key)
+```
+</td>
+<td>
+
+Deletes the upper-most node with `key`, if it exists.
+
+`BST Runtime: θ(h)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+int bstHeight (struct bstNode *root)
+```
+</td>
+<td>
+
+Returns the height of the tree. 
+
+`BST Runtime: θ(n)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bstInsert (struct bstNode **rootPtr, int data)
+```
+</td>
+<td>
+
+Inserts `data` into the tree.
+
+`BST Runtime: θ(h)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct bstNode *bstMin (struct bstNode *root)
+```
+</td>
+<td>
+
+Returns a pointer to the smallest node in the tree. 
+
+`BST Runtime: θ(h)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct bstNode *bstMinGE (struct bstNode *root, int key)
+```
+</td>
+<td>
+
+Returns a pointer to the smallest node greater than or equal to `key`. 
+
+`BST Runtime: θ(h)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct bstNode *bstMax (struct bstNode *root)
+```
+</td>
+<td>
+
+Returns a pointer to the biggest node in the tree. 
+
+`BST Runtime: θ(h)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct bstNode *bstMaxLE (struct bstNode *root, int key)
+```
+</td>
+<td>
+
+Returns a pointer to the biggest node less than or equal to `key`. 
+
+`BST Runtime: θ(h)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct bstNode *bstPredecessor (struct bstNode *node)
+```
+</td>
+<td>
+
+Returns a pointer to the previous node in the inorder sequence, if exists.
+
+`BST Runtime: θ(h)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bstPrettyPrint (struct bstNode *root, int depth)
+```
+</td>
+<td>
+
+Pretty-prints an ASCII representation of the tree.
+
+`BST Runtime: θ(n*h)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bstPrint (struct bstNode *root)
+```
+</td>
+<td>
+
+Prints the tree in an inorder sequence.
+
+`BST Runtime: θ(n)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bstSize (struct bstNode *root)
+```
+</td>
+<td>
+
+Returns the size of the tree.
+
+`BST Runtime: θ(1)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct bstNode *bstSearch (struct bstNode *root, int key)
+```
+</td>
+<td>
+
+Returns a pointer to the node with `key`, if exists.
+
+`BST Runtime: θ(h)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct bstNode *bstSuccessor (struct bstNode *node)
+```
+</td>
+<td>
+
+Returns a pointer to the next node in the inorder sequence, if exists.
+
+`BST Runtime: θ(h)`
 
 </td>
 </tr>
