@@ -20,21 +20,24 @@ int bstCountRange (struct bstNode *root, int min, int max) {
 	/* count variable */
 	int cLeft, cRight;
 
+	/* finds a root that is inside the range */
 	while (root != NULL && (root->data < min || max < root->data)) {
 		if (root->data <= min) {
-			root = root->right;
+			root = root->right; /* traverse to right tree if data <= min */
 		} else if (root->data >= max) {
-			root = root->left;
+			root = root->left; /* traverse to left tree if data >= max */
 		}
 	}	
-	
+
+	/* if a node is found */	
 	if (root != NULL) {
-		cLeft = bstCountGE(root->left, min);
-		cRight = bstCountLE(root->right, max);
-		return 1 + cLeft + cRight;
-	} else {
-		return 0;
+		cLeft = bstCountGE(root->left, min); /* add nodes in left tree >= min */
+		cRight = bstCountLE(root->right, max); /* add nodes in right tree <= max */
+		return 1 + cLeft + cRight; /* return root & subtree nodes */
 	}
+
+	/* if a node is not found */
+	return 0;
 }
 
 int bstCountGE (struct bstNode *root, int min) {
@@ -45,7 +48,7 @@ int bstCountGE (struct bstNode *root, int min) {
 	/* until a leaf node is reached */
 	while (root != NULL) {
 		/* if root is greater than min */
-		if (root->data > min) {
+		if (root->data >= min) {
 			count ++; /* increment count & add size of right tree */
 			if (root->right != NULL) count += (root->right)->size;
 			root = root->left;
@@ -66,7 +69,7 @@ int bstCountLE (struct bstNode *root, int max) {
 	/* until a leaf node is reached */
 	while (root != NULL) {
 		/* if root is greater than min */
-		if (root->data < max) {
+		if (root->data <= max) {
 			count ++; /* increment count & add size of right tree */
 			if (root->left != NULL) count += (root->left)->size;
 			root = root->right;
@@ -396,7 +399,7 @@ int bstSize (struct bstNode *root) {
 struct bstNode *bstSearch (struct bstNode *root, int key) {
 
 	/* while tree is not empty or data is not in root node */
-	while (root == NULL || key != root->data) {
+	while (root != NULL && key != root->data) {
 		/* traverse down the tree accordingly */
 		root = (key < root->data) ? root->left : root->right; 
 	}

@@ -11,4 +11,6 @@ void rootOnly(struct bstNode **head);
 
 void random(struct bstNode **head);
 
+void test1(struct bstNode **head);
+
 #endif

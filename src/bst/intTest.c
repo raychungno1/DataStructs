@@ -4,66 +4,60 @@
 
 int main() {
 
+	int i, arr[20] = {46, 22, 73, 36, 29, 52, 50, 84, 87, 76, 6, 68, 100, 56, 52, 78, 90, 6, 78, 26};
 	struct bstNode *root = NULL;
 
-	leftSkew(&root);
-	pInfo(root);
+	/* Testing
+	 * bstClear
+	 * bstInsert
+	 * bstPrettyPrint
+	 * bstPrint
+	 * bstSize
+	 * bstHeight
+	 * bstMin
+	 * bstMax
+	 * bstMinGE
+	 * bstMaxLE
+	 * bstPredecessor
+	 * bstSuccessor
+	 * bstCountRange
+	 * bstCountGE
+	 * bstCountLE
+	 * on different types of trees
+	 */
+	leftSkew(&root), pInfo(root);
 
-	rightSkew(&root);
-	pInfo(root);
+	rightSkew(&root), pInfo(root);
 
-	rootOnly(&root);
-	pInfo(root);
+	rootOnly(&root), pInfo(root);
 
-	random(&root);
-	pInfo(root);
-/*
-	bstInsert(&root, 20);
-	bstInsert(&root, 5);
-	bstInsert(&root, 3);
-	bstInsert(&root, 2);
-	bstInsert(&root, 4);
-	bstInsert(&root, 5);
-	bstInsert(&root, 15);
-	bstInsert(&root, 10);
-	bstInsert(&root, 18);
-	bstInsert(&root, 30);
-	bstInsert(&root, 35);
-	bstInsert(&root, 25);
-	bstInsert(&root, 24);
-	bstInsert(&root, 26);
+	random(&root), pInfo(root);
 
-	pInfo(root);
+	test1(&root), pInfo(root);
 
-	bstPrint(root);
-	printf("\n");
+	/* testing bstSearch */
+	test1(&root);
+	printf("bstSearch test: \n");
+	for (i = 0; i < 20; i++) {
+		bstSearch(root, arr[i]) ? printf("  Tree has %i\n", arr[i]) : printf("  Tree doesn't have %i\n", arr[i]);
+	}
+	bstSearch(root, -1) ? printf("  Tree has -1\n") : printf("  Tree doesn't have -1\n");
+	bstSearch(root, 75) ? printf("  Tree has 75\n") : printf("  Tree doesn't have 75\n");
+	bstSearch(root, 101) ? printf("  Tree has 101\n") : printf("  Tree doesn't have 101\n");
+	/* testing bstDelete */
+	test1(&root);
+	printf("bstDelete test: \n");
+	printf("----- Original -----\n");
 	bstPrettyPrint(root, 0);
-	printf("Size: %i\n", bstSize(root));
+	printf("-----\n");
+	for (i = 0; i < 20; i++) {
+		printf("  After Deleting %i:\n", arr[i]);
+		bstDelete(&root, arr[i]);
+		bstPrettyPrint(root, 0);
+		printf("-----\n");
+	}
 
-	bstDelete(&root, 5);
-	bstPrint(root);
-	printf("Size: %i\n", bstSize(root));
-
-	bstDelete(&root, 2);
-	bstPrint(root);
-	printf("Size: %i\n", bstSize(root));
-
-	bstInsert(&root, 7);
-	bstPrint(root);
-	printf("Size: %i\n", bstSize(root));
-
-	bstInsert(&root, 6);
-	bstPrint(root);
-	printf("Size: %i\n", bstSize(root));
-
-	bstDelete(&root, 7);
-	bstPrint(root);
-	printf("Size: %i\n", bstSize(root));
-
-	printf("Height: %i\n", bstHeight(root));
-*/
 	bstClear(&root);
-
 	printf("\n");
 	return 0;
 }
