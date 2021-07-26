@@ -1,11 +1,11 @@
 # Data Structure Library 
 
 ## Table of Contents
-* **[Linked Lists](#linked-lists-singly-linked-sll-doubly-linked-dll-circular-linked-cll)**<br>
+* **[Linked Lists](#linked-lists-singly-linked-sll-doubly-linked-dll--circular-linked-cll)**<br>
   * Singly Linked Lists
   * Double Linked Lists
   * Circular Linked Lists
-* **[Search Trees](#search-trees-binary-search-trees-bst-red-black-trees-rbt)**<br>
+* **[Search Trees](#search-trees-binary-search-trees-bst--red-black-trees-rbt)**<br>
   * Binary Search Trees
   * Red Black Trees
 
