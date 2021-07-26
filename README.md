@@ -5,7 +5,7 @@
   * Singly Linked Lists
   * Double Linked Lists
   * Circular Linked Lists
-* **[Search Trees](#search-trees-binary-search-trees-bst--red--black-trees-rbt)**<br>
+* **[Search Trees](#search-trees-binary-search-trees-bst--red-black-trees-rbt)**<br>
   * Binary Search Trees
   * Red Black Trees
 
