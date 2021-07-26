@@ -25,7 +25,6 @@ void dllAddLast (struct dllNode **headPtr, int data) {
 
 	/* allocate space for node */
 	struct dllNode *node = malloc(sizeof(struct dllNode));
-	struct dllNode *prev = NULL;
 
 	/* if memory allocation fails */
 	if (node == NULL) {
@@ -34,16 +33,14 @@ void dllAddLast (struct dllNode **headPtr, int data) {
 	}
 
 	/* traverse to end of list */
-	while (*headPtr != NULL) {
-		prev = *headPtr;
-		headPtr = &(*headPtr)->next; /* update pointer */
-	}
+	while (*headPtr != NULL && (*headPtr)->next != NULL) headPtr = &(*headPtr)->next; /* update pointer */
 
 	/* rearrange pointers to insert node at back */
 	node->data = data;
-	node->next = *headPtr;
-	node->prev = prev;
-	*headPtr = node;
+	node->next = NULL;
+	node->prev = *headPtr;
+	if (*headPtr == NULL) *headPtr = node;
+	else (*headPtr)->next = node;
 }
 
 void dllClear (struct dllNode **headPtr) {

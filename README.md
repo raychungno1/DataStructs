@@ -5,9 +5,10 @@
   * Singly Linked Lists
   * Double Linked Lists
   * Circular Linked Lists
-* **[Search Trees](#search-trees-binary-search-trees-bst--red-black-trees-rbt)**<br>
+* **[Search Trees](#search-trees-binary-search-trees-bst-red-black-trees-rbt--avl-trees-avl)**<br>
   * Binary Search Trees
   * Red Black Trees
+  * AVL Trees
 
 ---
 
@@ -434,7 +435,7 @@ Sorts the list in increasing order using QuickSort algorithm.
 
 ---
 
-## Search Trees: Binary Search Trees (BST) & Red-Black Trees (RBT)
+## Search Trees: Binary Search Trees (BST), Red-Black Trees (RBT), & AVL Trees (AVL)
 These Search Trees are represented by a pointer that points to the root node of the tree. 
 
 The BST implementation uses the following structure:
@@ -456,6 +457,17 @@ struct rbtNode {
 	struct rbtNode *parent;
 	struct rbtNode *left;
 	struct rbtNode *right;	
+}
+```
+The AVL implementation uses the following structure:
+```c
+struct avlNode {
+	int data;
+	int size;
+	int height;
+	struct avlNode *parent;
+	struct avlNode *left;
+	struct avlNode *right;	
 }
 ```
 ---
@@ -484,6 +496,9 @@ void bstClear (struct bstNode **rootPtr)
 ```c
 void rbtClear (struct rbtNode **rootPtr)
 ```
+```c
+void avlClear (struct avlNode **rootPtr)
+```
 </td>
 <td>
 
@@ -492,6 +507,8 @@ Clears & frees the entire tree.
 `BST Runtime: θ(n)`
 
 `RBT Runtime: θ(n)`
+
+`AVL Runtime: θ(n)`
 
 </td>
 </tr>
@@ -505,6 +522,9 @@ int bstCountRange (struct bstNode *root, int min, int max)
 ```c
 int rbtCountRange (struct rbtNode *root, int min, int max)
 ```
+```c
+int avlCountRange (struct avlNode *root, int min, int max)
+```
 </td>
 <td>
 
@@ -513,6 +533,8 @@ Counts the number of nodes that lie within a range of values (inclusive).
 `BST Runtime: θ(h)`
 
 `RBT Runtime: θ(log(n))`
+
+`AVL Runtime: θ(log(n))`
 
 </td>
 </td>
@@ -527,6 +549,9 @@ int bstCountGE (struct bstNode *root, int min)
 ```c
 int rbtCountGE (struct rbtNode *root, int min)
 ```
+```c
+int avlCountGE (struct avlNode *root, int min)
+```
 </td>
 <td>
 
@@ -535,6 +560,8 @@ Counts the number of nodes that are greater than or equal to min.
 `BST Runtime: θ(h)`
 
 `RBT Runtime: θ(log(n))`
+
+`AVL Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -548,6 +575,9 @@ int bstCountLE (struct bstNode *root, int max)
 ```c
 int rbtCountLE (struct rbtNode *root, int max)
 ```
+```c
+int avlCountLE (struct avlNode *root, int max)
+```
 </td>
 <td>
 
@@ -556,6 +586,8 @@ Counts the number of nodes that are less than or equal to max.
 `BST Runtime: θ(h)`
 
 `RBT Runtime: θ(log(n))`
+
+`AVL Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -569,6 +601,9 @@ void bstDelete (struct bstNode **rootPtr, int key)
 ```c
 void rbtDelete (struct rbtNode **rootPtr, int key)
 ```
+```c
+void avlDelete (struct avlNode **rootPtr, int key)
+```
 </td>
 <td>
 
@@ -577,6 +612,8 @@ Deletes the upper-most node with `key`, if it exists.
 `BST Runtime: θ(h)`
 
 `RBT Runtime: θ(log(n))`
+
+`AVL Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -590,6 +627,9 @@ int bstHeight (struct bstNode *root)
 ```c
 int rbtHeight (struct rbtNode *root)
 ```
+```c
+int avlHeight (struct avlNode *root)
+```
 </td>
 <td>
 
@@ -598,6 +638,8 @@ Returns the height of the tree.
 `BST Runtime: θ(n)`
 
 `RBT Runtime: θ(n)`
+
+`AVL Runtime: θ(1)`
 
 </td>
 </tr>
@@ -611,6 +653,9 @@ void bstInsert (struct bstNode **rootPtr, int data)
 ```c
 void rbtInsert (struct rbtNode **rootPtr, int data)
 ```
+```c
+void avlInsert (struct avlNode **rootPtr, int data)
+```
 </td>
 <td>
 
@@ -619,6 +664,8 @@ Inserts `data` into the tree.
 `BST Runtime: θ(h)`
 
 `RBT Runtime: θ(log(n))`
+
+`AVL Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -632,6 +679,9 @@ struct bstNode *bstMin (struct bstNode *root)
 ```c
 struct rbtNode *rbtMin (struct rbtNode *root)
 ```
+```c
+struct avlNode *avlMin (struct avlNode *root)
+```
 </td>
 <td>
 
@@ -640,6 +690,8 @@ Returns a pointer to the smallest node in the tree.
 `BST Runtime: θ(h)`
 
 `RBT Runtime: θ(log(n))`
+
+`AVL Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -653,6 +705,9 @@ struct bstNode *bstMinGE (struct bstNode *root, int key)
 ```c
 struct rbtNode *rbtMinGE (struct rbtNode *root, int key)
 ```
+```c
+struct avlNode *avlMinGE (struct avlNode *root, int key)
+```
 </td>
 <td>
 
@@ -661,6 +716,8 @@ Returns a pointer to the smallest node greater than or equal to `key`.
 `BST Runtime: θ(h)`
 
 `RBT Runtime: θ(log(n))`
+
+`AVL Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -674,6 +731,9 @@ struct bstNode *bstMax (struct bstNode *root)
 ```c
 struct rbtNode *rbtMax (struct rbtNode *root)
 ```
+```c
+struct avlNode *avlMax (struct avlNode *root)
+```
 </td>
 <td>
 
@@ -682,6 +742,8 @@ Returns a pointer to the biggest node in the tree.
 `BST Runtime: θ(h)`
 
 `RBT Runtime: θ(log(n))`
+
+`AVL Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -695,6 +757,9 @@ struct bstNode *bstMaxLE (struct bstNode *root, int key)
 ```c
 struct rbtNode *rbtMaxLE (struct rbtNode *root, int key)
 ```
+```c
+struct avlNode *avlMaxLE (struct avlNode *root, int key)
+```
 </td>
 <td>
 
@@ -703,6 +768,8 @@ Returns a pointer to the biggest node less than or equal to `key`.
 `BST Runtime: θ(h)`
 
 `RBT Runtime: θ(log(n))`
+
+`AVL Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -716,6 +783,9 @@ struct bstNode *bstPredecessor (struct bstNode *node)
 ```c
 struct rbtNode *rbtPredecessor (struct rbtNode *node)
 ```
+```c
+struct avlNode *avlPredecessor (struct avlNode *node)
+```
 </td>
 <td>
 
@@ -724,6 +794,8 @@ Returns a pointer to the previous node in the inorder sequence, if exists.
 `BST Runtime: θ(h)`
 
 `RBT Runtime: θ(log(n))`
+
+`AVL Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -737,12 +809,17 @@ void bstPrettyPrint (struct bstNode *root, int depth)
 ```c
 void rbtPrettyPrint (struct rbtNode *root, int depth)
 ```
+```c
+void avlPrettyPrint (struct avlNode *root, int depth)
+```
 </td>
 <td>
 
 Pretty-prints an ASCII representation of the tree.
 
 `BST Runtime: θ(n*h)`
+
+`RBT Runtime: θ(n*h)`
 
 `RBT Runtime: θ(n*h)`
 
@@ -758,12 +835,17 @@ void bstPrint (struct bstNode *root)
 ```c
 void rbtPrint (struct rbtNode *root)
 ```
+```c
+void avlPrint (struct avlNode *root)
+```
 </td>
 <td>
 
 Prints the tree in an inorder sequence.
 
 `BST Runtime: θ(n)`
+
+`RBT Runtime: θ(n)`
 
 `RBT Runtime: θ(n)`
 
@@ -779,10 +861,15 @@ void bstSize (struct bstNode *root)
 ```c
 void rbtSize (struct rbtNode *root)
 ```
+```c
+void avlSize (struct avlNode *root)
+```
 </td>
 <td>
 
 Returns the size of the tree.
+
+`BST Runtime: θ(1)`
 
 `BST Runtime: θ(1)`
 
@@ -800,12 +887,17 @@ struct bstNode *bstSearch (struct bstNode *root, int key)
 ```c
 struct rbtNode *rbtSearch (struct rbtNode *root, int key)
 ```
+```c
+struct avlNode *avlSearch (struct avlNode *root, int key)
+```
 </td>
 <td>
 
 Returns a pointer to the node with `key`, if exists.
 
 `BST Runtime: θ(h)`
+
+`RBT Runtime: θ(log(n))`
 
 `RBT Runtime: θ(log(n))`
 
@@ -821,12 +913,17 @@ struct bstNode *bstSuccessor (struct bstNode *node)
 ```c
 struct rbtNode *rbtSuccessor (struct rbtNode *node)
 ```
+```c
+struct avlNode *avlSuccessor (struct avlNode *node)
+```
 </td>
 <td>
 
 Returns a pointer to the next node in the inorder sequence, if exists.
 
 `BST Runtime: θ(h)`
+
+`RBT Runtime: θ(log(n))`
 
 `RBT Runtime: θ(log(n))`
 

@@ -42,8 +42,9 @@ void cllAddLast (struct cllNode **headPtr, int data) {
 		return;
 	}
 
-	/* rearrange pointers to insert node at front */
+	/* rearrange pointers to insert node at back */
 	node->data = data;
+
 	if (*headPtr == NULL) {
 		/* if list is length 0 */
 		node->next = node;

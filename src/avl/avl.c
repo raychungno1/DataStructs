@@ -1,21 +1,21 @@
-#include "bst.h"
+#include "avl.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-void bstClear (struct bstNode **rootPtr) {
+void avlClear (struct avlNode **rootPtr) {
 	
 	/* exit if empty tree */
 	if (*rootPtr == NULL) return;
 
 	/* clear left & right children */
-	bstClear(&((*rootPtr)->left));
-	bstClear(&((*rootPtr)->right));
+	avlClear(&((*rootPtr)->left));
+	avlClear(&((*rootPtr)->right));
 
 	/* clear root */
 	free(*rootPtr), *rootPtr = NULL;
 }
 
-int bstCountRange (struct bstNode *root, int min, int max) {
+int avlCountRange (struct avlNode *root, int min, int max) {
 
 	/* count variable */
 	int cLeft, cRight;
@@ -31,8 +31,8 @@ int bstCountRange (struct bstNode *root, int min, int max) {
 
 	/* if a node is found */	
 	if (root != NULL) {
-		cLeft = bstCountGE(root->left, min); /* add nodes in left tree >= min */
-		cRight = bstCountLE(root->right, max); /* add nodes in right tree <= max */
+		cLeft = avlCountGE(root->left, min); /* add nodes in left tree >= min */
+		cRight = avlCountLE(root->right, max); /* add nodes in right tree <= max */
 		return 1 + cLeft + cRight; /* return root & subtree nodes */
 	}
 
@@ -40,7 +40,7 @@ int bstCountRange (struct bstNode *root, int min, int max) {
 	return 0;
 }
 
-int bstCountGE (struct bstNode *root, int min) {
+int avlCountGE (struct avlNode *root, int min) {
 
 	/* count variable */
 	int count = 0;
@@ -61,7 +61,7 @@ int bstCountGE (struct bstNode *root, int min) {
 	return count;
 }
 
-int bstCountLE (struct bstNode *root, int max) {
+int avlCountLE (struct avlNode *root, int max) {
 
 	/* count variable */
 	int count = 0;
@@ -82,54 +82,57 @@ int bstCountLE (struct bstNode *root, int max) {
 	return count;
 }
 
-void bstDelete (struct bstNode **rootPtr, int key) {
+void avlDelete (struct avlNode **rootPtr, int key) {
 
 	/* find the node */
-	struct bstNode *node = bstSearch(*rootPtr, key), *successor, *successorParent;
+	struct avlNode *node = avlSearch(*rootPtr, key), *successor, *successorParent;
 
 	/* empty tree or if key is not in the tree */
 	if (node == NULL) return;
 
 	/* if node only has one child */
 	if (node->left == NULL) {
-		bstSwap(rootPtr, node, node->right);
-		bstFixSize(node->parent);
+		avlSwap(rootPtr, node, node->right);
+		avlFixStats(node->parent);
+		avlDeleteFix(rootPtr, node->parent);
 	} else if (node->right == NULL) {
-		bstSwap(rootPtr, node, node->left);
-		bstFixSize(node->parent);
+		avlSwap(rootPtr, node, node->left);
+		avlFixStats(node->parent);
+		avlDeleteFix(rootPtr, node->parent);
 
 	/* if both nodes are present */
 	} else {
 		/* find successor node */
-		successor = bstMin(node->right);
+		successor = avlMin(node->right);
 		successorParent = successor->parent;
 
 		/* if successor node is not the right node */
 		if (successor != node->right) {
 			/* swap sucessor's right node into sucessor's place */
-			bstSwap(rootPtr, successor, successor->right);
+			avlSwap(rootPtr, successor, successor->right);
 
 			/* set sucessor's right node to be the node's right node */
 			successor->right = node->right;
 			(successor->right)->parent = successor;
 		}
 		/* swap node w/ sucessor */
-		bstSwap(rootPtr, node, successor);
+		avlSwap(rootPtr, node, successor);
 		successor->left = node->left;
 		(successor->left)->parent = successor;
 
 		/* fix size */
-		bstFixSize(successorParent);
+		avlFixStats(successorParent);
+		avlDeleteFix(rootPtr, successorParent);
 	}
 
 	/* free node */
 	free(node), node = NULL;
 }
 
-void bstSwap (struct bstNode **rootPtr, struct bstNode *x, struct bstNode *y) {
+void avlSwap (struct avlNode **rootPtr, struct avlNode *x, struct avlNode *y) {
 
 	/* parent node */
-	struct bstNode *parent = x->parent;
+	struct avlNode *parent = x->parent;
 
 	/* connect parent to correct node */
 	if (parent == NULL) {
@@ -144,41 +147,125 @@ void bstSwap (struct bstNode **rootPtr, struct bstNode *x, struct bstNode *y) {
 	if (y != NULL) y->parent = parent;
 }
 
-void bstFixSize (struct bstNode *node) {
+void avlUpdateHeight (struct avlNode *node) {
+		node->height = (avlHeight(node->left) > avlHeight(node->right)) ? 1+avlHeight(node->left) : 1+avlHeight(node->right);
+}
 
+void avlFixStats (struct avlNode *node) {
+
+	/* height vars */
 	/* traverse until root node */
 	while (node != NULL) {
 		node->size = 1; /* default size */
-		if (node->left != NULL) node->size += (node->left)->size; /* add left child */
-		if (node->right != NULL) node->size += (node->right)->size; /* add right chile */
+		if (node->left != NULL) node->size += node->left->size; /* add left child */
+		if (node->right != NULL) node->size += node->right->size; /* add right chile */
+
+		/* update size */
+		avlUpdateHeight(node);
 		node = node->parent; /* update to parent node */
 	}
 }
 
-int bstHeight (struct bstNode *root) {
+void avlDeleteFix(struct avlNode **rootPtr, struct avlNode *node) {
+
+	struct avlNode *child, *grandchild;
+
+	do {
+		/* traverse until an unbalanced node is reached */
+		while (node != NULL && 
+		       -1 <= (avlHeight(node->left) - avlHeight(node->right)) &&
+		             (avlHeight(node->left) - avlHeight(node->right)) <= 1) node = node->parent;
 	
-	/* count variable */
-	int height = 1, leftH, rightH;
-
-	/* return 0 for empty tree */
-	if (root == NULL) return 0;
-
-	/* get height of left & right trees */
-	leftH = bstHeight(root->left);
-	rightH = bstHeight(root->right);
-
-	/* add the taller of the two children */
-	height = (leftH > rightH) ? height + leftH : height + rightH;
+		/* return if tree is balanced */
+		if (node == NULL) return;
 	
-	/* output */
-	return height;
+		/* assign child & grandchild */
+		child = (avlHeight(node->left) > avlHeight(node->right)) ? node->left : node->right;
+		grandchild = (avlHeight(child->left) > avlHeight(child->right)) ? child->left : child->right;
+	
+		/* if child is left node */
+		if (child == node->left) {
+			/* if grandchild is right node */
+			if (grandchild == child->right) avlLeftRotate(rootPtr, child);
+			avlRightRotate(rootPtr, node); /* if grandchild is left node */
+	
+		/* if child is right node */
+		} else {
+			/* if grandchild is left node */
+			if (grandchild == child->left) avlRightRotate(rootPtr, child);
+			avlLeftRotate(rootPtr, node); /* if crandchild is right node */
+		}
+	} while (node != NULL);
 }
 
-void bstInsert (struct bstNode **rootPtr, int data) {
+void avlLeftRotate(struct avlNode **rootPtr, struct avlNode *node) {
+
+	struct avlNode *newParent = node->right;
+
+	/* swap node w/ left shild */	
+	avlSwap (rootPtr, node, newParent);
+	
+	/* sets the new node's right child to be its old right child's left child */
+	node->right = newParent->left;
+
+	/* assigns the new right node's parent */
+	if (node->right != NULL) node->right->parent = node;
+
+	/* linking the old node to the left node */
+	newParent->left = node;
+	node->parent = newParent;
+
+	/* updating sizes */
+	newParent->size = node->size;
+	node->size = 1;
+	if (node->left != NULL) node->size += node->left->size;
+	if (node->right != NULL) node->size += node->right->size;
+
+	/* update size */
+	avlUpdateHeight(node);
+	avlUpdateHeight(newParent);
+}
+
+void avlRightRotate (struct avlNode **rootPtr, struct avlNode *node) {
+
+	struct avlNode *newParent = node->left;
+
+	/* swap node w/ left shild */	
+	avlSwap (rootPtr, node, newParent);
+	
+	/* sets the new node's left child to be its old left child's right child */
+	node->left = newParent->right;
+
+	/* assigns the new left node's parent */
+	if (node->left != NULL) node->left->parent = node;
+
+	/* linking the old node to the left node */
+	newParent->right = node;
+	node->parent = newParent;
+
+	/* updating sizes */
+	newParent->size = node->size;
+	node->size = 1;
+	if (node->left != NULL) node->size += node->left->size;
+	if (node->right != NULL) node->size += node->right->size;
+
+	/* update size */
+	avlUpdateHeight(node);
+	avlUpdateHeight(newParent);
+}
+
+int avlHeight (struct avlNode *root) {
+	
+	/* output 0 or the node's height */
+	if (root == NULL) return 0;	
+	return root->height;
+}
+
+void avlInsert (struct avlNode **rootPtr, int data) {
 
 	/* find parent node */
-	struct bstNode *node = malloc(sizeof(struct bstNode));
-	struct bstNode *parent = bstLocateParent(*rootPtr, data);
+	struct avlNode *node = malloc(sizeof(struct avlNode));
+	struct avlNode *parent = avlLocateParent(*rootPtr, data);
 
 	/* exit if node allocation fails */
 	if (node == NULL) {
@@ -189,6 +276,7 @@ void bstInsert (struct bstNode **rootPtr, int data) {
 	/* add node data */
 	node->data = data;
 	node->size = 1;
+	node->height = 1;
 	node->left = NULL;
 	node->right = NULL;
 	node->parent = parent;
@@ -201,17 +289,20 @@ void bstInsert (struct bstNode **rootPtr, int data) {
 		parent->right = node; /* otherwise, set node ro right */
 	}
 
-	/* update size of parents */
+	/* update size & height of parents */
 	while (parent != NULL) {
 		parent->size++;
+		avlUpdateHeight(parent);
 		parent = parent->parent;
 	}
+
+	avlInsertFix(rootPtr, node);
 }
 
-struct bstNode *bstLocateParent(struct bstNode *root, int data) {
+struct avlNode *avlLocateParent(struct avlNode *root, int data) {
 
 	/* parent node */
-	struct bstNode *parent = NULL;
+	struct avlNode *parent = NULL;
 
 	/* traverse until leaf node */
 	while (root != NULL) {
@@ -223,7 +314,37 @@ struct bstNode *bstLocateParent(struct bstNode *root, int data) {
 	return parent;
 }
 
-struct bstNode *bstMin (struct bstNode *root) {
+void avlInsertFix(struct avlNode **rootPtr, struct avlNode *node) {
+
+	struct avlNode *child, *grandchild;
+
+	/* traverse until an unbalanced node is reached */
+	while (node != NULL &&
+	       -1 <= (avlHeight(node->left) - avlHeight(node->right)) &&
+	             (avlHeight(node->left) - avlHeight(node->right)) <= 1) {
+		if (child != NULL) grandchild = child;
+		child = node;
+		node = node->parent;
+	}
+
+	/* return if tree is balanced */
+	if (node == NULL) return;
+
+	/* if child is left node */
+	if (child == node->left) {
+		/* if grandchild is right node */
+		if (grandchild == child->right) avlLeftRotate(rootPtr, child);
+		avlRightRotate(rootPtr, node); /* if grandchild is left node */
+
+	/* if child is right node */
+	} else {
+		/* if grandchild is left node */
+		if (grandchild == child->left) avlRightRotate(rootPtr, child);
+		avlLeftRotate(rootPtr, node); /* if crandchild is right node */
+	}
+}
+
+struct avlNode *avlMin (struct avlNode *root) {
 
 	/* if called on empty tree */
 	if (root == NULL) return root;
@@ -236,10 +357,10 @@ struct bstNode *bstMin (struct bstNode *root) {
 }
 
 /* returns min node greater than or equal to 'key' */
-struct bstNode *bstMinGE (struct bstNode *root, int key) {
+struct avlNode *avlMinGE (struct avlNode *root, int key) {
 
 	/* store the current best node */
-	struct bstNode *best = NULL;
+	struct avlNode *best = NULL;
 
 	/* if called on empty tree */
 	if (root == NULL) return best;
@@ -260,7 +381,7 @@ struct bstNode *bstMinGE (struct bstNode *root, int key) {
 	return best;
 }
 
-struct bstNode *bstMax (struct bstNode *root) {
+struct avlNode *avlMax (struct avlNode *root) {
 
 	/* if called on empty tree */
 	if (root == NULL) return root;
@@ -272,10 +393,10 @@ struct bstNode *bstMax (struct bstNode *root) {
 	return root;
 }
 
-struct bstNode *bstMaxLE (struct bstNode *root, int key) {
+struct avlNode *avlMaxLE (struct avlNode *root, int key) {
 
 	/* store the current best node */
-	struct bstNode *best = NULL;
+	struct avlNode *best = NULL;
 
 	/* if called on empty tree */
 	if (root == NULL) return best;
@@ -296,10 +417,10 @@ struct bstNode *bstMaxLE (struct bstNode *root, int key) {
 	return best;
 }
 
-struct bstNode *bstPredecessor (struct bstNode *node) {
+struct avlNode *avlPredecessor (struct avlNode *node) {
 
 	/* if right tree is not empty */
-	if (node == NULL || node->left != NULL) return bstMax(node->left);
+	if (node == NULL || node->left != NULL) return avlMax(node->left);
 
 	/* fint the closest ancestor where node is in the left subtree of */
 	while (node->parent != NULL && node == (node->parent)->left) {
@@ -310,12 +431,12 @@ struct bstNode *bstPredecessor (struct bstNode *node) {
 	return node->parent;
 }
 
-void bstPrettyPrint (struct bstNode *root, int depth) {
+void avlPrettyPrint (struct avlNode *root, int depth) {
 
 	/* return if empty tree */
 	if (root == NULL) return;
 
-	bstPrettyPrint(root->left, depth + 1);
+	avlPrettyPrint(root->left, depth + 1);
 	printSpaces(root, depth);
 	if (root->parent != NULL) {
 		if (root->parent->left == root) {
@@ -327,11 +448,11 @@ void bstPrettyPrint (struct bstNode *root, int depth) {
 	} else {
 		printf("-[%i]\n", root->data);
 	}
-	bstPrettyPrint(root->right, depth + 1);
+	avlPrettyPrint(root->right, depth + 1);
 
 }
 
-void printSpaces(struct bstNode *node, int depth) {
+void printSpaces(struct avlNode *node, int depth) {
 
 	int l = 3*depth; /* length parameter */
 	int lStreak = 1; /* represents a streak of left nodes */
@@ -375,24 +496,24 @@ void printSpaces(struct bstNode *node, int depth) {
 	free(str), str = NULL;
 }
 
-void bstPrint (struct bstNode *root) {
+void avlPrint (struct avlNode *root) {
 	
 	/* return if empty tree */
 	if (root == NULL) return;
 
 	/* print the tree in order */
-	bstPrint(root->left);
+	avlPrint(root->left);
 	printf("%i ", root->data);
-	bstPrint(root->right);
+	avlPrint(root->right);
 }
 
-int bstSize (struct bstNode *root) {
+int avlSize (struct avlNode *root) {
 
 	/* output */
 	return root->size;
 }
 
-struct bstNode *bstSearch (struct bstNode *root, int key) {
+struct avlNode *avlSearch (struct avlNode *root, int key) {
 
 	/* while tree is not empty or data is not in root node */
 	while (root != NULL && key != root->data) {
@@ -404,10 +525,10 @@ struct bstNode *bstSearch (struct bstNode *root, int key) {
 	return root;
 }
 
-struct bstNode *bstSuccessor (struct bstNode *node) {
+struct avlNode *avlSuccessor (struct avlNode *node) {
 
 	/* if right tree is not empty */
-	if (node == NULL || node->right != NULL) return bstMin(node->right);
+	if (node == NULL || node->right != NULL) return avlMin(node->right);
 
 	/* fint the closest ancestor where node is in the left subtree of */
 	while (node->parent != NULL && node == (node->parent)->right) {
