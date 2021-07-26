@@ -119,11 +119,7 @@ void bstDelete (struct bstNode **rootPtr, int key) {
 		(successor->left)->parent = successor;
 
 		/* fix size */
-		if (*rootPtr == successor) {
-			bstFixSize(*rootPtr);
-		} else {
-			bstFixSize(successorParent);
-		}
+		bstFixSize(successorParent);
 	}
 
 	/* free node */

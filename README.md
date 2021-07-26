@@ -431,8 +431,8 @@ Sorts the list in increasing order using QuickSort algorithm.
 
 ---
 
-## Binary Search Trees (BST)
-This Binary Search Tree is represented bt a pointer that points to the root node of the tree. 
+## Search Trees: Binary Search Trees (BST) & Red-Black Trees (RBT)
+These Search Trees are represented by a pointer that points to the root node of the tree. 
 
 The BST implementation uses the following structure:
 ```c
@@ -444,10 +444,21 @@ struct bstNode {
 	struct bstNode *right;	
 }
 ```
+The RBT implementation uses the following structure:
+```c
+struct rbtNode {
+	int data;
+	int size;
+	char isRed;
+	struct rbtNode *parent;
+	struct rbtNode *left;
+	struct rbtNode *right;	
+}
+```
 ---
 When analyzing runtimes:<br>
 * n = size of tree
-* h = height of tree (log(n) <= **h** <= n)
+* h = height of tree (log(n) <= h <= n)
 
 This implementation includes the following methods: 
 
@@ -467,12 +478,17 @@ This implementation includes the following methods:
 ```c
 void bstClear (struct bstNode **rootPtr)
 ```
+```c
+void rbtClear (struct rbtNode **rootPtr)
+```
 </td>
 <td>
 
 Clears & frees the entire tree.
 
 `BST Runtime: θ(n)`
+
+`RBT Runtime: θ(n)`
 
 </td>
 </tr>
@@ -483,6 +499,9 @@ Clears & frees the entire tree.
 ```c
 int bstCountRange (struct bstNode *root, int min, int max)
 ```
+```c
+int rbtCountRange (struct rbtNode *root, int min, int max)
+```
 </td>
 <td>
 
@@ -490,6 +509,9 @@ Counts the number of nodes that lie within a range of values (inclusive).
 
 `BST Runtime: θ(h)`
 
+`RBT Runtime: θ(log(n))`
+
+</td>
 </td>
 </tr>
 
@@ -499,12 +521,17 @@ Counts the number of nodes that lie within a range of values (inclusive).
 ```c
 int bstCountGE (struct bstNode *root, int min)
 ```
+```c
+int rbtCountGE (struct rbtNode *root, int min)
+```
 </td>
 <td>
 
 Counts the number of nodes that are greater than or equal to min.
 
 `BST Runtime: θ(h)`
+
+`RBT Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -515,12 +542,17 @@ Counts the number of nodes that are greater than or equal to min.
 ```c
 int bstCountLE (struct bstNode *root, int max)
 ```
+```c
+int rbtCountLE (struct rbtNode *root, int max)
+```
 </td>
 <td>
 
 Counts the number of nodes that are less than or equal to max.
 
 `BST Runtime: θ(h)`
+
+`RBT Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -531,12 +563,17 @@ Counts the number of nodes that are less than or equal to max.
 ```c
 void bstDelete (struct bstNode **rootPtr, int key)
 ```
+```c
+void rbtDelete (struct rbtNode **rootPtr, int key)
+```
 </td>
 <td>
 
 Deletes the upper-most node with `key`, if it exists.
 
 `BST Runtime: θ(h)`
+
+`RBT Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -547,12 +584,17 @@ Deletes the upper-most node with `key`, if it exists.
 ```c
 int bstHeight (struct bstNode *root)
 ```
+```c
+int rbtHeight (struct rbtNode *root)
+```
 </td>
 <td>
 
 Returns the height of the tree. 
 
 `BST Runtime: θ(n)`
+
+`RBT Runtime: θ(n)`
 
 </td>
 </tr>
@@ -563,12 +605,17 @@ Returns the height of the tree.
 ```c
 void bstInsert (struct bstNode **rootPtr, int data)
 ```
+```c
+void rbtInsert (struct rbtNode **rootPtr, int data)
+```
 </td>
 <td>
 
 Inserts `data` into the tree.
 
 `BST Runtime: θ(h)`
+
+`RBT Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -579,12 +626,17 @@ Inserts `data` into the tree.
 ```c
 struct bstNode *bstMin (struct bstNode *root)
 ```
+```c
+struct rbtNode *rbtMin (struct rbtNode *root)
+```
 </td>
 <td>
 
 Returns a pointer to the smallest node in the tree. 
 
 `BST Runtime: θ(h)`
+
+`RBT Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -595,12 +647,17 @@ Returns a pointer to the smallest node in the tree.
 ```c
 struct bstNode *bstMinGE (struct bstNode *root, int key)
 ```
+```c
+struct rbtNode *rbtMinGE (struct rbtNode *root, int key)
+```
 </td>
 <td>
 
 Returns a pointer to the smallest node greater than or equal to `key`. 
 
 `BST Runtime: θ(h)`
+
+`RBT Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -611,12 +668,17 @@ Returns a pointer to the smallest node greater than or equal to `key`.
 ```c
 struct bstNode *bstMax (struct bstNode *root)
 ```
+```c
+struct rbtNode *rbtMax (struct rbtNode *root)
+```
 </td>
 <td>
 
 Returns a pointer to the biggest node in the tree. 
 
 `BST Runtime: θ(h)`
+
+`RBT Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -627,12 +689,17 @@ Returns a pointer to the biggest node in the tree.
 ```c
 struct bstNode *bstMaxLE (struct bstNode *root, int key)
 ```
+```c
+struct rbtNode *rbtMaxLE (struct rbtNode *root, int key)
+```
 </td>
 <td>
 
 Returns a pointer to the biggest node less than or equal to `key`. 
 
 `BST Runtime: θ(h)`
+
+`RBT Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -643,12 +710,17 @@ Returns a pointer to the biggest node less than or equal to `key`.
 ```c
 struct bstNode *bstPredecessor (struct bstNode *node)
 ```
+```c
+struct rbtNode *rbtPredecessor (struct rbtNode *node)
+```
 </td>
 <td>
 
 Returns a pointer to the previous node in the inorder sequence, if exists.
 
 `BST Runtime: θ(h)`
+
+`RBT Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -659,12 +731,17 @@ Returns a pointer to the previous node in the inorder sequence, if exists.
 ```c
 void bstPrettyPrint (struct bstNode *root, int depth)
 ```
+```c
+void rbtPrettyPrint (struct rbtNode *root, int depth)
+```
 </td>
 <td>
 
 Pretty-prints an ASCII representation of the tree.
 
 `BST Runtime: θ(n*h)`
+
+`RBT Runtime: θ(n*h)`
 
 </td>
 </tr>
@@ -675,12 +752,17 @@ Pretty-prints an ASCII representation of the tree.
 ```c
 void bstPrint (struct bstNode *root)
 ```
+```c
+void rbtPrint (struct rbtNode *root)
+```
 </td>
 <td>
 
 Prints the tree in an inorder sequence.
 
 `BST Runtime: θ(n)`
+
+`RBT Runtime: θ(n)`
 
 </td>
 </tr>
@@ -691,10 +773,15 @@ Prints the tree in an inorder sequence.
 ```c
 void bstSize (struct bstNode *root)
 ```
+```c
+void rbtSize (struct rbtNode *root)
+```
 </td>
 <td>
 
 Returns the size of the tree.
+
+`BST Runtime: θ(1)`
 
 `BST Runtime: θ(1)`
 
@@ -707,12 +794,17 @@ Returns the size of the tree.
 ```c
 struct bstNode *bstSearch (struct bstNode *root, int key)
 ```
+```c
+struct rbtNode *rbtSearch (struct rbtNode *root, int key)
+```
 </td>
 <td>
 
 Returns a pointer to the node with `key`, if exists.
 
 `BST Runtime: θ(h)`
+
+`RBT Runtime: θ(log(n))`
 
 </td>
 </tr>
@@ -723,12 +815,17 @@ Returns a pointer to the node with `key`, if exists.
 ```c
 struct bstNode *bstSuccessor (struct bstNode *node)
 ```
+```c
+struct rbtNode *rbtSuccessor (struct rbtNode *node)
+```
 </td>
 <td>
 
 Returns a pointer to the next node in the inorder sequence, if exists.
 
 `BST Runtime: θ(h)`
+
+`RBT Runtime: θ(log(n))`
 
 </td>
 </tr>

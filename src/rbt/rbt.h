@@ -4,7 +4,7 @@
 struct rbtNode {
 	int data;
 	int size;
-	int isRed;
+	char isRed;
 	struct rbtNode *parent;
 	struct rbtNode *left;
 	struct rbtNode *right;
@@ -32,7 +32,13 @@ void rbtDelete (struct rbtNode **rootPtr, int key);
 	void rbtFixSize (struct rbtNode *node);
 
 	/* fixes coloring of tree */
-	void rbtDeleteFix (struct rbtNode **rootPtr, struct rbtNode *node);
+	void rbtDeleteFix (struct rbtNode **rootPtr, struct rbtNode *node, struct rbtNode *nodeParent);
+	
+	/* fixes tree if node is black & sibling is red */
+	void rbtDeleteFixA (struct rbtNode **rootPtr, struct rbtNode *node, struct rbtNode **sibling, struct rbtNode *parent);
+
+	/* fixes tree if node & sibling are black */
+	void rbtDeleteFixB (struct rbtNode **rootPtr, struct rbtNode **node, struct rbtNode *sibling, struct rbtNode **parent);
 
 	/* preforms left rotation at node 'node' */
 	void rbtLeftRotate (struct rbtNode **rootPtr, struct rbtNode *node);

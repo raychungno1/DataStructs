@@ -83,48 +83,61 @@ int rbtCountLE (struct rbtNode *root, int max) {
 }
 
 void rbtDelete (struct rbtNode **rootPtr, int key) {
-
+  
 	/* find the node */
-	struct rbtNode *node = rbtSearch(*rootPtr, key), *successor, *successorParent;
+	struct rbtNode *node = rbtSearch(*rootPtr, key), *replacement, *successorParent, *x = NULL;
+	int nodeIsRed;
 
 	/* empty tree or if key is not in the tree */
 	if (node == NULL) return;
 
+	/* stores deleted node color */
+	nodeIsRed = node->isRed;
+
 	/* if node only has one child */
 	if (node->left == NULL) {
+		successorParent = node->parent;
+		x = node->right;
 		rbtSwap(rootPtr, node, node->right);
 		rbtFixSize(node->parent);
 	} else if (node->right == NULL) {
+		successorParent = node->parent;
+		x = node->left;
 		rbtSwap(rootPtr, node, node->left);
 		rbtFixSize(node->parent);
 
 	/* if both nodes are present */
 	} else {
 		/* find successor node */
-		successor = rbtMin(node->right);
-		successorParent = successor->parent;
+		replacement = rbtMin(node->right);
+		x = replacement->right;
+		successorParent = replacement;
+		nodeIsRed = replacement->isRed;
 
 		/* if successor node is not the right node */
-		if (successor != node->right) {
+		if (replacement != node->right) {
 			/* swap sucessor's right node into sucessor's place */
-			rbtSwap(rootPtr, successor, successor->right);
+			successorParent = replacement->parent;
+			rbtSwap(rootPtr, replacement, replacement->right);
 
 			/* set sucessor's right node to be the node's right node */
-			successor->right = node->right;
-			(successor->right)->parent = successor;
+			replacement->right = node->right;
+			(replacement->right)->parent = replacement;
 		}
 		/* swap node w/ sucessor */
-		rbtSwap(rootPtr, node, successor);
-		successor->left = node->left;
-		(successor->left)->parent = successor;
+		rbtSwap(rootPtr, node, replacement);
+		replacement->left = node->left;
+		replacement->left->parent = replacement;
+		/* sets the successor's color to match the node that was removed */
+		/* this prevents any rbt violations for successor */
+		replacement->isRed = node->isRed;
 
 		/* fix size */
-		if (*rootPtr == successor) {
-			rbtFixSize(*rootPtr);
-		} else {
-			rbtFixSize(successorParent);
-		}
+		rbtFixSize(successorParent);
 	}
+
+	/* if node removed was BLACK, then violarions in the red black tree may occur */
+	if (!nodeIsRed) rbtDeleteFix(rootPtr, x, successorParent);
 
 	/* free node */
 	free(node), node = NULL;
@@ -157,6 +170,79 @@ void rbtFixSize (struct rbtNode *node) {
 		if (node->right != NULL) node->size += (node->right)->size; /* add right chile */
 		node = node->parent; /* update to parent node */
 	}
+}
+
+void rbtDeleteFix (struct rbtNode **rootPtr, struct rbtNode *node, struct rbtNode *nodeParent) {
+
+	/* sibling node */
+	struct rbtNode *sibling;
+
+	/* while node is black & we havent reached the root */
+	while (node != *rootPtr && (node == NULL || !node->isRed)) {
+		sibling = (node == nodeParent->left) ? nodeParent->right : nodeParent->left;
+		rbtDeleteFixA(rootPtr, node, &sibling, nodeParent);
+		rbtDeleteFixB(rootPtr, &node, sibling, &nodeParent);
+	}
+
+	/* CASE 0: if node is red */
+	if (node != NULL) node->isRed = 0;
+}
+
+void rbtDeleteFixA(struct rbtNode **rootPtr, struct rbtNode *node, struct rbtNode **sibling, struct rbtNode *parent) {
+
+	/* CASE 1: if the sibling is red */
+	if ((*sibling)->isRed) {
+		(*sibling)->isRed = 0; /* color sibling black */
+		parent->isRed = 1; /* color parent red */
+
+		if (node == parent->left) {
+			rbtLeftRotate(rootPtr, parent); /* left rotate parent if x is a left child */
+			*sibling = parent->right; /* update sibling */
+		} else {
+			rbtRightRotate(rootPtr, parent); /* right rotate parent if x is a right child */
+			*sibling = parent->left; /* update sibling */
+		}
+	}
+}
+
+void rbtDeleteFixB(struct rbtNode **rootPtr, struct rbtNode **node, struct rbtNode *sibling, struct rbtNode **parent) {
+
+	/* CASE 2: if both of the sibling's children are black */
+	if ((sibling->left == NULL || !sibling->left->isRed) && (sibling->right == NULL || !sibling->left->isRed)) {
+		sibling->isRed = 1; /* color sibling red */
+		*node = *parent; /* update node & parent */
+		*parent = (*parent)->parent;
+		return;
+	}
+
+	if (*node == (*parent)->left) {
+		/* CASE 3: x is the left child, sibling's left child is red, & sibling's right child is black */
+		if (sibling->right == NULL || !sibling->right->isRed) {
+			sibling->left->isRed = 0; /* color sibling's left child black */
+			sibling->isRed = 1; /* color sibling node red */
+			rbtRightRotate(rootPtr, sibling); /* right rotate & update sibling */
+			sibling = (*parent)->right;
+		}
+		/* CASE 4: x is the left child * sibling's right child is red */
+		sibling->isRed = (*parent)->isRed; /* match sibling w/ parent color */
+		(*parent)->isRed = 0; /* color parent black */
+		sibling->right->isRed = 0; /* color sibling's right child black */
+		rbtLeftRotate(rootPtr, *parent); /* left rotate parent */
+	} else {
+		/* CASE 3: x is the right child, sibling's right child is red, & sibling's left child is black */
+		if (sibling->left == NULL || !sibling->left->isRed) {
+			sibling->right->isRed = 0; /* color sibling's right child black */
+			sibling->isRed = 1; /* color sibling node red */
+			rbtLeftRotate(rootPtr, sibling); /* left rotate & update sibling */
+			sibling = (*parent)->left;
+		}
+		/* CASE 4: x is the right child * sibling's left child is red */
+		sibling->isRed = (*parent)->isRed; /* match sibling w/ parent color */
+		(*parent)->isRed = 0; /* color parent black */
+		sibling->left->isRed = 0; /* color sibling's left child black */
+		rbtRightRotate(rootPtr, *parent); /* right rotate parent */
+	}
+	*node = *rootPtr;
 }
 
 void rbtLeftRotate(struct rbtNode **rootPtr, struct rbtNode *node) {
@@ -260,7 +346,7 @@ void rbtInsert (struct rbtNode **rootPtr, int data) {
 		parent = parent->parent;
 	}
 
-	/* fix graph coloring */
+	/* fix coloring & tree height */
 	rbtInsertFix(rootPtr, node);
 }
 
@@ -279,6 +365,13 @@ struct rbtNode *rbtLocateParent(struct rbtNode *root, int data) {
 	return parent;
 }
 
+struct rbtNode *rbtSibling (struct rbtNode *node) {
+
+	/* if node is a left node, return right node */
+	if (node->parent->left == node) return node->parent->right;
+	return node->parent->left; /* else, left node */
+}
+
 void rbtInsertFix (struct rbtNode **rootPtr, struct rbtNode *node) {
 	
 	/* perform three cases required to fix the tree */
@@ -286,13 +379,6 @@ void rbtInsertFix (struct rbtNode **rootPtr, struct rbtNode *node) {
 	rbtInsertFixB(rootPtr, &node);
 	rbtInsertFixC(rootPtr, node);
 	(*rootPtr)->isRed = 0;	
-}
-
-struct rbtNode *rbtSibling (struct rbtNode *node) {
-
-	/* if node is a left node, return right node */
-	if (node->parent->left == node) return node->parent->right;
-	return node->parent->left; /* else, left node */
 }
 
 void rbtInsertFixA(struct rbtNode **node) {
