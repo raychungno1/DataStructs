@@ -5,7 +5,7 @@
   * Singly Linked Lists
   * Double Linked Lists
   * Circular Linked Lists
-* **[Heaps](#heaps-binary-heap-bheap)**<br>
+* **[Heaps](#heaps-binary-heaps-bheap)**<br>
   * Binary Heaps
 * **[Search Trees](#search-trees-binary-search-trees-bst-red-black-trees-rbt--avl-trees-avl)**<br>
   * Binary Search Trees
