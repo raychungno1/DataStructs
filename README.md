@@ -545,9 +545,6 @@ Prints the array storing the heap.
 </table>
 
 ---
-</table>
-
----
 ## Search Trees: Binary Search Trees (BST), Red-Black Trees (RBT), & AVL Trees (AVL)
 These Search Trees are represented by a pointer that points to the root node of the tree. 
 
