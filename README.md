@@ -5,6 +5,8 @@
   * Singly Linked Lists
   * Double Linked Lists
   * Circular Linked Lists
+* **[Heaps](#heaps-binary-heap-bheap)**<br>
+  * Binary Heaps
 * **[Search Trees](#search-trees-binary-search-trees-bst-red-black-trees-rbt--avl-trees-avl)**<br>
   * Binary Search Trees
   * Red Black Trees
@@ -13,8 +15,6 @@
 ---
 
 ## Linked Lists: Singly Linked (SLL), Doubly Linked (DLL), & Circular Linked (CLL)
-Due to the similarity of the SLL, DLL, and CLL implementations, their documentations are combined into one section. The CLL implementation is also doubly linked.
-
 These Linked Lists are represented by a pointer that points the the first node of the list. Stack & Queue behavior can also be modeled using these Linked List implementations.
 
 The SLL implementation uses the following structure:
@@ -434,7 +434,120 @@ Sorts the list in increasing order using QuickSort algorithm.
 </table>
 
 ---
+## Heaps: Binary Heaps (BHEAP)
+These Heaps are represented by an array which has already been previously allocated. It is important to keep track of the size of the array as well as the number of elements currently in the heap. 
 
+---
+When analyzing runtimes:<br>
+* n = size of heap
+
+This implementation includes the following methods: 
+
+<table style="width:100%">
+<colgroup>
+<col style="width:50%">
+</colgroup>
+
+<tr>
+<th>Function Prototype</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bHeapBuildMax (int *arr, int size)
+```
+```c
+void bHeapBuildMin (int *arr, int size)
+```
+</td>
+<td>
+
+Builds a max/min heap from an input array
+
+`bHeap Runtime: θ(n)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bHeapExtractMax (int *arr, int *size)
+```
+```c
+void bHeapExtractMin (int *arr, int *size)
+```
+</td>
+<td>
+
+Extracts the max element of a max heap, or the min element of a min heap.
+
+`bHeap Runtime: θ(log(n))`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bHeapInsertMax (int *arr, int *size)
+```
+```c
+void bHeapInsertMin (int *arr, int *size)
+```
+</td>
+<td>
+
+Inserts an element into a max/min heap.
+
+`bHeap Runtime: θ(log(n))`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bHeapPrettyPrint (int *arr, int size, int startIndex, int depth)
+```
+</td>
+<td>
+
+Pretty-prints an ASCII representation of the heap.
+
+`bHeap Runtime: θ(nlog(n))`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bHeapPrint (int *arr, int size)
+```
+</td>
+<td>
+
+Prints the array storing the heap.  
+
+`bHeap Runtime: θ(n)`
+
+</td>
+</tr>
+
+</table>
+
+---
+</table>
+
+---
 ## Search Trees: Binary Search Trees (BST), Red-Black Trees (RBT), & AVL Trees (AVL)
 These Search Trees are represented by a pointer that points to the root node of the tree. 
 
