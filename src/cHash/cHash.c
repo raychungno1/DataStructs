@@ -3,12 +3,16 @@
 #include <stdlib.h>
 
 /* clears & frees hashTable */
-void cHashClear (struct cHashTable *hashTable) {
+void cHashClear (struct cHashTable **hashTable) {
 	int i;
+
+	/* return if hashTable is NULL */
+	if (!*hashTable) return;
+
 	/* free each linked list in the array, then the array & hash table itself */
-	for (i = 0; i < hashTable->arrSize; i++) cHashClearLL(hashTable->arr+i);
-	free(hashTable->arr), hashTable->arr = NULL;
-	free(hashTable), hashTable = NULL;
+	for (i = 0; i < (*hashTable)->arrSize; i++) cHashClearLL((*hashTable)->arr+i);
+	free((*hashTable)->arr), (*hashTable)->arr = NULL;
+	free(*hashTable), *hashTable = NULL;
 }
 
 /* clears a linked list */

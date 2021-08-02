@@ -5,6 +5,9 @@
   * Singly Linked Lists
   * Double Linked Lists
   * Circular Linked Lists
+* **[Hash Tables](#hash-table-chained-hash-chash--open-address-hash-oahash)**<br>
+  * Chained Hash
+  * Open Address Hash
 * **[Heaps](#heaps-binary-heaps-bheap)**<br>
   * Binary Heaps
 * **[Search Trees](#search-trees-binary-search-trees-bst-red-black-trees-rbt--avl-trees-avl)**<br>
@@ -538,6 +541,256 @@ void bHeapPrint (int *arr, int size)
 Prints the array storing the heap.  
 
 `bHeap Runtime: θ(n)`
+
+</td>
+</tr>
+
+</table>
+
+---
+## Hash Tables: Chained Hash (cHASH) & Open Address Hash (oaHASH)
+These Hash Tables are represented by a pointer to their implementation's HashTable structure. 
+
+The cHASH implementation uses the following structures:
+```c
+struct cHashNode {
+	int key;
+	int data;
+	struct cHashNode *next;
+};
+struct cHashTable {
+	struct cHashNode **arr;
+	int arrSize; /* number of 'buckets' in hash table */
+	int size; /* total number of elements in hash table */
+};
+```
+The oaHASH implementation uses the following structure:
+
+---
+When analyzing runtimes:<br>
+* n = number of elements in the hash table
+* m = size of hash table (number of 'buckets')
+
+If (n/m) <= 1/2, `θ(1 + n/m)` can be viewed as `θ(1)`
+
+This implementation includes the following methods: 
+
+<table style="width:100%">
+<colgroup>
+<col style="width:50%">
+</colgroup>
+
+<tr>
+<th>Function Prototype</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>
+
+```c
+void cHashClear (struct cHashTable **hashTable)
+```
+```c
+void oaHashClear (struct oaHashTable **hashTable)
+```
+</td>
+<td>
+
+Clears & frees a hash table.
+
+`cHash Runtime: θ(m + n)`
+
+`oaHash Runtime: θ(m)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+int cHashContainsKey (struct cHashTable *hashTable, int key)
+```
+```c
+int oaHashContainsKey (struct oaHashTable *hashTable, int key)
+```
+</td>
+<td>
+
+Returns 1 if 'key' is in the hash table, 0 otherwise.
+
+`cHash Runtime: θ(1 + n/m)`
+
+`oaHash Runtime: θ(1)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+int cHashContainsValue (struct cHashTable *hashTable, int data)
+```
+```c
+int oaHashContainsValue (struct oaHashTable *hashTable, int data)
+```
+</td>
+<td>
+
+Returns 1 if 'data' is in the hash table, 0 otherwise.
+
+`cHash Runtime: θ(m + n)`
+
+`oaHash Runtime: θ(m)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct cHashTable *cHashInit (int hashSize)
+```
+```c
+struct oaHashTable *oaHashInit (int hashSize)
+```
+</td>
+<td>
+
+Initializes a hashTable of size 'hashSize'.
+
+`cHash Runtime: θ(1)`
+
+`oaHash Runtime: θ(1)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void cHashInsert (struct cHashTable *hashTable, int key, int data)
+```
+```c
+void oaHashInsert (struct oaHashTable *hashTable, int key, int data)
+```
+</td>
+<td>
+
+Inserts (key, data) into the hash table, if key is not already in the table.
+
+`cHash Runtime: θ(1 + n/m)`
+
+`oaHash Runtime: θ(1)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void cHashPrettyPrint (struct cHashTable *hashTable)
+```
+```c
+void oaHashPrettyPrint (struct oaHashTable *hashTable)
+```
+</td>
+<td>
+
+Pretty-prints an ASCII representation of the hash table.
+
+`cHash Runtime: θ(n + m)`
+
+`oaHash Runtime: θ(m)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+int cHashRemove (struct cHashTable *hashTable, int key)
+```
+```c
+int oaHashRemove (struct oaHashTable *hashTable, int key)
+```
+</td>
+<td>
+
+Removes 'key' from the hash table & returns its data, if exists.
+
+`cHash Runtime: θ(1 + n/m)`
+
+`oaHash Runtime: θ(1)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+int cHashReplace (struct cHashTable *hashTable, int key, int newData)
+```
+```c
+int oaHashReplace (struct oaHashTable *hashTable, int key, int newData)
+```
+</td>
+<td>
+
+If the key exists, changes the data associated with 'key' to 'newData'.
+
+`cHash Runtime: θ(1 + n/m)`
+
+`oaHash Runtime: θ(1)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+int cHashRetrieve (struct cHashTable *hashTable, int key)
+```
+```c
+int oaHashRetrieve (struct oaHashTable *hashTable, int key)
+```
+</td>
+<td>
+
+Returns the data associated with 'key', if the key exists.
+
+`cHash Runtime: θ(1 + n/m)`
+
+`oaHash Runtime: θ(1)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+int cHashSize (struct cHashTable *hashTable)
+```
+```c
+int oaHashSize (struct oaHashTable *hashTable)
+```
+</td>
+<td>
+
+Returns the number of elements in the hash table.
+
+`cHash Runtime: θ(1)`
+
+`oaHash Runtime: θ(1)`
 
 </td>
 </tr>

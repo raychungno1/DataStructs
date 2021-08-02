@@ -14,7 +14,7 @@ struct cHashTable {
 };
 
 /* clears & frees hashTable */
-void cHashClear (struct cHashTable *hashTable);
+void cHashClear (struct cHashTable **hashTable);
 
 	/* clears a linked list */
 	void cHashClearLL (struct cHashNode **headPtr);
