@@ -8,7 +8,10 @@ void sllAddFirst (struct sllNode **headPtr, int data) {
 	struct sllNode *node = malloc(sizeof(struct sllNode));
 
 	/* if memory allocation fails */
-	if (node == NULL) printf("Error allocating node memory"), return;
+	if (node == NULL) {
+		printf("Error allocating node memory");
+		return;
+	}
 
 	/* rearrange pointers to insert node at front */
 	node->data = data;
@@ -22,7 +25,10 @@ void sllAddLast (struct sllNode **headPtr, int data) {
 	struct sllNode *node = malloc(sizeof(struct sllNode));
 
 	/* if memory allocation fails */
-	if (node == NULL) printf("Error allocating node memory"), return;
+	if (node == NULL) {
+		printf("Error allocating node memory");
+		return;
+	}
 	
 	/* traverse to end of list */
 	while (*headPtr != NULL) headPtr = &(*headPtr)->next; /* update pointer */

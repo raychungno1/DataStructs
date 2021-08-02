@@ -3,7 +3,7 @@
 all: intTest
 
 # Test linked list w/ ints
-intTest: intTest.o bHeap.o
+intTest: intTest.o cHash.o
 	gcc -g -o $@ $^ 
 
 # Turn c files into o files
