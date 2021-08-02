@@ -5,7 +5,7 @@
   * Singly Linked Lists
   * Double Linked Lists
   * Circular Linked Lists
-* **[Hash Tables](#hash-table-chained-hash-chash--open-address-hash-oahash)**<br>
+* **[Hash Tables](#hash-tables-chained-hash-chash--open-address-hash-oahash)**<br>
   * Chained Hash
   * Open Address Hash
 * **[Heaps](#heaps-binary-heaps-bheap)**<br>
