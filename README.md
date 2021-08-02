@@ -437,7 +437,7 @@ Sorts the list in increasing order using QuickSort algorithm.
 </table>
 
 ---
-## Heaps: Binary Heaps (BHEAP)
+## Heaps: Binary Heaps (bHeap)
 These Heaps are represented by an array which has already been previously allocated. It is important to keep track of the size of the array as well as the number of elements currently in the heap. 
 
 ---
@@ -548,10 +548,10 @@ Prints the array storing the heap.
 </table>
 
 ---
-## Hash Tables: Chained Hash (cHASH) & Open Address Hash (oaHASH)
+## Hash Tables: Chained Hash (cHash) & Open Address Hash (oaHash)
 These Hash Tables are represented by a pointer to their implementation's HashTable structure. 
 
-The cHASH implementation uses the following structures:
+The cHash implementation uses the following structures:
 ```c
 struct cHashNode {
 	int key;
@@ -564,7 +564,7 @@ struct cHashTable {
 	int size; /* total number of elements in hash table */
 };
 ```
-The oaHASH implementation uses the following structure:
+The oaHash implementation uses the following structure:
 
 ---
 When analyzing runtimes:<br>
