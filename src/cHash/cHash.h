@@ -1,5 +1,5 @@
-#ifndef BHEAP_H
-#define BHEAP_H
+#ifndef CHASH_H 
+#define CHASH_H
 
 struct cHashNode {
 	int key;
