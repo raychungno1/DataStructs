@@ -148,7 +148,8 @@ void avlSwap (struct avlNode **rootPtr, struct avlNode *x, struct avlNode *y) {
 }
 
 void avlUpdateHeight (struct avlNode *node) {
-		node->height = (avlHeight(node->left) > avlHeight(node->right)) ? 1+avlHeight(node->left) : 1+avlHeight(node->right);
+		if (node->left == NULL && node->right == NULL) node->height = 0;
+		else node->height = (avlHeight(node->left) > avlHeight(node->right)) ? 1+avlHeight(node->left) : 1+avlHeight(node->right);
 }
 
 void avlFixStats (struct avlNode *node) {
@@ -276,7 +277,7 @@ void avlInsert (struct avlNode **rootPtr, int data) {
 	/* add node data */
 	node->data = data;
 	node->size = 1;
-	node->height = 1;
+	node->height = 0;
 	node->left = NULL;
 	node->right = NULL;
 	node->parent = parent;

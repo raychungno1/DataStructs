@@ -163,6 +163,9 @@ int bstHeight (struct bstNode *root) {
 	/* return 0 for empty tree */
 	if (root == NULL) return 0;
 
+	/* return 0 for leaf node */
+	if (root->left == NULL && root->right == NULL) return 0;
+
 	/* get height of left & right trees */
 	leftH = bstHeight(root->left);
 	rightH = bstHeight(root->right);
