@@ -565,7 +565,19 @@ struct cHashTable {
 };
 ```
 The oaHash implementation uses the following structure:
+```c
+struct oaHashNode {
+	int key;
+	int data;
+	char collisionFlag;
+};
 
+struct oaHashTable {
+	struct oaHashNode *arr;
+	int arrSize; /* number of 'buckets' in hash table */
+	int size; /* total number of elements in hash table */
+};
+```
 ---
 When analyzing runtimes:<br>
 * n = number of elements in the hash table
