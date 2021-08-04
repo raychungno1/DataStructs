@@ -437,117 +437,6 @@ Sorts the list in increasing order using QuickSort algorithm.
 </table>
 
 ---
-## Heaps: Binary Heaps (bHeap)
-These Heaps are represented by an array which has already been previously allocated. It is important to keep track of the size of the array as well as the number of elements currently in the heap. 
-
----
-When analyzing runtimes:<br>
-* n = size of heap
-
-This implementation includes the following methods: 
-
-<table style="width:100%">
-<colgroup>
-<col style="width:50%">
-</colgroup>
-
-<tr>
-<th>Function Prototype</th>
-<th>Description</th>
-</tr>
-
-<tr>
-<td>
-
-```c
-void bHeapBuildMax (int *arr, int size)
-```
-```c
-void bHeapBuildMin (int *arr, int size)
-```
-</td>
-<td>
-
-Builds a max/min heap from an input array
-
-`bHeap Runtime: θ(n)`
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-```c
-void bHeapExtractMax (int *arr, int *size)
-```
-```c
-void bHeapExtractMin (int *arr, int *size)
-```
-</td>
-<td>
-
-Extracts the max element of a max heap, or the min element of a min heap.
-
-`bHeap Runtime: θ(log(n))`
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-```c
-void bHeapInsertMax (int *arr, int *size)
-```
-```c
-void bHeapInsertMin (int *arr, int *size)
-```
-</td>
-<td>
-
-Inserts an element into a max/min heap.
-
-`bHeap Runtime: θ(log(n))`
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-```c
-void bHeapPrettyPrint (int *arr, int size, int startIndex, int depth)
-```
-</td>
-<td>
-
-Pretty-prints an ASCII representation of the heap.
-
-`bHeap Runtime: θ(nlog(n))`
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-```c
-void bHeapPrint (int *arr, int size)
-```
-</td>
-<td>
-
-Prints the array storing the heap.  
-
-`bHeap Runtime: θ(n)`
-
-</td>
-</tr>
-
-</table>
-
----
 ## Hash Tables: Chained Hash (cHash) & Open Address Hash (oaHash)
 These Hash Tables are represented by a pointer to their implementation's HashTable structure. 
 
@@ -803,6 +692,117 @@ Returns the number of elements in the hash table.
 `cHash Runtime: θ(1)`
 
 `oaHash Runtime: θ(1)`
+
+</td>
+</tr>
+
+</table>
+
+---
+## Heaps: Binary Heaps (bHeap)
+These Heaps are represented by an array which has already been previously allocated. It is important to keep track of the size of the array as well as the number of elements currently in the heap. 
+
+---
+When analyzing runtimes:<br>
+* n = size of heap
+
+This implementation includes the following methods: 
+
+<table style="width:100%">
+<colgroup>
+<col style="width:50%">
+</colgroup>
+
+<tr>
+<th>Function Prototype</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bHeapBuildMax (int *arr, int size)
+```
+```c
+void bHeapBuildMin (int *arr, int size)
+```
+</td>
+<td>
+
+Builds a max/min heap from an input array
+
+`bHeap Runtime: θ(n)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bHeapExtractMax (int *arr, int *size)
+```
+```c
+void bHeapExtractMin (int *arr, int *size)
+```
+</td>
+<td>
+
+Extracts the max element of a max heap, or the min element of a min heap.
+
+`bHeap Runtime: θ(log(n))`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bHeapInsertMax (int *arr, int *size)
+```
+```c
+void bHeapInsertMin (int *arr, int *size)
+```
+</td>
+<td>
+
+Inserts an element into a max/min heap.
+
+`bHeap Runtime: θ(log(n))`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bHeapPrettyPrint (int *arr, int size, int startIndex, int depth)
+```
+</td>
+<td>
+
+Pretty-prints an ASCII representation of the heap.
+
+`bHeap Runtime: θ(nlog(n))`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bHeapPrint (int *arr, int size)
+```
+</td>
+<td>
+
+Prints the array storing the heap.  
+
+`bHeap Runtime: θ(n)`
 
 </td>
 </tr>
