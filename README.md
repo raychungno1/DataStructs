@@ -14,6 +14,8 @@
   * Binary Search Trees
   * Red Black Trees
   * AVL Trees
+* **[Undirected Graphs](#undirected-graphs-adjacency-list-alg)**<br>
+  * Adjacency List Graphs
 
 ---
 
@@ -447,6 +449,7 @@ struct cHashNode {
 	int data;
 	struct cHashNode *next;
 };
+
 struct cHashTable {
 	struct cHashNode **arr;
 	int arrSize; /* number of 'buckets' in hash table */
@@ -1308,3 +1311,57 @@ Returns a pointer to the next node in the inorder sequence, if exists.
 </table>
 
 ---
+
+## Undirected Graphs: Adjacency List (ALG)
+These Undirected Graphs are represented by a pointer that points to their implementation's Graph structure.
+
+The ALG implementation uses the following structure:
+```c
+struct algNode {
+	int dest;
+	int weight;
+	struct algNode *next;
+};
+
+struct algGraph {
+	int V;
+	int E;
+	struct algNode **adjList;
+};
+```
+---
+When analyzing runtimes:<br>
+* V = number of verticies in the graph
+* E = number of edges in the graph
+This implementation includes the following methods: 
+
+<table style="width:100%">
+<colgroup>
+<col style="width:50%">
+</colgroup>
+
+<tr>
+<th>Function Prototype</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>
+
+```c
+void algAddEdge (struct algGraph *graph, int src, int dest, int weight)
+```
+</td>
+<td>
+
+Adds an edge to an undirected graph.
+
+`ALG Runtime: θ(1)`
+
+</td>
+</tr>
+
+</table>
+
+---
+
