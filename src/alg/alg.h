@@ -13,8 +13,13 @@ struct algGraph {
 	struct algNode **adjList;
 };
 
+struct algQNode {
+	int vertex;
+	int parent;
+};
+
 struct algQueue {
-	int *queue;
+	struct algQNode *queue;
 	int front;
 	int back;
 };
@@ -37,10 +42,13 @@ void algPrint (struct algGraph *graph);
 /* initialize queue */
 struct algQueue *algQueueInit (int size);
 
+/* clear queue */
+struct algQueue *algQueueClear (struct algQueue *queue);
+
 /* enquque helper function */
-void algEnqueue (struct algQueue *queue, int value);
+void algEnqueue (struct algQueue *queue, int vertex, int parent);
 
 /* dequque helper function */
-int algDequeue (struct algQueue *queue);
+struct algQNode *algDequeue (struct algQueue *queue);
 
 #endif

@@ -40,12 +40,16 @@ struct algGraph *algBFS (struct algGraph *graph, int start) {
 
 	/* initialize queue, start & end indexes */
 	struct algQueue *queue = algQueueInit(graph->V);
-	int *visited; /* "visited" array */
+	int *visited; /* "visited" array & temporary storage variables */
+	struct algNode *temp; /* node to traverse through linked lists */
+	struct algQNode *value; /* node to store vertex & its parent */
+	struct algGraph *BFS; /* output BFS tree */
 
 	if (queue) { /* if memory allocation succeeds, allocate second array */
 		visited = calloc(graph->V, sizeof(int));
 		if (!visited) {
 			printf("Error allocating memory for 'visited' array.\n");
+			queue = algQueueClear(queue);
 			return NULL; /* error if allocation fails */
 		}
 	} else {
@@ -53,13 +57,40 @@ struct algGraph *algBFS (struct algGraph *graph, int start) {
 		return NULL; /* error if allocation fails */
 	} /* after this line, both arrays have been successfully allocated */
 
-	visited[start] = 1; /* mark 'start' as visited & enqueue start vertex */
-	algEnqueue(queue, start);
-
-	while (queue->back != -1) {
-
+	BFS = algInit(graph->V); /* initialize graph */
+	if (!BFS) { /* free & return NULL if allocation fails */
+		printf("Error allocating memory for BFS tree.");
+		queue = algQueueClear(queue);
+		free (visited), visited = NULL;
+		return NULL;
 	}
-	return NULL;
+
+	printf("BFS traversal: ");
+	visited[start] = 1; /* mark 'start' as visited & enqueue start vertex */
+	algEnqueue(queue, start, -1);
+
+	while (queue->back != -1) { /* loop until queue is empty */
+
+		value = algDequeue(queue); /* dequeue element & add to BFS tree */
+		if (value->parent != -1) algAddEdge(BFS, value->parent, value->vertex, 0);
+		printf("%i ", value->vertex);
+
+		temp = *(graph->adjList + value->vertex); /* select linked list for node */
+		while (temp) { /* for each node adjacemt to 'vertex' */
+			if (!visited[temp->dest]) { /* if node is not visited, enqueue it & mark it as visited */
+				visited[temp->dest] = 1;
+				algEnqueue(queue, temp->dest, value->vertex);
+			}
+			temp = temp->next;
+		}
+		free(value); /* reset value for next iteration */
+	}
+
+	printf("\n");
+	/* free allocated memory */
+	algQueueClear(queue);
+	free(visited), visited = NULL;
+	return BFS; /* output */
 }
 
 /* clears & frees the graph */
@@ -134,7 +165,7 @@ struct algQueue *algQueueInit (int size) {
 	struct algQueue *q = malloc(sizeof(struct algQueue));
 	
 	if (q) { /* if allocation succeeds, allocate array */
-		q->queue = malloc(size * sizeof(int));
+		q->queue = malloc(size * sizeof(struct algQNode));
 		if (q->queue) { /* initialize front & back of queue */
 			q->front = -1;
 			q->back = -1;
@@ -147,30 +178,41 @@ struct algQueue *algQueueInit (int size) {
 	return q; /* output */
 }
 
+/* clear queue */
+struct algQueue *algQueueClear (struct algQueue *queue) {
+
+	/* clear array, queue structure, & return null */
+	free(queue->queue), queue->queue = NULL;
+	free(queue), queue = NULL;
+	return NULL;
+}
+
 /* enquque helper function */
-void algEnqueue (struct algQueue *queue, int value) {
+void algEnqueue (struct algQueue *queue, int value, int parent) {
 
 	/* if size = 0 */
 	if (queue->front == -1) queue->front = 0;
 
 	queue->back++; /* increment back of queue & add value */
-	*(queue->queue + queue->back) = value;
+	(queue->queue + queue->back)->vertex = value;
+	(queue->queue + queue->back)->parent = parent;
 }
 
 /* dequque helper function */
-int algDequeue (struct algQueue *queue) {
+struct algQNode *algDequeue (struct algQueue *queue) {
 
-	int dequeued; /* temporary storage for dequeued value */
+	struct algQNode *node = malloc(sizeof(struct algQNode)); /* temporary storage for dequeued value */
 
-	/* if queue is empty */
-	if (queue->back == -1) return 0;
+	/* if node allocation fails or the queue is empty */
+	if (!node || queue->back == -1) return NULL;
 	
-	dequeued = *(queue->queue + queue->front);
+	node->vertex = (queue->queue + queue->front)->vertex;
+	node->parent = (queue->queue + queue->front)->parent;
 	queue->front++; /* store queue[front] and increment front */
 
 	/* reset front & back variables if queue is empty */
 	if (queue->front > queue->back) queue->front = queue->back = -1;
 	
-	return dequeued; /* output */
+	return node; /* output */
 }
 
