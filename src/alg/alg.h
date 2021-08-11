@@ -33,6 +33,12 @@ struct algGraph *algBFS (struct algGraph *graph, int start);
 /* clears & frees the graph */
 struct algGraph *algClear (struct algGraph *graph);
 
+/* conducts a depth fist search on a graph starting from vertex 'start' */
+struct algGraph *algDFS (struct algGraph *graph, int start);
+
+	/* recursive part of DFS */
+	void algDFSRec (struct algGraph *graph, int start, int *visited, struct algGraph *DFS);
+
 /* initializes a graph with 'V' verticies */
 struct algGraph *algInit (int V);
 

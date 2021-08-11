@@ -117,6 +117,50 @@ struct algGraph *algClear (struct algGraph *graph) {
 	return NULL;
 }
 
+/* conducts a depth fist search on a graph starting from vertex 'start' */
+struct algGraph *algDFS (struct algGraph *graph, int start) {
+
+	struct algGraph *DFS; /* output graph */
+	int *visited = calloc(graph->V, sizeof(int)); /* array to store visited verticies */
+	if (!visited) {
+		printf("Error allocating memory for 'visited' array.\n");
+		return NULL; /* if memory allocation fails */
+	}
+
+	DFS = algInit(graph->V);
+	if (!DFS) {
+		printf("Error allocating memory for DFS tree.\n");
+		free(visited), visited = NULL;
+		return NULL;
+	}
+
+	printf("DFS traversal: ");
+	algDFSRec(graph, start, visited, DFS); /* main DFS function */
+	printf("\n");
+	free(visited), visited = NULL; /* free 'visited' array */
+	return DFS; /* output */
+}
+
+/* recursive part of DFS */
+void algDFSRec (struct algGraph *graph, int start, int *visited, struct algGraph *DFS) {
+
+	int i;
+	struct algNode *temp = *(graph->adjList + start); /* node to traverse through linked lists */
+
+	/* set node to visited */
+	visited[start] = 1;
+	printf("%i ", start);
+
+	/* recursive call for every adjacent vertex */
+	while (temp) { /*if an adjacent node hasn't been visited */
+		if (!visited[temp->dest]) {
+			algAddEdge(DFS, start, temp->dest, 0); /* add edge to BFS graph */
+			algDFSRec(graph, temp->dest, visited, DFS);
+		}
+		temp = temp->next;
+	}
+}
+
 /* initializes a graph with 'V' verticies */
 struct algGraph *algInit (int V) {
 

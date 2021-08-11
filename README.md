@@ -1315,7 +1315,7 @@ Returns a pointer to the next node in the inorder sequence, if exists.
 ## Undirected Graphs: Adjacency List (ALG)
 These Undirected Graphs are represented by a pointer that points to their implementation's Graph structure.
 
-The ALG implementation uses the following structure:
+The ALG implementation uses the following structures:
 ```c
 struct algNode {
 	int dest;
@@ -1357,6 +1357,86 @@ void algAddEdge (struct algGraph *graph, int src, int dest, int weight)
 Adds an edge to an undirected graph.
 
 `ALG Runtime: θ(1)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct algGraph *algBFS (struct algGraph *graph, int start)
+```
+</td>
+<td>
+
+Conducts a breadth first search starting from vertex 'start'. Returns a BFS tree (must be freed w/ 'algClear').
+
+`ALG Runtime: θ(V + E)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct algGraph *algClear (struct algGraph *graph)
+```
+</td>
+<td>
+
+Clears & frees a graph.
+
+`ALG Runtime: θ(V + E)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct algGraph *algDFS (struct algGraph *graph, int start)
+```
+</td>
+<td>
+
+Conducts a depth first search starting from vertex 'start'. Returns a DFS tree (must be freed w/ 'algClear').
+
+`ALG Runtime: θ(V + E)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct algGraph *algInit (int V)
+```
+</td>
+<td>
+
+Initializes a graph with 'V' verticies.
+
+`ALG Runtime: θ(1)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void algPrint (struct algGraph *graph)
+```
+</td>
+<td>
+
+Prints out the adjacency list.
+
+`ALG Runtime: θ(V + E)`
 
 </td>
 </tr>
