@@ -773,8 +773,8 @@ Clears & frees a heap.
 <td>
 
 ```c
-void bHeapBuildMax (int *arr, int size)
-void bHeapBuildMin (int *arr, int size)
+void bHeapBuildMax (int *arr, int size);
+void bHeapBuildMin (int *arr, int size);
 ```
 </td>
 <td>
@@ -790,12 +790,12 @@ Builds a max/min heap from an input array.
 <td>
 
 ```c
-int bHeapExtractMax (int *arr, int *size)
-int bHeapExtractMin (int *arr, int *size)
+int bHeapExtractMax (int *arr, int *size);
+int bHeapExtractMin (int *arr, int *size);
 ```
 ```c
-struct bHeapKVNode *bHeapKVExtractMax (struct bHeapKV *heap)
-struct bHeapKVNode *bHeapKVExtractMin (struct bHeapKV *heap)
+struct bHeapKVNode *bHeapKVExtractMax (struct bHeapKV *heap);
+struct bHeapKVNode *bHeapKVExtractMin (struct bHeapKV *heap);
 ```
 </td>
 <td>
@@ -813,12 +813,12 @@ Extracts the max element of a max heap, or the min element of a min heap.
 <td>
 
 ```c
-void bHeapInsertMax (int *arr, int *size, int data)
-void bHeapInsertMin (int *arr, int *size, int data)
+void bHeapInsertMax (int *arr, int *size, int data);
+void bHeapInsertMin (int *arr, int *size, int data);
 ```
 ```c
-void bHeapKVInsertMax (struct bHeapKV *heap, int key, int value)
-void bHeapKVInsertMin (struct bHeapKV *heap, int key, int value)
+void bHeapKVInsertMax (struct bHeapKV *heap, int key, int value);
+void bHeapKVInsertMin (struct bHeapKV *heap, int key, int value);
 ```
 </td>
 <td>
