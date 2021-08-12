@@ -32,7 +32,7 @@ void bHeapInsertMin (int *arr, int *size, int data);
 /* prettyprints heap */
 void bHeapPrettyPrint (int *arr, int size, int startIndex, int depth);
 
-	void bHeapPrintSpaces(int *arr, int size, int startIndex, int depth);
+	void bHeapPrintSpaces(int startIndex, int depth);
 
 /* prints array holding the heap */
 void bHeapPrint (int *arr, int size);

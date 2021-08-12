@@ -1,6 +1,8 @@
 #include "alg.h"
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include "../bHeap/bHeap.h"
 
 /* adds an edge to a graph */
 void algAddEdge (struct algGraph *graph, int src, int dest, int weight) {
@@ -178,6 +180,20 @@ struct algGraph *algInit (int V) {
 	} else {printf("Error allocating graph.\n");} /* if memory allocation failed */
 
 	return graph; /* output */
+
+}
+
+/* creates a minimum spanning tree on a gaph using Prim's algorithm. */
+struct algGraph *algMST (struct algGraph *graph) {
+
+	int *minHeap = malloc(graph->V * sizeof(int)), i;
+
+	if (!minHeap) { /* if memory allocation failed */
+		printf("Error allocating array for minHeap.\n");
+		return NULL;
+	}
+	/* initialize min heap & set all values to 'infinity' */
+	for (i = 1; i < graph->V; i++) bHeapInsertMin (minHeap, 
 
 }
 

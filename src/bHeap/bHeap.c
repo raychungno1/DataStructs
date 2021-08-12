@@ -137,7 +137,7 @@ void bHeapPrettyPrint (int *arr, int size, int startIndex, int depth) {
 
 	if (bHeapLeft(i) < size) bHeapPrettyPrint(arr, size, bHeapLeft(i), depth + 1);
 
-	bHeapPrintSpaces(arr, size, i, depth);
+	bHeapPrintSpaces(i, depth);
 	if (i != 0) {
 		if (bHeapLeft(bHeapParent(i)) == i) {
 			printf(",-");
@@ -153,7 +153,7 @@ void bHeapPrettyPrint (int *arr, int size, int startIndex, int depth) {
 
 }
 
-void bHeapPrintSpaces(int *arr, int size, int startIndex, int depth) {
+void bHeapPrintSpaces(int startIndex, int depth) {
 
 	int l = 3*depth; /* length parameter */
 	int lStreak = 1; /* represents a streak of left nodes */

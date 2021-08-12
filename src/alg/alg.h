@@ -42,6 +42,9 @@ struct algGraph *algDFS (struct algGraph *graph, int start);
 /* initializes a graph with 'V' verticies */
 struct algGraph *algInit (int V);
 
+/* creates a minimum spanning tree on a gaph using Prim's algorithm. */
+struct algGraph *algMST (struct algGraph *graph);
+
 /* prints an adjacency list */
 void algPrint (struct algGraph *graph);
 
