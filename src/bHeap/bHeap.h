@@ -30,7 +30,9 @@ void bHeapInsertMax (int *arr, int *size, int data);
 void bHeapInsertMin (int *arr, int *size, int data);
 
 /* prettyprints heap */
-void bHeapPrettyPrint (int *arr, int size, int startIndex, int depth);
+void bHeapPrettyPrint (int *arr, int size);
+
+	void bHeapPrettyPrintRec (int *arr, int size, int startIndex, int depth);
 
 	void bHeapPrintSpaces(int startIndex, int depth);
 

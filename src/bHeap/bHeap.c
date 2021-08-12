@@ -128,14 +128,16 @@ void bHeapInsertMin (int *arr, int *size, int data) {
 }
 
 /* prettyprints tree with an in order traversal */
-void bHeapPrettyPrint (int *arr, int size, int startIndex, int depth) {
+void bHeapPrettyPrint (int *arr, int size) {bHeapPrettyPrintRec(arr, size, 0, 0);}
+
+void bHeapPrettyPrintRec (int *arr, int size, int startIndex, int depth) {
 
 	int i = startIndex;
 
 	/* return if empty tree */
 	if (size == 0) return;
 
-	if (bHeapLeft(i) < size) bHeapPrettyPrint(arr, size, bHeapLeft(i), depth + 1);
+	if (bHeapLeft(i) < size) bHeapPrettyPrintRec(arr, size, bHeapLeft(i), depth + 1);
 
 	bHeapPrintSpaces(i, depth);
 	if (i != 0) {
@@ -149,7 +151,7 @@ void bHeapPrettyPrint (int *arr, int size, int startIndex, int depth) {
 		printf("-[%i]\n", arr[i]);
 	}
 
-	if (bHeapRight(i) < size) bHeapPrettyPrint(arr, size, bHeapRight(i), depth + 1);
+	if (bHeapRight(i) < size) bHeapPrettyPrintRec(arr, size, bHeapRight(i), depth + 1);
 
 }
 

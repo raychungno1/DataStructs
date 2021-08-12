@@ -9,12 +9,13 @@
   * Chained Hash
   * Open Address Hash
 * **[Heaps](#heaps-binary-heaps-bheap)**<br>
-  * Binary Heaps
+  * Binary Heaps (keys only)
+  * Binary Heaps (key-value pairs)
 * **[Search Trees](#search-trees-binary-search-trees-bst-red-black-trees-rbt--avl-trees-avl)**<br>
   * Binary Search Trees
   * Red Black Trees
   * AVL Trees
-* **[Undirected Graphs](#undirected-graphs-adjacency-list-alg)**<br>
+* **[Graphs](#undirected-graphs-adjacency-list-alg)**<br>
   * Adjacency List Graphs
 
 ---
@@ -703,8 +704,23 @@ Returns the number of elements in the hash table.
 
 ---
 ## Heaps: Binary Heaps (bHeap)
-These Heaps are represented by an array which has already been previously allocated. It is important to keep track of the size of the array as well as the number of elements currently in the heap. 
+These Heaps are represented by an array. Specific implementation details are below:<br>
+* bHeap - the heap uses an array which has already been previously allocated. It is important to keep track of the size of the array as well as the number of elements currently in the heap.
+* bHeapKV - the heap is represented by a pointer to the bHeapKV structure. 
 
+The bHeapKV implementation uses the following structure:
+```c
+struct bHeapKV {
+	struct bHeapKVNode *arr;
+	int size;
+	int MAX_SIZE;
+};
+
+struct bHeapKVNode {
+	int key;
+	int value;
+};
+```
 ---
 When analyzing runtimes:<br>
 * n = size of heap
@@ -725,15 +741,45 @@ This implementation includes the following methods:
 <td>
 
 ```c
-void bHeapBuildMax (int *arr, int size)
+struct bHeapKV *bHeapKVInit (int size);
 ```
+</td>
+<td>
+
+Initializes an empty heap w/ 'size' elements.
+
+`bHeapKV Runtime: θ(1)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 ```c
+struct bHeapKV *bHeapKVClear (struct bHeapKV *heap);
+```
+</td>
+<td>
+
+Clears & frees a heap.
+
+`bHeapKV Runtime: θ(1)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+void bHeapBuildMax (int *arr, int size)
 void bHeapBuildMin (int *arr, int size)
 ```
 </td>
 <td>
 
-Builds a max/min heap from an input array
+Builds a max/min heap from an input array.
 
 `bHeap Runtime: θ(n)`
 
@@ -744,10 +790,12 @@ Builds a max/min heap from an input array
 <td>
 
 ```c
-void bHeapExtractMax (int *arr, int *size)
+int bHeapExtractMax (int *arr, int *size)
+int bHeapExtractMin (int *arr, int *size)
 ```
 ```c
-void bHeapExtractMin (int *arr, int *size)
+struct bHeapKVNode *bHeapKVExtractMax (struct bHeapKV *heap)
+struct bHeapKVNode *bHeapKVExtractMin (struct bHeapKV *heap)
 ```
 </td>
 <td>
@@ -756,6 +804,8 @@ Extracts the max element of a max heap, or the min element of a min heap.
 
 `bHeap Runtime: θ(log(n))`
 
+`bHeapKV Runtime: θ(log(n))`
+
 </td>
 </tr>
 
@@ -763,10 +813,12 @@ Extracts the max element of a max heap, or the min element of a min heap.
 <td>
 
 ```c
-void bHeapInsertMax (int *arr, int *size)
+void bHeapInsertMax (int *arr, int *size, int data)
+void bHeapInsertMin (int *arr, int *size, int data)
 ```
 ```c
-void bHeapInsertMin (int *arr, int *size)
+void bHeapKVInsertMax (struct bHeapKV *heap, int key, int value)
+void bHeapKVInsertMin (struct bHeapKV *heap, int key, int value)
 ```
 </td>
 <td>
@@ -775,6 +827,8 @@ Inserts an element into a max/min heap.
 
 `bHeap Runtime: θ(log(n))`
 
+`bHeapKV Runtime: θ(log(n))`
+
 </td>
 </tr>
 
@@ -782,7 +836,10 @@ Inserts an element into a max/min heap.
 <td>
 
 ```c
-void bHeapPrettyPrint (int *arr, int size, int startIndex, int depth)
+void bHeapPrettyPrint (int *arr, int size)
+```
+```c
+void bHeapKVPrettyPrint (struct bHeapKV *heap)
 ```
 </td>
 <td>
@@ -790,6 +847,8 @@ void bHeapPrettyPrint (int *arr, int size, int startIndex, int depth)
 Pretty-prints an ASCII representation of the heap.
 
 `bHeap Runtime: θ(nlog(n))`
+
+`bHeapKV Runtime: θ(nlog(n))`
 
 </td>
 </tr>
@@ -800,12 +859,17 @@ Pretty-prints an ASCII representation of the heap.
 ```c
 void bHeapPrint (int *arr, int size)
 ```
+```c
+void bHeapPrint (struct bHeapKV *heap)
+```
 </td>
 <td>
 
 Prints the array storing the heap.  
 
 `bHeap Runtime: θ(n)`
+
+`bHeapKV Runtime: θ(n)`
 
 </td>
 </tr>

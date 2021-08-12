@@ -5,7 +5,7 @@ struct bHeapKV {
 	struct bHeapKVNode *arr;
 	int size;
 	int MAX_SIZE;
-}
+};
 
 struct bHeapKVNode {
 	int key;
@@ -19,7 +19,7 @@ int bHeapKVLeft(int i);
 
 int bHeapKVRight(int i);
 
-void bHeapKVSwap(struct bHeapKVNode *x, bHeapKVNode *y);
+void bHeapKVSwap(struct bHeapKVNode *x, struct bHeapKVNode *y);
 
 void bHeapKVMaxHeapify(struct bHeapKV *heap, int size, int index);
 
@@ -31,15 +31,10 @@ struct bHeapKV *bHeapKVInit (int size);
 /* clears & frees a heap */
 struct bHeapKV *bHeapKVClear (struct bHeapKV *heap);
 
-/* build heap from input array */
-struct bHeapKV *bHeapKVBuildMax (int *arr, int size);
-
-struct bHeapKV *bHeapKVBuildMin (int *arr, int size);
-
 /* extract methods */
-struct bHeapKVNode *bHeapKVExtractMax (int *arr, int *size);
+struct bHeapKVNode *bHeapKVExtractMax (struct bHeapKV *heap);
 
-struct bHeapKVNode *bHeapKVExtractMin (int *arr, int *size);
+struct bHeapKVNode *bHeapKVExtractMin (struct bHeapKV *heap);
 
 /* insert methods */
 void bHeapKVInsertMax (struct bHeapKV *heap, int key, int value);

@@ -67,7 +67,7 @@ struct bHeapKV *bHeapKVInit (int size) {
 	/* allocate memory for heap */
 	struct bHeapKV *heap = malloc (sizeof(struct bHeapKV));
 	if (heap) { /* initialize structure values */
-		heap->arr = malloc(size * sizeof(struct bHeapNKVNode));
+		heap->arr = malloc(size * sizeof(struct bHeapKVNode));
 		heap->size = 0;
 		heap->MAX_SIZE = size;
 	
@@ -88,17 +88,6 @@ struct bHeapKV *bHeapKVClear (struct bHeapKV *heap) {
 	return NULL;
 }
 
-/* build heap from input array */
-struct bHeapKV *bHeapKVBuildMax (int *arr, int size) {
-	int index = (size/2)-1; /* heapify each non leaf node in reverse order */
-	while (index >= 0) bHeapKVMaxHeapify(arr, size, index--);
-}
-
-struct bHeapKV *bHeapKVBuildMin (int *arr, int size) {
-	int index = (size/2)-1; /* heapify each non leaf node in reverse order */
-	while (index >= 0) bHeapKVMinHeapify(arr, size, index--);
-}
-
 /* extract methods */
 struct bHeapKVNode *bHeapKVExtractMax (struct bHeapKV *heap) {
 
@@ -108,7 +97,11 @@ struct bHeapKVNode *bHeapKVExtractMax (struct bHeapKV *heap) {
 		return NULL;
 	}
 
-	if (*size < 1) return 0; /* return if heap is empty */
+	if (heap->size < 1) {
+		printf("Empry heap.\n");
+		return 0; /* return if heap is empty */
+	}
+
 
 	max->key = heap->arr->key; /* save max value */
 	max->value = heap->arr->value;
@@ -130,7 +123,10 @@ struct bHeapKVNode *bHeapKVExtractMin (struct bHeapKV *heap) {
 		return NULL;
 	}
 
-	if (*size < 1) return 0; /* return if heap is empty */
+	if (heap->size < 1) {
+		printf("Empry heap.\n");
+		return 0; /* return if heap is empty */
+	}
 
 	min->key = heap->arr->key; /* save min value */
 	min->value = heap->arr->value;
@@ -165,7 +161,7 @@ void bHeapKVInsertMax (struct bHeapKV *heap, int key, int value) {
 	heap->size++; /* increment heap size */
 }
 
-void bHeapKVInsertMin (int *arr, int *size, int data) {
+void bHeapKVInsertMin (struct bHeapKV *heap, int key, int value) {
 
 	int i = heap->size; /* index of initial insert */
 
@@ -263,11 +259,11 @@ void bHeapKVPrint (struct bHeapKV *heap) {
 
 	printf("{");/* opening bracket */
 
-	if (size > 0) {
+	if (heap->size > 0) {
 		/* until end of array */
-		while (i < size) {
+		while (i < heap->size) {
 			printf("(%i, %i)", (heap->arr+i)->key, (heap->arr+i)->value); /* print array value */
-			if (i+1 < size) printf(", "); /* print comma if value is not the last value in the array */
+			if (i+1 < heap->size) printf(", "); /* print comma if value is not the last value in the array */
 			i++;
 		}
 	}

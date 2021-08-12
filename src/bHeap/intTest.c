@@ -38,12 +38,12 @@ int main() {
 	while (size <= arrSize) bHeapInsertMax(arr, &size, rand()%100);
 	printf("----- Random Max Heap -----\n");
 	bHeapPrint(arr, size);
-	bHeapPrettyPrint(arr, size, 0, 0);
+	bHeapPrettyPrint(arr, size);
 
 	printf("----- Removing 15 Elements... -----\n");
 	while (size > 10) printf("%i ", bHeapExtractMax(arr, &size));
 	printf("\n");
-	bHeapPrettyPrint(arr, size, 0, 0);
+	bHeapPrettyPrint(arr, size);
 
 	printf("----- Removing Remaining Elements... -----\n");
 	while (size > 0) printf("%i ", bHeapExtractMax(arr, &size));
@@ -54,12 +54,12 @@ int main() {
 	while (size <= arrSize) bHeapInsertMin(arr, &size, rand()%100);
 	printf("----- Random Min Heap -----\n");
 	bHeapPrint(arr, size);
-	bHeapPrettyPrint(arr, size, 0, 0);
+	bHeapPrettyPrint(arr, size);
 
 	printf("----- Removing 15 Elements... -----\n");
 	while (size > 10) printf("%i ", bHeapExtractMin(arr, &size));
 	printf("\n");
-	bHeapPrettyPrint(arr, size, 0, 0);
+	bHeapPrettyPrint(arr, size);
 
 	printf("----- Removing Remaining Elements... -----\n");
 	while (size > 0) printf("%i ", bHeapExtractMin(arr, &size));
@@ -72,7 +72,7 @@ int main() {
 	bHeapPrint(arr, size);
 	bHeapBuildMax(arr, size);
 	bHeapPrint(arr, size);
-	bHeapPrettyPrint(arr, size, 0, 0);
+	bHeapPrettyPrint(arr, size);
 	printf("-----\n");
 
 	/* BUILD MIN HEAP TEST */
@@ -82,7 +82,7 @@ int main() {
 	bHeapPrint(arr, size);
 	bHeapBuildMin(arr, size);
 	bHeapPrint(arr, size);
-	bHeapPrettyPrint(arr, size, 0, 0);
+	bHeapPrettyPrint(arr, size);
 	printf("-----\n");
 	printf("\n");
 	return 0;
