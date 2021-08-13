@@ -15,7 +15,7 @@
   * Binary Search Trees
   * Red Black Trees
   * AVL Trees
-* **[Graphs](#undirected-graphs-adjacency-list-alg)**<br>
+* **[Graphs](#graphs-adjacency-list-alg)**<br>
   * Adjacency List Graphs
 
 ---
@@ -1500,7 +1500,7 @@ struct algGraph *algMST (struct algGraph *graph)
 
 Finds a minimum spanning tree using Prim's algorithm. Returns a MST (must be freed w/ 'algClear').
 
-`ALG Runtime: θ((V + E)log(V))`
+`ALG Runtime: θ((V+E)log(V))`
 
 </td>
 </tr>
