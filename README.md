@@ -915,7 +915,7 @@ struct avlNode {
 ---
 When analyzing runtimes:<br>
 * n = size of tree
-* h = height of tree (log(n) <= h <= n)
+* h = height of tree `log(n) <= h <= n`
 
 This implementation includes the following methods: 
 
@@ -1396,7 +1396,7 @@ struct algGraph {
 ---
 When analyzing runtimes:<br>
 * V = number of verticies in the graph
-* E = number of edges in the graph
+* E = number of edges in the graph `V-1 <= E <= V(V-1)/2`
 This implementation includes the following methods: 
 
 <table style="width:100%">
