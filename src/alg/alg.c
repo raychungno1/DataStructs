@@ -187,7 +187,7 @@ struct algGraph *algMST (struct algGraph *graph) {
 
 	struct algGraph *MST;
 	struct algNode *temp;
-	int i;
+	int i, total = 0;
 	struct algHeap *minHeap = algHeapInit(graph->V); /* initialize minHeap */
 	struct algStorage *min;
 
@@ -211,6 +211,7 @@ struct algGraph *algMST (struct algGraph *graph) {
 
 		min = algHeapExtractMin(minHeap); /* extract the cheapest edge & add it to the MST */
 		if (min->parent != -1) algAddEdge(MST, min->parent, min->vertex, min->key);
+		total += min->key;
 
 		printf("%i ", min->vertex);
 
@@ -228,7 +229,7 @@ struct algGraph *algMST (struct algGraph *graph) {
 		free(min), min = NULL; /* free min for next extraction */
 	}	
 	minHeap = algHeapClear(minHeap);
-	printf("\n");
+	printf("\nMST Weight: %i\n", total);
 	return MST; /* output */
 }
 
@@ -251,5 +252,62 @@ void algPrint (struct algGraph *graph) {
 		}
 		printf(")\n");
 	}
+}
+
+/* finds the shortest path from vertex 'start' using Dijkstra's algorithm */
+struct algGraph *algSPT (struct algGraph *graph, int start) {
+
+	struct algGraph *SPT;
+	struct algNode *temp;
+	int i, newDist, *shortestPaths;
+	struct algHeap *minHeap = algHeapInit(graph->V); /* initialize minHeap */
+	struct algStorage *min;
+
+	if (!minHeap) return NULL; /* if memory allocation fails */
+
+	SPT = algInit(graph->V);
+	if (!SPT) { /* initialize SPT */
+		printf("Error allocating memory for MST.\n");
+		minHeap = algHeapClear(minHeap);
+		return NULL;
+	}
+
+	shortestPaths = malloc(graph->V * sizeof(int));
+	if (!shortestPaths) { /* initialize shortest path array */
+		printf("Error allocating memory for shortest path storage.\n");
+		minHeap = algHeapClear(minHeap);
+		SPT = algClear(SPT);
+		return NULL;
+	}
+
+	/* initialize min heap & set all values to 'infinity' */
+	for (i = 0; i < graph->V; i++) algHeapInsert (minHeap, INT_MAX, i, -1);
+	algHeapDecreaseKey(minHeap, start, -1, 0);
+
+	/* while heap is not empty & there are still connected nodes */
+	while (minHeap->size != 0 && minHeap->arr->key != INT_MAX) {
+
+		min = algHeapExtractMin(minHeap); /* extract the cheapest edge & add it to the MST */
+		if (min->parent != -1) algAddEdge(SPT, min->parent, min->vertex, min->key);
+		shortestPaths[min->vertex] = min->key; /* save the distance to the shortestPaths array */
+
+		temp = *(graph->adjList+min->vertex);
+		while (temp) { /* loops through each edge incident on the vertex */
+			i = minHeap->pos[temp->dest]; /* gets the position of it in the minHeap array */
+			newDist = min->key + temp->weight;
+			/* if the edge/vertex exists & the new distance is smaller, update the weight & parent */
+			if (i != -1 && newDist < (minHeap->arr+i)->key) {
+				/*(minHeap->arr+i)->parent = min->vertex;*/
+				algHeapDecreaseKey(minHeap, temp->dest, min->vertex, newDist);
+			}
+			temp = temp->next; /* repeat on next adgacent vertex */
+		}
+		free(min), min = NULL; /* free min for next extraction */
+	}
+	printf("Shortest Paths:\nVertex\tDistance from %i\n", start); /* print shortest paths */
+	for (i = 0; i < graph->V; i++) printf("%i\t%i\n", i, shortestPaths[i]);
+
+	minHeap = algHeapClear(minHeap);
+	return SPT; /* output */
 }
 

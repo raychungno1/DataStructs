@@ -56,6 +56,9 @@ struct algGraph *algMST (struct algGraph *graph);
 /* prints an adjacency list */
 void algPrint (struct algGraph *graph);
 
+/* finds the shortest path from vertex 'start' using Dijkstra's algorithm */
+struct algGraph *algSPT (struct algGraph *graph, int start);
+
 /* QUEUE FUNCTIONS */
 
 	/* initialize queue */

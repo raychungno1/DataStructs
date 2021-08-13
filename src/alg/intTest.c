@@ -8,7 +8,7 @@ int main() {
 	int arr[20] = {46, 22, 73, 36, 29, 52, 50, 84, 87, 76, 6, 68, 100, 56, 52, 78, 90, 6, 78, 26};
 
 	/* generate graph */
-	struct algGraph *graph = algInit(5), *BFS, *DFS, *MST;
+	struct algGraph *graph = algInit(5), *BFS, *DFS, *MST, *SPT;
 
 	algAddEdge(graph, 0, 1, 1);
 	algAddEdge(graph, 0, 2, 1);
@@ -32,10 +32,15 @@ int main() {
 	MST = algMST(graph);
 	algPrint(MST);
 
+	printf("\n");
+	SPT = algSPT(graph, 0);
+	algPrint(SPT);
+
 	graph = algClear(graph);
 	BFS = algClear(BFS);
 	DFS = algClear(DFS);
 	MST = algClear(MST);
+	SPT = algClear(SPT);
 
 	graph = algInit(5);
 
@@ -62,10 +67,15 @@ int main() {
 	MST = algMST(graph);
 	algPrint(MST);
 
+	printf("\n");
+	SPT = algSPT(graph, 0);
+	algPrint(SPT);
+
 	graph = algClear(graph);
 	BFS = algClear(BFS);
 	DFS = algClear(DFS);
 	MST = algClear(MST);
+	SPT = algClear(SPT);
 
 	graph = algInit(9);
 
@@ -99,10 +109,15 @@ int main() {
 	MST = algMST(graph);
 	algPrint(MST);
 
+	printf("\n");
+	SPT = algSPT(graph, 0);
+	algPrint(SPT);
+
 	graph = algClear(graph);
 	BFS = algClear(BFS);
 	DFS = algClear(DFS);
 	MST = algClear(MST);
+	SPT = algClear(SPT);
 
 	printf("\n");
 	return 0;

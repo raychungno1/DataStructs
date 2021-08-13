@@ -1397,6 +1397,7 @@ struct algGraph {
 When analyzing runtimes:<br>
 * V = number of verticies in the graph
 * E = number of edges in the graph `V-1 <= E <= V(V-1)/2`
+
 This implementation includes the following methods: 
 
 <table style="width:100%">
@@ -1517,6 +1518,22 @@ void algPrint (struct algGraph *graph)
 Prints out the adjacency list.
 
 `ALG Runtime: θ(V + E)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct algGraph *algSPT (struct algGraph *graph, int start)
+```
+</td>
+<td>
+
+Finds the shortest paths to every vertex from vertex 'start' using Dijkstra's algorithm. Returns a shortest paths tree (must be freed w/ 'algClear').
+
+`ALG Runtime: θ((V+E)log(V))`
 
 </td>
 </tr>
