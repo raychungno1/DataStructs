@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-#include "../bHeap/bHeap.h"
 
 /* adds an edge to a graph */
 void algAddEdge (struct algGraph *graph, int src, int dest, int weight) {
@@ -44,7 +43,7 @@ struct algGraph *algBFS (struct algGraph *graph, int start) {
 	struct algQueue *queue = algQueueInit(graph->V);
 	int *visited; /* "visited" array & temporary storage variables */
 	struct algNode *temp; /* node to traverse through linked lists */
-	struct algQNode *value; /* node to store vertex & its parent */
+	struct algStorage *value; /* node to store vertex & its parent */
 	struct algGraph *BFS; /* output BFS tree */
 
 	if (queue) { /* if memory allocation succeeds, allocate second array */
@@ -186,15 +185,51 @@ struct algGraph *algInit (int V) {
 /* creates a minimum spanning tree on a gaph using Prim's algorithm. */
 struct algGraph *algMST (struct algGraph *graph) {
 
-	int *minHeap = malloc(graph->V * sizeof(int)), i;
+	struct algGraph *MST;
+	struct algNode *temp;
+	int i;
+	struct algHeap *minHeap = algHeapInit(graph->V); /* initialize minHeap */
+	struct algStorage *min;
 
-	if (!minHeap) { /* if memory allocation failed */
-		printf("Error allocating array for minHeap.\n");
+	if (!minHeap) return NULL; /* if memory allocation fails */
+
+	MST = algInit(graph->V);
+	if (!MST) { /* initialize MST */
+		printf("Error allocating memory for MST.\n");
+		minHeap = algHeapClear(minHeap);
 		return NULL;
 	}
-	/* initialize min heap & set all values to 'infinity' */
-	for (i = 1; i < graph->V; i++) bHeapInsertMin (minHeap, 
 
+	/* initialize min heap & set all values to 'infinity' */
+	for (i = 1; i < graph->V; i++) algHeapInsert (minHeap, INT_MAX, i, -1);
+	algHeapInsert(minHeap, 0, 0, -1);
+
+	printf("MST Traversal: ");
+
+	/* while heap is not empty & there are still connected nodes */
+	while (minHeap->size != 0 && minHeap->arr->key != INT_MAX) {
+
+		min = algHeapExtractMin(minHeap); /* extract the cheapest edge & add it to the MST */
+		if (min->parent != -1) algAddEdge(MST, min->parent, min->vertex, min->key);
+
+		printf("%i ", min->vertex);
+
+		temp = *(graph->adjList+min->vertex);
+		while (temp) { /* loops through each edge incident on the vertex */
+			i = minHeap->pos[temp->dest]; /* gets the position of it in the minHeap array */
+
+			/* if the edge/vertex exists & its weight is smaller, update the weight & parent */
+			if (i != -1 && temp->weight < (minHeap->arr+i)->key) {
+				/*(minHeap->arr+i)->parent = min->vertex;*/
+				algHeapDecreaseKey(minHeap, temp->dest, min->vertex, temp->weight);
+			}
+			temp = temp->next; /* repeat on next adgacent vertex */
+		}
+		free(min), min = NULL; /* free min for next extraction */
+	}	
+	minHeap = algHeapClear(minHeap);
+	printf("\n");
+	return MST; /* output */
 }
 
 /* prints an adjacency list */
@@ -216,63 +251,5 @@ void algPrint (struct algGraph *graph) {
 		}
 		printf(")\n");
 	}
-}
-
-/* initialize queue */
-struct algQueue *algQueueInit (int size) {
-	
-	/* initialize structue */
-	struct algQueue *q = malloc(sizeof(struct algQueue));
-	
-	if (q) { /* if allocation succeeds, allocate array */
-		q->queue = malloc(size * sizeof(struct algQNode));
-		if (q->queue) { /* initialize front & back of queue */
-			q->front = -1;
-			q->back = -1;
-		} else {
-			printf("Error allocating memory for queue.\n");
-			free(q), q = NULL;
-		} /* if memory allocation fails, returns NULL */
-	} else printf("Error allocating memory for queue.\n");
-
-	return q; /* output */
-}
-
-/* clear queue */
-struct algQueue *algQueueClear (struct algQueue *queue) {
-
-	/* clear array, queue structure, & return null */
-	free(queue->queue), queue->queue = NULL;
-	free(queue), queue = NULL;
-	return NULL;
-}
-
-/* enquque helper function */
-void algEnqueue (struct algQueue *queue, int value, int parent) {
-
-	/* if size = 0 */
-	if (queue->front == -1) queue->front = 0;
-
-	queue->back++; /* increment back of queue & add value */
-	(queue->queue + queue->back)->vertex = value;
-	(queue->queue + queue->back)->parent = parent;
-}
-
-/* dequque helper function */
-struct algQNode *algDequeue (struct algQueue *queue) {
-
-	struct algQNode *node = malloc(sizeof(struct algQNode)); /* temporary storage for dequeued value */
-
-	/* if node allocation fails or the queue is empty */
-	if (!node || queue->back == -1) return NULL;
-	
-	node->vertex = (queue->queue + queue->front)->vertex;
-	node->parent = (queue->queue + queue->front)->parent;
-	queue->front++; /* store queue[front] and increment front */
-
-	/* reset front & back variables if queue is empty */
-	if (queue->front > queue->back) queue->front = queue->back = -1;
-	
-	return node; /* output */
 }
 

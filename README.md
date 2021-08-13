@@ -1376,8 +1376,8 @@ Returns a pointer to the next node in the inorder sequence, if exists.
 
 ---
 
-## Undirected Graphs: Adjacency List (ALG)
-These Undirected Graphs are represented by a pointer that points to their implementation's Graph structure.
+## Graphs: Adjacency List (ALG)
+These Graphs are represented by a pointer that points to their implementation's Graph structure.
 
 The ALG implementation uses the following structures:
 ```c
@@ -1485,6 +1485,22 @@ struct algGraph *algInit (int V)
 Initializes a graph with 'V' verticies.
 
 `ALG Runtime: θ(1)`
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+```c
+struct algGraph *algMST (struct algGraph *graph)
+```
+</td>
+<td>
+
+Finds a minimum spanning tree using Prim's algorithm. Returns a MST (must be freed w/ 'algClear').
+
+`ALG Runtime: θ((V + E)log(V))`
 
 </td>
 </tr>

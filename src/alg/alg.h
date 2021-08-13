@@ -13,15 +13,23 @@ struct algGraph {
 	struct algNode **adjList;
 };
 
-struct algQNode {
+struct algStorage {
 	int vertex;
 	int parent;
+	int key;
 };
 
 struct algQueue {
-	struct algQNode *queue;
+	struct algStorage *queue;
 	int front;
 	int back;
+};
+
+struct algHeap {
+	struct algStorage *arr;
+	int *pos;
+	int size;
+	int MAX_SIZE;
 };
 
 /* adds an edge to a graph */
@@ -48,16 +56,48 @@ struct algGraph *algMST (struct algGraph *graph);
 /* prints an adjacency list */
 void algPrint (struct algGraph *graph);
 
-/* initialize queue */
-struct algQueue *algQueueInit (int size);
+/* QUEUE FUNCTIONS */
 
-/* clear queue */
-struct algQueue *algQueueClear (struct algQueue *queue);
+	/* initialize queue */
+	struct algQueue *algQueueInit (int size);
+	
+	/* clear queue */
+	struct algQueue *algQueueClear (struct algQueue *queue);
+	
+	/* enquque helper function */
+	void algEnqueue (struct algQueue *queue, int vertex, int parent);
+	
+	/* dequque helper function */
+	struct algStorage *algDequeue (struct algQueue *queue);
 
-/* enquque helper function */
-void algEnqueue (struct algQueue *queue, int vertex, int parent);
+/* MINHEAP FUNCTIONS */
 
-/* dequque helper function */
-struct algQNode *algDequeue (struct algQueue *queue);
+	/* helper functions */
+	int algHeapParent(int i);
+	
+	int algHeapLeft(int i);
+	
+	int algHeapRight(int i);
+	
+	void algHeapSwap(struct algHeap *heap, int x, int y);
+	
+	void algHeapMinHeapify(struct algHeap *heap, int size, int index);
+
+	/* initialize minHeap */
+	struct algHeap *algHeapInit (int size);
+
+	/* clear minHeap */
+	struct algHeap *algHeapClear (struct algHeap *heap);
+
+	/* insert function into minHeap */
+	void algHeapInsert (struct algHeap *heap, int weight, int vertex, int parent);
+
+	/* extract fuction from minHeap */
+	struct algStorage *algHeapExtractMin (struct algHeap *heap);
+
+	/* decreaseKey function */
+	void algHeapDecreaseKey (struct algHeap *heap, int vertex, int newParent, int newKey);
+
+	void algHeapPrint (struct algHeap *heap);
 
 #endif
